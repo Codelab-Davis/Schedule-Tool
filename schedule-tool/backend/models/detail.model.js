@@ -4,7 +4,7 @@ const Schema = mongoose.Schema;
 
 const detailSchema = new Schema({
   name: { type: String, required: true },
-  class: { type: String, required: true },
+  class_id: { type: String, required: true },
   instructor: { type: String, required: true },
   aplus: { type: Number, required: true },
   a: { type: Number, required: true },
