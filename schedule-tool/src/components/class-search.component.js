@@ -37,7 +37,7 @@ export default class DetailsList extends Component {
   }
 
   componentDidMount() {
-    axios.get('http://localhost:5000/details/')
+    axios.get('http://localhost:5000/detail/')
       .then(response => {
         this.setState({ details: response.data })
       })
@@ -47,7 +47,7 @@ export default class DetailsList extends Component {
   }
 
   deleteDetail(id) {
-    axios.delete('http://localhost:5000/details/'+id)
+    axios.delete('http://localhost:5000/detail/'+id)
       .then(response => { console.log(response.data)});
 
     this.setState({
@@ -55,8 +55,8 @@ export default class DetailsList extends Component {
     })
   }
 
-  exerciseList() {
-    return this.state.details.map(currentdetail => {
+  detailList() {
+    return this.state.detail.map(currentdetail => {
       return <Detail detail={currentdetail} deleteDetail={this.deleteDetail} key={currentdetail._id}/>;
     })
   }
