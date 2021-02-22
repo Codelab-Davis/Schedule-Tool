@@ -13,10 +13,10 @@ export default class Navbar extends Component {
           <Link to="/" className="nav-link">Class Search</Link>
           </li>
           <li className="navbar-item">
-          <Link to="/" className="nav-link">Edit Class</Link>
+          <Link to="/edit" className="nav-link">Edit Class</Link>
           </li>
           <li className="navbar-item">
-          <Link to="/" className="nav-link">Create Class</Link>
+          <Link to="/create" className="nav-link">Create Class</Link>
           </li>
         </ul>
         </div>

@@ -1,26 +1,34 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
 
 export default class EditClass extends Component {
   constructor(props) {
     super(props);
   
-      this.className = this.className.bind(this);
-      this.class_id = this.class_id.bind(this);
-      this.instructor = this.instructor.bind(this);
-      this.aplus = this.aplus.bind(this);
-      this.a = this.a.bind(this);
-      this.aminus = this.aminus.bind(this);
-      this.bplus = this.bplus.bind(this);
-      this.b = this.b.bind(this);
-      this.bminus = this.bminus.bind(this);
-      this.cplus = this.cplus.bind(this);
-      this.c = this.c.bind(this);
-      this.cminus = this.cminus.bind(this);
-      this.dplus = this.dplus.bind(this);
-      this.dminus = this.dminus.bind(this);
-      this.f = this.f.bind(this);
-      this.quarter = this.quarter.bind(this);
+    this.onChangeName = this.onChangeName.bind(this);
+    this.onChangeClass_ID = this.onChangeClass_ID.bind(this);
+    this.onChangeInstructor = this.onChangeInstructor.bind(this);
+    
+    this.onChangeAPlus = this.onChangeAPlus.bind(this);
+    this.onChangeA = this.onChangeA.bind(this);
+    this.onChangeAMinus = this.onChangeAMinus.bind(this);
+
+    this.onChangeBPlus = this.onChangeBPlus.bind(this);
+    this.onChangeB = this.onChangeB.bind(this);
+    this.onChangeBMinus = this.onChangeBMinus.bind(this);
+
+    this.onChangeCPlus = this.onChangeCPlus.bind(this);
+    this.onChangeC = this.onChangeC.bind(this);
+    this.onChangeCMinus = this.onChangeCMinus.bind(this);
+
+    this.onChangeDPlus = this.onChangeDPlus.bind(this);
+    this.onChangeD = this.onChangeD.bind(this);
+    this.onChangeDMinus = this.onChangeDMinus.bind(this);
+
+    this.onChangeF = this.onChangeF.bind(this);
+
+    this.onChangeQuarter = this.onChangeQuarter.bind(this);
       
       this.state = {  
         name: '',
@@ -91,7 +99,7 @@ export default class EditClass extends Component {
     })
   }
 
-  onChangeclass_id(e) {
+  onChangeClass_ID(e) {
     this.setState({
       class_id: e.target.value
     })
@@ -222,14 +230,14 @@ export default class EditClass extends Component {
   render(){
     return(
         <div>
-            <h3>EditClass Log</h3>
+            <h3>Edit Class Log</h3>
             <form onSubmit={this.onSubmit}>
                 <div className="form-group"> 
                     <label>Class Name: </label>
                     <input  type="text"
                         required
                         className="form-control"
-                        value={this.state.className}
+                        value={this.state.name}
                         onChange={this.onChangeName}
                         />
                 </div>
@@ -292,7 +300,7 @@ export default class EditClass extends Component {
                 <input  type="text"
                     required
                     className="form-control"
-                    value={this.state.B}
+                    value={this.state.b}
                     onChange={this.onChangeB}
                     />
                 </div>

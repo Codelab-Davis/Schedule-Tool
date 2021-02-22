@@ -15,7 +15,7 @@ function App() {
         <Navbar />
         <br />
         <Route path="/" exact component={ClassSearch} />
-        <Route path="/edit/:id" component={EditClass} />
+        <Route path="/edit" component={EditClass} />
         <Route path="/create" component={CreateClass} />
     </Router>
   );

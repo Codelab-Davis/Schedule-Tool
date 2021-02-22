@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
 
 export default class CreateClass extends Component{
@@ -56,7 +57,7 @@ export default class CreateClass extends Component{
             .then(response => {
                 if (response.data.length > 0) {
                     this.setState({
-                        classes: response.data.map(classes => classes.name),
+                        class: response.data.map(classes => classes.name),
                         class_id: response.data[0].class_id
                     })
                 }
@@ -69,66 +70,66 @@ export default class CreateClass extends Component{
 
     onChangeName(e){
         this.setState({
-            name: e.taget.value
+            name: e.target.value
         });
     }
 
     onChangeClass_ID(e){
         this.setState({
-            class_id: e.taget.value
+            class_id: e.target.value
         });
     }
 
     onChangeInstructor(e){
         this.setState({
-            instructor: e.taget.value
+            instructor: e.target.value
         });
     }
 
     onChangeAPlus(e){
         this.setState({
-            aplus: e.taget.value
+            aplus: e.target.value
         });
     }
 
     onChangeA(e){
         this.setState({
-            a: e.taget.value
+            a: e.target.value
         });
     }
 
     onChangeAMinus(e){
         this.setState({
-            aminus: e.taget.value
+            aminus: e.target.value
         });
     }
 
     onChangeBPlus(e){
         this.setState({
-            bplus: e.taget.value
+            bplus: e.target.value
         });
     }
 
     onChangeB(e){
         this.setState({
-            b: e.taget.value
+            b: e.target.value
         });
     }
 
     onChangeBMinus(e){
         this.setState({
-            bminus: e.taget.value
+            bminus: e.target.value
         });
     }
     onChangeCPlus(e){
         this.setState({
-            cplus: e.taget.value
+            cplus: e.target.value
         });
     }
 
     onChangeC(e){
         this.setState({
-            c: e.taget.value
+            c: e.target.value
         });
     }
 
@@ -139,29 +140,29 @@ export default class CreateClass extends Component{
     }
     onChangeDPlus(e){
         this.setState({
-            dplus: e.taget.value
+            dplus: e.target.value
         });
     }
 
     onChangeD(e){
         this.setState({
-            d: e.taget.value
+            d: e.target.value
         });
     }
 
     onChangeDMinus(e){
         this.setState({
-            dminus: e.taget.value
+            dminus: e.target.value
         });
     }
     onChangeF(e){
         this.setState({
-            f: e.taget.value
+            f: e.target.value
         });
     }
     onChangeQuarter(e){
         this.setState({
-            quarter: e.taget.value
+            quarter: e.target.value
         });
     }
 
@@ -188,7 +189,7 @@ export default class CreateClass extends Component{
             quarter: this.state.quarter
         }
         
-        console.log(classes)
+        console.log(classes);
 
         window.location = '/';    
     }
@@ -266,7 +267,7 @@ export default class CreateClass extends Component{
                     <input  type="text"
                         required
                         className="form-control"
-                        value={this.state.B}
+                        value={this.state.b}
                         onChange={this.onChangeB}
                         />
                     </div>
