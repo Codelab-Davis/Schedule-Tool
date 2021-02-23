@@ -2,12 +2,12 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 
-export default class EditClass extends Component {
+export default class EditCourse extends Component {
   constructor(props) {
     super(props);
   
     this.onChangeName = this.onChangeName.bind(this);
-    this.onChangeClass_ID = this.onChangeClass_ID.bind(this);
+    this.onChangeCourse_ID = this.onChangeCourse_ID.bind(this);
     this.onChangeInstructor = this.onChangeInstructor.bind(this);
     
     this.onChangeAPlus = this.onChangeAPlus.bind(this);
@@ -32,7 +32,7 @@ export default class EditClass extends Component {
       
       this.state = {  
         name: '',
-        class_id: '',
+        course_id: '',
         instructor: '',
         aplus: 0,
         a: 0,
@@ -48,7 +48,7 @@ export default class EditClass extends Component {
         dminus: 0,
         f: 0,
         quarter: '',
-        classes: []
+        courses: []
       }
     }
 
@@ -57,7 +57,7 @@ export default class EditClass extends Component {
       .then(response => {
         this.setState({
           Name: response.data.Name,
-          class_id: response.data.class_id,
+          course_id: response.data.course_id,
           instructor: response.data.instructor,
           aplus: response.data.aplus,
           a: response.data.a,
@@ -83,7 +83,7 @@ export default class EditClass extends Component {
       .then(response => {
         if (response.data.length > 0) {
           this.setState({
-            classes: response.data.map(classes => classes.name),
+            courses: response.data.map(courses => courses.name),
           })
         }
       })
@@ -99,9 +99,9 @@ export default class EditClass extends Component {
     })
   }
 
-  onChangeClass_ID(e) {
+  onChangeCourse_ID(e) {
     this.setState({
-      class_id: e.target.value
+      course_id: e.target.value
     })
   }
 
@@ -198,9 +198,9 @@ export default class EditClass extends Component {
   onSubmit(e) {
     e.preventDefault();
 
-    const classes = {
+    const courses = {
           name: this.state.name,
-          class_id: this.state.class_id,
+          courses_id: this.state.course_id,
           instructor: this.state.instructor,
           aplus: this.state.aplus,
           a: this.state.a,
@@ -218,10 +218,10 @@ export default class EditClass extends Component {
           course: this.state.course,
     }
   
-    console.log(classes);
+    console.log(courses);
     window.location = '/';  
 
-    axios.post('http://localhost:5000/details/update/' + this.props.match.params.id, classes)
+    axios.post('http://localhost:5000/details/update/' + this.props.match.params.id, courses)
       .then(res => console.log(res.data));
 
     window.location = '/';
@@ -230,10 +230,10 @@ export default class EditClass extends Component {
   render(){
     return(
         <div>
-            <h3>Edit Class Log</h3>
+            <h3>Edit Courses Log</h3>
             <form onSubmit={this.onSubmit}>
                 <div className="form-group"> 
-                    <label>Class Name: </label>
+                    <label>Course Name: </label>
                     <input  type="text"
                         required
                         className="form-control"
@@ -242,7 +242,7 @@ export default class EditClass extends Component {
                         />
                 </div>
                 <div className="form-group"> 
-                <label>Class ID: </label>
+                <label>Course ID: </label>
                 <input  type="text"
                     required
                     className="form-control"
@@ -387,7 +387,7 @@ export default class EditClass extends Component {
                 </div>
 
                 <div className="form-group">
-                    <input type="submit" value="Create Class Log" className="btn btn-primary" />
+                    <input type="submit" value="Create Course Log" className="btn btn-primary" />
                 </div>
             </form>
         </div>

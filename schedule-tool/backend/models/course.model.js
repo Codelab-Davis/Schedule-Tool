@@ -2,8 +2,8 @@ const mongoose = require('mongoose');
 
 const Schema = mongoose.Schema;
 
-const classSchema = new Schema({
-  class_id: {
+const courseSchema = new Schema({
+  course_id: {
     type: String,
     required: true,
     unique: true,
@@ -14,6 +14,6 @@ const classSchema = new Schema({
   timestamps: true,
 });
 
-const Class = mongoose.model('Class', classSchema);
+const Course = mongoose.model('Course', courseSchema);
 
-module.exports = Class;
+module.exports = Course;

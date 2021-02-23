@@ -2,12 +2,12 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 
-export default class CreateClass extends Component{
+export default class CreateCourse extends Component{
     constructor(props){
         super(props);
 
         this.onChangeName = this.onChangeName.bind(this);
-        this.onChangeClass_ID = this.onChangeClass_ID.bind(this);
+        this.onChangeCourse_ID = this.onChangeCourse_ID.bind(this);
         this.onChangeInstructor = this.onChangeInstructor.bind(this);
         
         this.onChangeAPlus = this.onChangeAPlus.bind(this);
@@ -32,7 +32,7 @@ export default class CreateClass extends Component{
 
         this.state = {
             name: '',
-            class_id: '',
+            course_id: '',
             instructor: '',
             aplus: 0,
             a: 0,
@@ -48,25 +48,25 @@ export default class CreateClass extends Component{
             dminus: 0,
             f: 0,
             quarter: '',
-            classes: []
+            courses: []
         }
     }
 
-    componentDidMount(){
-        axios.get('http://localhost:5000/detail/')
-            .then(response => {
-                if (response.data.length > 0) {
-                    this.setState({
-                        class: response.data.map(classes => classes.name),
-                        class_id: response.data[0].class_id
-                    })
-                }
-            })
-            .catch((error) => {
-                console.log(error);
-            })
+    // componentDidMount(){
+    //     axios.get('http://localhost:5000/detail/')
+    //         .then(response => {
+    //             if (response.data.length > 0) {
+    //                 this.setState({
+    //                     classes: response.data.map(classes => classes.name),
+    //                     class_id: response.data[0].class_id
+    //                 })
+    //             }
+    //         })
+    //         .catch((error) => {
+    //             console.log(error);
+    //         })
 
-    }
+    // }
 
     onChangeName(e){
         this.setState({
@@ -74,9 +74,9 @@ export default class CreateClass extends Component{
         });
     }
 
-    onChangeClass_ID(e){
+    onChangeCourse_ID(e){
         this.setState({
-            class_id: e.target.value
+            course_id: e.target.value
         });
     }
 
@@ -135,7 +135,7 @@ export default class CreateClass extends Component{
 
     onChangeCMinus(e){
         this.setState({
-            cminus: e.taget.value
+            cminus: e.target.value
         });
     }
     onChangeDPlus(e){
@@ -169,9 +169,9 @@ export default class CreateClass extends Component{
     onSubmit(e){
         e.preventDefault();
 
-        const classes = {
+        const course = {
             name: this.state.name,
-            class_id: this.state.class_id,
+            course_id: this.state.course_id,
             instructor: this.state.instructor,
             aplus: this.state.aplus,
             a: this.state.a,
@@ -189,7 +189,10 @@ export default class CreateClass extends Component{
             quarter: this.state.quarter
         }
         
-        console.log(classes);
+        console.log(course);
+
+        axios.post('http://localhost:5000/detail/add', course)
+            .then(res => console.log(res.data))
 
         window.location = '/';    
     }
@@ -197,24 +200,24 @@ export default class CreateClass extends Component{
     render(){
         return(
             <div>
-                <h3>Create New Class Log</h3>
+                <h3>Create New Course Log</h3>
                 <form onSubmit={this.onSubmit}>
                     <div className="form-group"> 
-                        <label>Class Name: </label>
+                        <label>Course Name: </label>
                         <input  type="text"
                             required
                             className="form-control"
-                            value={this.state.className}
+                            value={this.state.name}
                             onChange={this.onChangeName}
                             />
                     </div>
                     <div className="form-group"> 
-                    <label>Class ID: </label>
+                    <label>Course ID: </label>
                     <input  type="text"
                         required
                         className="form-control"
-                        value={this.state.class_id}
-                        onChange={this.onChangeClass_ID}
+                        value={this.state.course_id}
+                        onChange={this.onChangeCourse_ID}
                         />
                     </div>
                     <div className="form-group"> 
@@ -259,7 +262,7 @@ export default class CreateClass extends Component{
                         required
                         className="form-control"
                         value={this.state.bplus}
-                        onChange={this.onChangebPlus}
+                        onChange={this.onChangeBPlus}
                         />
                     </div>
                     <div className="form-group"> 
@@ -277,7 +280,7 @@ export default class CreateClass extends Component{
                         required
                         className="form-control"
                         value={this.state.bminus}
-                        onChange={this.onChangebminus}
+                        onChange={this.onChangeBMinus}
                         />
                     </div>
                     <div className="form-group"> 
@@ -286,7 +289,7 @@ export default class CreateClass extends Component{
                         required
                         className="form-control"
                         value={this.state.cplus}
-                        onChange={this.onChangecPlus}
+                        onChange={this.onChangeCPlus}
                         />
                     </div>
                     <div className="form-group"> 
@@ -354,7 +357,7 @@ export default class CreateClass extends Component{
                     </div>
 
                     <div className="form-group">
-                        <input type="submit" value="Create Class Log" className="btn btn-primary" />
+                        <input type="submit" value="Create Course Log" className="btn btn-primary" />
                     </div>
                 </form>
             </div>

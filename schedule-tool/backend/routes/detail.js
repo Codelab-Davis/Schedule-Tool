@@ -9,7 +9,7 @@ router.route('/').get((req, res) => {
 
 router.route('/add').post((req, res) => {
   const name = req.body.name;
-  const class_id = req.body.class_id;
+  const course_id = req.body.course_id;
   const instructor = req.body.instructor;
   const aplus = Number(req.body.aplus);
   const a = Number(req.body.a);
@@ -28,7 +28,7 @@ router.route('/add').post((req, res) => {
 
   const newDetail = new Detail({
     name,
-    class_id,
+    course_id,
     instructor,
     aplus,
     a,
@@ -51,38 +51,38 @@ router.route('/add').post((req, res) => {
   .catch(err => res.status(400).json('Error: ' + err));
 });
 
-router.route('/:class_id').get((req, res) => {
-  Exercise.findById(req.params.class_id)
-    .then(classes => res.json(classes))
+router.route('/:id').get((req, res) => {
+  Detail.findById(req.params.id)
+    .then(courses => res.json(courses))
     .catch(err => res.status(400).json('Error: ' + err));
 });
 
-router.route('/:class_id').delete((req, res) => {
-  Exercise.findByIdAndDelete(req.params.class_id)
-    .then(() => res.json('Class deleted.'))
+router.route('/:id').delete((req, res) => {
+  Detail.findByIdAndDelete(req.params.id)
+    .then(() => res.json('Course deleted.'))
     .catch(err => res.status(400).json('Error: ' + err));
 });
 
-router.route('/update/:class_id').post((req, res) => {
-  Exercise.findById(req.params.class_id)
-    .then(exercise => {
-      const name = req.body.name;
-      const class_id = req.body.class_id;
-      const instructor = req.body.instructor;
-      const aplus = Number(req.body.aplus);
-      const a = Number(req.body.a);
-      const aminus = Number(req.body.aminus);
-      const bplus = Number(req.body.bplus);
-      const b = Number(req.body.b);
-      const bminus = Number(req.body.bminus);
-      const cplus = Number(req.body.cplus);
-      const c = Number(req.body.c);
-      const cminus = Number(req.body.cminus);
-      const dplus = Number(req.body.dplus);
-      const d = Number(req.body.d);
-      const dminus = Number(req.body.dminus);
-      const f = Number(req.body.f);
-      const quarter = req.body.quarter;
+router.route('/update/:id').post((req, res) => {
+  Detail.findById(req.params.id)
+    .then(detail => {
+      detail.name = req.body.name;
+      detail.course_id = req.body.course_id;
+      detail.instructor = req.body.instructor;
+      detail.aplus = Number(req.body.aplus);
+      detail.a = Number(req.body.a);
+      detail.aminus = Number(req.body.aminus);
+      detail.bplus = Number(req.body.bplus);
+      detail.b = Number(req.body.b);
+      detail.bminus = Number(req.body.bminus);
+      detail.cplus = Number(req.body.cplus);
+      detail.c = Number(req.body.c);
+      detail.cminus = Number(req.body.cminus);
+      detail.dplus = Number(req.body.dplus);
+      detail.d = Number(req.body.d);
+      detail.dminus = Number(req.body.dminus);
+      detail.f = Number(req.body.f);
+      detail.quarter = req.body.quarter;
 
       detail.save()
         .then(() => res.json('Detail updated!'))
