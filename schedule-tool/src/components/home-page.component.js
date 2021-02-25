@@ -9,7 +9,7 @@ export default class HomePage extends Component {
                 <h><i>shoutout James and Omid</i></h>
                 <p>
                     <a class="btn btn-large btn-info" href="list">Browse Courses</a>
-                </p>   
+                </p> 
             </div>
         )
     }

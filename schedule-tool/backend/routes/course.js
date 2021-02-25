@@ -3,7 +3,7 @@ let Course = require('../models/course.model');
 
 router.route('/').get((req, res) => {
   Course.find()
-    .then(courses => res.json(courses))
+    .then(course => res.json(course))
     .catch(err => res.status(400).json('Error: ' + err));
 });
 

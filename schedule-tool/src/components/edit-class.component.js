@@ -215,7 +215,7 @@ export default class EditCourse extends Component {
           d: this.state.d,
           dminus: this.state.dminus,
           f: this.state.f,
-          course: this.state.course,
+          course: this.state.course
     }
   
     console.log(courses);
