@@ -29,6 +29,7 @@ export default class CreateCourse extends Component{
         this.onChangeF = this.onChangeF.bind(this);
 
         this.onChangeQuarter = this.onChangeQuarter.bind(this);
+        this.onSubmit = this.onSubmit.bind(this);
 
         this.state = {
             name: '',
@@ -50,7 +51,9 @@ export default class CreateCourse extends Component{
             quarter: '',
             courses: []
         }
+
     }
+    
 
     // componentDidMount(){
     //     axios.get('http://localhost:5000/detail/')
@@ -166,9 +169,10 @@ export default class CreateCourse extends Component{
         });
     }
 
-    onSubmit(e){
+    onSubmit(e) {
         e.preventDefault();
 
+        console.log(this.state.name);
         const course = {
             name: this.state.name,
             course_id: this.state.course_id,
@@ -194,7 +198,7 @@ export default class CreateCourse extends Component{
         axios.post('http://localhost:5000/detail/add', course)
             .then(res => console.log(res.data))
 
-        window.location = '/';    
+        //window.location = '/'; 
     }
 
     render(){
@@ -205,7 +209,6 @@ export default class CreateCourse extends Component{
                     <div className="form-group"> 
                         <label>Course Name: </label>
                         <input  type="text"
-                            required
                             className="form-control"
                             value={this.state.name}
                             onChange={this.onChangeName}
@@ -214,7 +217,6 @@ export default class CreateCourse extends Component{
                     <div className="form-group"> 
                     <label>Course ID: </label>
                     <input  type="text"
-                        required
                         className="form-control"
                         value={this.state.course_id}
                         onChange={this.onChangeCourse_ID}
@@ -223,7 +225,6 @@ export default class CreateCourse extends Component{
                     <div className="form-group"> 
                     <label>Instructor: </label>
                     <input  type="text"
-                        required
                         className="form-control"
                         value={this.state.instructor}
                         onChange={this.onChangeInstructor}
@@ -232,7 +233,6 @@ export default class CreateCourse extends Component{
                     <div className="form-group"> 
                     <label>Number of A+: </label>
                     <input  type="text"
-                        required
                         className="form-control"
                         value={this.state.aplus}
                         onChange={this.onChangeAPlus}
@@ -241,7 +241,6 @@ export default class CreateCourse extends Component{
                     <div className="form-group"> 
                     <label>Number of A: </label>
                     <input  type="text"
-                        required
                         className="form-control"
                         value={this.state.a}
                         onChange={this.onChangeA}
@@ -250,7 +249,6 @@ export default class CreateCourse extends Component{
                     <div className="form-group"> 
                     <label>Number of A-: </label>
                     <input  type="text"
-                        required
                         className="form-control"
                         value={this.state.aminus}
                         onChange={this.onChangeAMinus}
@@ -259,7 +257,6 @@ export default class CreateCourse extends Component{
                     <div className="form-group"> 
                     <label>Number of B+: </label>
                     <input  type="text"
-                        required
                         className="form-control"
                         value={this.state.bplus}
                         onChange={this.onChangeBPlus}
@@ -268,7 +265,6 @@ export default class CreateCourse extends Component{
                     <div className="form-group"> 
                     <label>Number of B: </label>
                     <input  type="text"
-                        required
                         className="form-control"
                         value={this.state.b}
                         onChange={this.onChangeB}
@@ -277,7 +273,6 @@ export default class CreateCourse extends Component{
                     <div className="form-group"> 
                     <label>Number of B-: </label>
                     <input  type="text"
-                        required
                         className="form-control"
                         value={this.state.bminus}
                         onChange={this.onChangeBMinus}
@@ -286,7 +281,6 @@ export default class CreateCourse extends Component{
                     <div className="form-group"> 
                     <label>Number of C+: </label>
                     <input  type="text"
-                        required
                         className="form-control"
                         value={this.state.cplus}
                         onChange={this.onChangeCPlus}
@@ -295,7 +289,6 @@ export default class CreateCourse extends Component{
                     <div className="form-group"> 
                     <label>Number of C: </label>
                     <input  type="text"
-                        required
                         className="form-control"
                         value={this.state.c}
                         onChange={this.onChangeC}
@@ -304,7 +297,6 @@ export default class CreateCourse extends Component{
                     <div className="form-group"> 
                     <label>Number of C-: </label>
                     <input  type="text"
-                        required
                         className="form-control"
                         value={this.state.cminus}
                         onChange={this.onChangeCMinus}
@@ -313,7 +305,6 @@ export default class CreateCourse extends Component{
                     <div className="form-group"> 
                     <label>Number of D+: </label>
                     <input  type="text"
-                        required
                         className="form-control"
                         value={this.state.dplus}
                         onChange={this.onChangeDPlus}
@@ -322,7 +313,6 @@ export default class CreateCourse extends Component{
                     <div className="form-group"> 
                     <label>Number of D: </label>
                     <input  type="text"
-                        required
                         className="form-control"
                         value={this.state.d}
                         onChange={this.onChangeD}
@@ -331,7 +321,6 @@ export default class CreateCourse extends Component{
                     <div className="form-group"> 
                     <label>Number of D-: </label>
                     <input  type="text"
-                        required
                         className="form-control"
                         value={this.state.dminus}
                         onChange={this.onChangeDMinus}
@@ -340,7 +329,6 @@ export default class CreateCourse extends Component{
                     <div className="form-group"> 
                     <label>Number of F: </label>
                     <input  type="text"
-                        required
                         className="form-control"
                         value={this.state.f}
                         onChange={this.onChangeF}
@@ -349,7 +337,6 @@ export default class CreateCourse extends Component{
                     <div className="form-group"> 
                     <label>Quarter: </label>
                     <input  type="text"
-                        required
                         className="form-control"
                         value={this.state.quarter}
                         onChange={this.onChangeQuarter}

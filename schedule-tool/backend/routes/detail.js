@@ -8,6 +8,7 @@ router.route('/').get((req, res) => {
 });
 
 router.route('/add').post((req, res) => {
+  console.log("in the route")
   const name = req.body.name;
   const course_id = req.body.course_id;
   const instructor = req.body.instructor;
@@ -45,6 +46,8 @@ router.route('/add').post((req, res) => {
     f,
     quarter,
   });
+
+  console.log(newDetail);
 
   newDetail.save()
   .then(() => res.json('Detail added!'))
