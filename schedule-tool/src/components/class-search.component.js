@@ -64,6 +64,7 @@ export default class DetailsList extends Component {
   render() {
     return (
       <div>
+        
         <h3>Course List</h3>
         <table className="table">
           <thead className="thead-light">
