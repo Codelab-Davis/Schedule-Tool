@@ -4,6 +4,7 @@ const Detail = require('../models/detail.model')
 
 const { GraphQLObjectType, GraphQLString, GraphQLSchema, GraphQLID } = graphql;
 
+// schema for type of course (very similar to the models)
 const CourseType = new GraphQLObjectType({
     name: "Course",
     fields: ( ) => ({
@@ -28,6 +29,8 @@ const CourseType = new GraphQLObjectType({
     })
 })
 
+
+// queries go here
 const RootQuery = new GraphQLObjectType({
     name: 'RootQueryType',
     fields: {
@@ -37,9 +40,7 @@ const RootQuery = new GraphQLObjectType({
             args: { id: { type: GraphQLString } },
             resolve(parent, args) {
                 // code to get data from db
-                // return Detail.findById(args.id);
                 console.log("hit", args.id);
-                // return Detail.findOne({"course_id": args.id});
                 return Detail.find({"course_id": args.id});
             }
         },

@@ -198,7 +198,7 @@ export default class CreateCourse extends Component{
         axios.post('http://localhost:5000/detail/add', course)
             .then(res => console.log(res.data))
 
-        //window.location = '/'; 
+        window.location = '/'; 
     }
 
     render(){
