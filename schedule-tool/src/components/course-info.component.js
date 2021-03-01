@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 
-const CourseInfo = props => (
+const CourseStuff = props => (
     <tr>
       <td>{props.detail.name}</td>
       <td>{props.detail.course_id}</td>
@@ -49,5 +49,8 @@ export default class CourseInfo extends Component{
         }
     }
     render(){
+        return(
+            <div></div>
+        )
     }
 }
