@@ -1,6 +1,8 @@
 const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose');
+const graphqlHTTP = require('express-graphql').graphqlHTTP;
+const schema = require('./schema/schema');
 
 require('dotenv').config();
 
@@ -21,8 +23,15 @@ connection.once('open', () => {
 const courseRouter = require('./routes/course')
 const detailRouter = require('./routes/detail')
 
-app.use('/course', courseRouter)
+// routers in use
+app.use('/course', courseRouter);
 app.use('/detail', detailRouter);
+
+// bind express with graphql
+app.use('/graphql', graphqlHTTP({
+    schema,
+    graphiql: true
+}));
 
 app.listen(port, () => {
     console.log(`Server is running on port: ${port}`);

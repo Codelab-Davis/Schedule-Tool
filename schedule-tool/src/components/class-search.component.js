@@ -1,6 +1,10 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
+const graphql = require('graphql');
+const _ = require('lodash');
+
+const { GraphQLObjectType, GraphQLString, GraphQLSchema } = graphql;
 
 const Detail = props => (
   <tr>
@@ -27,6 +31,8 @@ const Detail = props => (
   </tr>
 )
 
+var items;
+
 export default class DetailsList extends Component {
   constructor(props) {
     super(props);
@@ -40,6 +46,10 @@ export default class DetailsList extends Component {
     axios.get('http://localhost:5000/detail/')
       .then(response => {
         this.setState({ detail: response.data })
+        // put items from get request into variable items 
+        items = response.data;
+        console.log("hit", items);
+
       })
       .catch((error) => {
         console.log(error);
@@ -60,6 +70,8 @@ export default class DetailsList extends Component {
       return <Detail detail={currentdetail} deleteDetail={this.deleteDetail} key={currentdetail._id}/>;
     })
   }
+  
+  // items = this.detailList();
 
   render() {
     return (
@@ -88,6 +100,7 @@ export default class DetailsList extends Component {
             </tr>
           </thead>
           <tbody>
+            {/* {items} */}
             { this.detailList() }
           </tbody>
         </table>
