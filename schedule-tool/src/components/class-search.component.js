@@ -11,6 +11,7 @@ const Detail = props => (
     <td>{props.detail.name}</td>
     <td>{props.detail.course_id}</td>
     <td>{props.detail.instructor}</td>
+    <td>{props.detail.ge}</td>
     <td>{props.detail.aplus}</td>
     <td>{props.detail.a}</td>
     <td>{props.detail.aminus}</td>
@@ -23,8 +24,13 @@ const Detail = props => (
     <td>{props.detail.dplus}</td>
     <td>{props.detail.d}</td>
     <td>{props.detail.dminus}</td>
-    <td>{props.detail.fplus}</td>
+    <td>{props.detail.f}</td>
+    <td>{props.detail.I}</td>
+    <td>{props.detail.P}</td>
+    <td>{props.detail.NP}</td>
+    <td>{props.detail.Y}</td>
     <td>{props.detail.quarter}</td>
+    <td>{props.detail.enrollment}</td>
     <td>
       <Link to={"/edit/"+props.detail._id}>edit</Link> | <a href="#" onClick={() => { props.deleteDetail(props.detail._id) }}>delete</a>
     </td>
@@ -84,6 +90,7 @@ export default class DetailsList extends Component {
             <th>Name</th>
               <th>Course Id</th>
               <th>Instructor</th>
+              <th>GE</th>
               <th>A Plus</th>
               <th>A</th>
               <th>A Minus</th>
@@ -97,7 +104,12 @@ export default class DetailsList extends Component {
               <th>D</th>
               <th>D Minus</th>
               <th>F</th>
+              <th>I</th>
+              <th>P</th>
+              <th>NP</th>
+              <th>Y</th>
               <th>Quarter</th>
+              <th>Enrollment</th>
             </tr>
           </thead>
           <tbody>

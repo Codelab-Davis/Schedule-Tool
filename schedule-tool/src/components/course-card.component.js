@@ -17,7 +17,15 @@ export default class CourseCard extends Component{
             name: 'Computer Architecture',
             course_id: 'ECS150',
         }
+
     }
+
+    detailList() {
+        return this.state.detail.map(currentdetail => {
+            return <Detail detail={currentdetail} deleteDetail={this.deleteDetail} key={currentdetail._id}/>;
+        })
+        }
+    
     render(){
         return(
             <div>

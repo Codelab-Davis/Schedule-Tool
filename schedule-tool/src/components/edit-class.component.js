@@ -9,6 +9,7 @@ export default class EditCourse extends Component {
     this.onChangeName = this.onChangeName.bind(this);
     this.onChangeCourse_ID = this.onChangeCourse_ID.bind(this);
     this.onChangeInstructor = this.onChangeInstructor.bind(this);
+    this.onChangeGE = this.onChangeGE.bind(this);
     
     this.onChangeAPlus = this.onChangeAPlus.bind(this);
     this.onChangeA = this.onChangeA.bind(this);
@@ -27,13 +28,19 @@ export default class EditCourse extends Component {
     this.onChangeDMinus = this.onChangeDMinus.bind(this);
 
     this.onChangeF = this.onChangeF.bind(this);
+    this.onChangeI = this.onChangeI.bind(this);
+    this.onChangeP = this.onChangeP.bind(this);
+    this.onChangeNP = this.onChangeNP.bind(this);
+    this.onChangeY = this.onChangeY.bind(this);
 
     this.onChangeQuarter = this.onChangeQuarter.bind(this);
+    this.onChangeEnrollment = this.onChangeEnrollment.bind(this);
       
       this.state = {  
         name: '',
         course_id: '',
         instructor: '',
+        ge: '',
         aplus: 0,
         a: 0,
         aminus: 0,
@@ -47,7 +54,12 @@ export default class EditCourse extends Component {
         d: 0,
         dminus: 0,
         f: 0,
+        I:0,
+        P: 0,
+        NP: 0,
+        Y: 0,
         quarter: '',
+        enrollment: [],
         courses: []
       }
     }
@@ -59,6 +71,7 @@ export default class EditCourse extends Component {
           Name: response.data.Name,
           course_id: response.data.course_id,
           instructor: response.data.instructor,
+          ge: response.data.ge,
           aplus: response.data.aplus,
           a: response.data.a,
           aminus: response.data.aminus,
@@ -72,7 +85,12 @@ export default class EditCourse extends Component {
           d: response.data.d,
           dminus: response.data.dminus,
           f: response.data.f,
-          quarter: response.data.quarter
+          I: response.data.I,
+          P: response.data.P,
+          NP: response.data.NP,
+          Y: response.data.Y,
+          quarter: response.data.quarter,
+          enrollment: response.data.enrollment
         })   
       })
       .catch(function (error) {
@@ -108,6 +126,12 @@ export default class EditCourse extends Component {
   onChangeInstructor(e) {
     this.setState({
       instructor: e.target.value
+    })
+  }
+
+  onChangeGE(e) {
+    this.setState({
+      ge: e.target.value
     })
   }
 
@@ -189,11 +213,42 @@ export default class EditCourse extends Component {
     })
   }
 
+  onChangeI(e) {
+    this.setState({
+      I: e.target.value
+    })
+  }
+
+  onChangeP(e) {
+    this.setState({
+      P: e.target.value
+    })
+  }
+
+  onChangeNP(e) {
+    this.setState({
+      NP: e.target.value
+    })
+  }
+
+  onChangeY(e) {
+    this.setState({
+      Y: e.target.value
+    })
+  }
+
   onChangeQuarter(e) {
     this.setState({
       quarter: e.target.value
     })
   }
+
+  onChangeEnrollment(e) {
+    this.setState({
+      enrollment: e.target.value
+    })
+  }
+
 
   onSubmit(e) {
     e.preventDefault();
@@ -202,6 +257,7 @@ export default class EditCourse extends Component {
           name: this.state.name,
           courses_id: this.state.course_id,
           instructor: this.state.instructor,
+          ge: this.state.ge,
           aplus: this.state.aplus,
           a: this.state.a,
           aminus: this.state.aminus,
@@ -215,7 +271,12 @@ export default class EditCourse extends Component {
           d: this.state.d,
           dminus: this.state.dminus,
           f: this.state.f,
-          course: this.state.course
+          I: this.state.I,
+          P: this.state.P,
+          NP: this.state.NP,
+          Y: this.state.Y,
+          course: this.state.course,
+          enrollment: this.state.enrollment
     }
   
     console.log(courses);
@@ -257,6 +318,15 @@ export default class EditCourse extends Component {
                     className="form-control"
                     value={this.state.instructor}
                     onChange={this.onChangeInstructor}
+                    />
+                </div>
+                <div className="form-group"> 
+                <label>GE: </label>
+                <input  type="text"
+                    required
+                    className="form-control"
+                    value={this.state.ge}
+                    onChange={this.onChangeGE}
                     />
                 </div>
                 <div className="form-group"> 
@@ -377,12 +447,57 @@ export default class EditCourse extends Component {
                     />
                 </div>
                 <div className="form-group"> 
+                <label>Number of I: </label>
+                <input  type="text"
+                    required
+                    className="form-control"
+                    value={this.state.I}
+                    onChange={this.onChangeI}
+                    />
+                </div>
+                <div className="form-group"> 
+                <label>Number of P: </label>
+                <input  type="text"
+                    required
+                    className="form-control"
+                    value={this.state.P}
+                    onChange={this.onChangeP}
+                    />
+                </div>
+                <div className="form-group"> 
+                <label>Number of NP: </label>
+                <input  type="text"
+                    required
+                    className="form-control"
+                    value={this.state.NP}
+                    onChange={this.onChangeNP}
+                    />
+                </div>
+                <div className="form-group"> 
+                <label>Number of Y: </label>
+                <input  type="text"
+                    required
+                    className="form-control"
+                    value={this.state.Y}
+                    onChange={this.onChangeY}
+                    />
+                </div>
+                <div className="form-group"> 
                 <label>Quarter: </label>
                 <input  type="text"
                     required
                     className="form-control"
                     value={this.state.quarter}
                     onChange={this.onChangeQuarter}
+                    />
+                </div>
+                <div className="form-group"> 
+                <label>Enrollment: </label>
+                <input  type="text"
+                    required
+                    className="form-control"
+                    value={this.state.enrollment}
+                    onChange={this.onChangeEnrollment}
                     />
                 </div>
 

@@ -9,6 +9,7 @@ export default class CreateCourse extends Component{
         this.onChangeName = this.onChangeName.bind(this);
         this.onChangeCourse_ID = this.onChangeCourse_ID.bind(this);
         this.onChangeInstructor = this.onChangeInstructor.bind(this);
+        this.onChangeGE = this.onChangeGE.bind(this);
         
         this.onChangeAPlus = this.onChangeAPlus.bind(this);
         this.onChangeA = this.onChangeA.bind(this);
@@ -27,6 +28,7 @@ export default class CreateCourse extends Component{
         this.onChangeDMinus = this.onChangeDMinus.bind(this);
 
         this.onChangeF = this.onChangeF.bind(this);
+        this.onChangeI = this.onChangeF.bind(this);
 
         this.onChangeQuarter = this.onChangeQuarter.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
@@ -35,6 +37,7 @@ export default class CreateCourse extends Component{
             name: '',
             course_id: '',
             instructor: '',
+            ge: 0,
             aplus: 0,
             a: 0,
             aminus: 0,
@@ -48,7 +51,12 @@ export default class CreateCourse extends Component{
             d: 0,
             dminus: 0,
             f: 0,
+            I: 0,
+            P: 0,
+            NP: 0,
+            Y: 0,
             quarter: '',
+            enrollment: [],
             courses: []
         }
 
@@ -88,6 +96,12 @@ export default class CreateCourse extends Component{
             instructor: e.target.value
         });
     }
+
+    onChangeGE(e) {
+        this.setState({
+          ge: e.target.value
+        })
+      }
 
     onChangeAPlus(e){
         this.setState({
@@ -163,11 +177,41 @@ export default class CreateCourse extends Component{
             f: e.target.value
         });
     }
-    onChangeQuarter(e){
+    onChangeI(e) {
         this.setState({
-            quarter: e.target.value
-        });
-    }
+          I: e.target.value
+        })
+      }
+    
+      onChangeP(e) {
+        this.setState({
+          P: e.target.value
+        })
+      }
+    
+      onChangeNP(e) {
+        this.setState({
+          NP: e.target.value
+        })
+      }
+    
+      onChangeY(e) {
+        this.setState({
+          Y: e.target.value
+        })
+      }
+    
+      onChangeQuarter(e) {
+        this.setState({
+          quarter: e.target.value
+        })
+      }
+    
+      onChangeEnrollment(e) {
+        this.setState({
+          enrollment: e.target.value
+        })
+      }
 
     onSubmit(e) {
         e.preventDefault();
@@ -177,6 +221,7 @@ export default class CreateCourse extends Component{
             name: this.state.name,
             course_id: this.state.course_id,
             instructor: this.state.instructor,
+            ge: this.state.ge,
             aplus: this.state.aplus,
             a: this.state.a,
             aminus: this.state.aminus,
@@ -190,7 +235,12 @@ export default class CreateCourse extends Component{
             d: this.state.d,
             dminus: this.state.dminus,
             f: this.state.f,
-            quarter: this.state.quarter
+            I: this.state.I,
+            P: this.state.P,
+            NP: this.state.NP,
+            Y: this.state.Y,
+            quarter: this.state.quarter,
+            enrollment: this.state.enrollment
         }
         
         console.log(course);
@@ -228,6 +278,15 @@ export default class CreateCourse extends Component{
                         className="form-control"
                         value={this.state.instructor}
                         onChange={this.onChangeInstructor}
+                        />
+                    </div>
+                    <div className="form-group"> 
+                    <label>GE: </label>
+                    <input  type="text"
+                        required
+                        className="form-control"
+                        value={this.state.ge}
+                        onChange={this.onChangeGE}
                         />
                     </div>
                     <div className="form-group"> 
@@ -335,6 +394,42 @@ export default class CreateCourse extends Component{
                         />
                     </div>
                     <div className="form-group"> 
+                <label>Number of I: </label>
+                <input  type="text"
+                    required
+                    className="form-control"
+                    value={this.state.I}
+                    onChange={this.onChangeI}
+                    />
+                </div>
+                <div className="form-group"> 
+                <label>Number of P: </label>
+                <input  type="text"
+                    required
+                    className="form-control"
+                    value={this.state.P}
+                    onChange={this.onChangeP}
+                    />
+                </div>
+                <div className="form-group"> 
+                <label>Number of NP: </label>
+                <input  type="text"
+                    required
+                    className="form-control"
+                    value={this.state.NP}
+                    onChange={this.onChangeNP}
+                    />
+                </div>
+                <div className="form-group"> 
+                <label>Number of Y: </label>
+                <input  type="text"
+                    required
+                    className="form-control"
+                    value={this.state.Y}
+                    onChange={this.onChangeY}
+                    />
+                </div>
+                    <div className="form-group"> 
                     <label>Quarter: </label>
                     <input  type="text"
                         className="form-control"
@@ -342,6 +437,16 @@ export default class CreateCourse extends Component{
                         onChange={this.onChangeQuarter}
                         />
                     </div>
+                    <div className="form-group"> 
+                <label>Enrollment: </label>
+                <input  type="text"
+                    required
+                    className="form-control"
+                    value={this.state.enrollment}
+                    onChange={this.onChangeEnrollment}
+                    />
+                </div>
+                    
 
                     <div className="form-group">
                         <input type="submit" value="Create Course Log" className="btn btn-primary" />

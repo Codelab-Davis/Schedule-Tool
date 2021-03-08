@@ -2,10 +2,11 @@ const mongoose = require('mongoose');
 
 const Schema = mongoose.Schema;
 
-const detailSchema = new Schema({
+const detailSchema = new Schema({ //components of a class/what are defined within a certain class
   name: { type: String, required: true },
   course_id: { type: String, required: true },
   instructor: { type: String, required: true },
+  ge: { type: String, required: true },
   aplus: { type: Number, required: true },
   a: { type: Number, required: true },
   aminus: { type: Number, required: true },
@@ -19,7 +20,12 @@ const detailSchema = new Schema({
   d: { type: Number, required: true },
   dminus: { type: Number, required: true },
   f: { type: Number, required: true },
+  I: { type: Number, required: true },//incomplete
+  P: { type: Number, required: true }, //pass
+  NP: { type: Number, required: true },//no pass
+  Y: { type: Number, required: true },//pending judicial action
   quarter: { type: String, required: true },
+  enrollment: { type: Array, required: true},
 }, {
   timestamps: true,
 });
