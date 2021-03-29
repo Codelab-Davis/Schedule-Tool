@@ -4,7 +4,7 @@ import axios from 'axios';
 
 const CourseStuff = props => (
     <tr>
-      <td>{props.detail.name}</td>
+      <td>{props.detail.name}</td> //adding the following information to the course
       <td>{props.detail.course_id}</td>
       <td>{props.detail.instructor}</td>
       <td>{props.detail.aplus}</td>

@@ -1,3 +1,5 @@
+// contains all information about courses
+
 const mongoose = require('mongoose');
 
 const Schema = mongoose.Schema;

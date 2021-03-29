@@ -32,7 +32,8 @@ export default class CreateCourse extends Component{
 
         this.onChangeQuarter = this.onChangeQuarter.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
-
+        
+        // initializes a class
         this.state = {
             name: '',
             course_id: '',

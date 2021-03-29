@@ -1,3 +1,5 @@
+// obtaining course information 
+
 const router = require('express').Router();
 let Detail = require('../models/detail.model');
 
@@ -7,8 +9,8 @@ router.route('/').get((req, res) => {
     .catch(err => res.status(400).json('Error: ' + err));
 });
 
-router.route('/add').post((req, res) => {
-  console.log("in the route")
+router.route('/add').post((req, res) => { // adding courses and respective info
+  console.log("in the route") 
   const name = req.body.name;
   const course_id = req.body.course_id;
   const instructor = req.body.instructor;
@@ -66,19 +68,19 @@ router.route('/add').post((req, res) => {
   .catch(err => res.status(400).json('Error: ' + err));
 });
 
-router.route('/:id').get((req, res) => {
+router.route('/:id').get((req, res) => { // finding courses by id
   Detail.findById(req.params.id)
     .then(courses => res.json(courses))
     .catch(err => res.status(400).json('Error: ' + err));
 });
 
-router.route('/:id').delete((req, res) => {
+router.route('/:id').delete((req, res) => { // deleting courses by id
   Detail.findByIdAndDelete(req.params.id)
     .then(() => res.json('Course deleted.'))
     .catch(err => res.status(400).json('Error: ' + err));
 });
 
-router.route('/update/:id').post((req, res) => {
+router.route('/update/:id').post((req, res) => { // updating course information
   Detail.findById(req.params.id)
     .then(detail => {
       detail.name = req.body.name;

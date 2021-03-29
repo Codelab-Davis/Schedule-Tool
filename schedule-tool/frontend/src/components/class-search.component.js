@@ -1,3 +1,5 @@
+// lists all classes and respective details
+
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
@@ -6,6 +8,7 @@ const _ = require('lodash');
 
 const { GraphQLObjectType, GraphQLString, GraphQLSchema } = graphql;
 
+// initializes all the fields needed for the course list
 const Detail = props => (
   <tr>
     <td>{props.detail.name}</td>
@@ -71,6 +74,7 @@ export default class DetailsList extends Component {
     })
   }
 
+  // creates a map with all of the courses in it
   detailList() {
     return this.state.detail.map(currentdetail => {
       return <Detail detail={currentdetail} deleteDetail={this.deleteDetail} key={currentdetail._id}/>;
