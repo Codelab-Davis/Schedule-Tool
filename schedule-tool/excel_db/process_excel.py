@@ -1,9 +1,11 @@
 import pandas as pd
 import pprint as pp
+import course_web_info
+import progressbar
 
 class ProcessExcel:
 
-    # connstructor - takes in file name, creates dataframe
+    # constructor - takes in file name, creates dataframe
     def __init__(self, file_name):
         self.df = pd.read_excel(file_name)
         self.col_oper()
@@ -31,12 +33,17 @@ class ProcessExcel:
 
         # add course info to list
         self.courses = []
+        bar = progressbar.ProgressBar(max_value=len(self.grouped_df))
+        num_group_done = 0
         for group, df in self.grouped_df:
             # print(str(group) + "\n" + str(df) + "\n")
             # create course objects in array
             course = Course(df)
             self.courses.append(vars(course))
             # pp.pprint(vars(course))
+
+            num_group_done += 1
+            bar.update(num_group_done)
         
     def getCourses(self):
         return self.courses
@@ -67,6 +74,7 @@ class Course:
         self.NP = 0
         self.Y = 0
         self.quarter = df["QUARTER"].tolist()[0]
+        self.ge_list = []
 
         # group by grades - to set the grades
         grouped_df = df.groupby("GRADE")
@@ -111,4 +119,10 @@ class Course:
                 self.NP = grade_sum
             elif(grade == 'Y'):
                 self.Y = grade_sum
+        
+        crn = df["CRN"].tolist()[0]
+        term_code = df["TERM"].tolist()[0]
+
+        course_info = course_web_info.ClassWebInfo(crn, term_code)
+        self.ge_list = course_info.getGE_List()
 
