@@ -1,3 +1,5 @@
+// obtain course_id information from database 
+
 const router = require('express').Router();
 let Course = require('../models/course.model');
 
@@ -7,7 +9,7 @@ router.route('/').get((req, res) => {
     .catch(err => res.status(400).json('Error: ' + err));
 });
 
-router.route('/add').post((req, res) => {
+router.route('/add').post((req, res) => { // creating a new course
   const course_id = req.body.course_id; //come back to --> class_id (?)
 
   const newCourse = new Course({course_id});

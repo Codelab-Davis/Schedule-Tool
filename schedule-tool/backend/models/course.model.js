@@ -1,9 +1,12 @@
+// unnecessary component
+// here for reference, only refers to the course ids of the database
+
 const mongoose = require('mongoose');
 
 const Schema = mongoose.Schema;
 
 const courseSchema = new Schema({
-  course_id: {
+  course_id: { // information about course id schema
     type: String,
     required: true,
     unique: true,

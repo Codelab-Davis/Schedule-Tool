@@ -1,3 +1,5 @@
+// obtaining course information 
+
 const router = require('express').Router();
 let Detail = require('../models/detail.model');
 
@@ -7,11 +9,12 @@ router.route('/').get((req, res) => {
     .catch(err => res.status(400).json('Error: ' + err));
 });
 
-router.route('/add').post((req, res) => {
-  console.log("in the route")
+router.route('/add').post((req, res) => { // adding courses and respective info
+  console.log("in the route") 
   const name = req.body.name;
   const course_id = req.body.course_id;
   const instructor = req.body.instructor;
+  const ge = req.body.ge;
   const aplus = Number(req.body.aplus);
   const a = Number(req.body.a);
   const aminus = Number(req.body.aminus);
@@ -25,12 +28,18 @@ router.route('/add').post((req, res) => {
   const d = Number(req.body.d);
   const dminus = Number(req.body.dminus);
   const f = Number(req.body.f);
+  const I = Number(req.body.I);
+  const P = Number(req.body.P);
+  const NP = Number(req.body.NP);
+  const Y = Number(req.body.Y);
   const quarter = req.body.quarter;
+  const enrollment = Array(req.body.enrollment);
 
   const newDetail = new Detail({
     name,
     course_id,
     instructor,
+    ge,
     aplus,
     a,
     aminus,
@@ -44,7 +53,12 @@ router.route('/add').post((req, res) => {
     d,
     dminus,
     f,
+    I,
+    P,
+    NP,
+    Y,
     quarter,
+    enrollment,
   });
 
   console.log(newDetail);
@@ -54,24 +68,25 @@ router.route('/add').post((req, res) => {
   .catch(err => res.status(400).json('Error: ' + err));
 });
 
-router.route('/:id').get((req, res) => {
+router.route('/:id').get((req, res) => { // finding courses by id
   Detail.findById(req.params.id)
     .then(courses => res.json(courses))
     .catch(err => res.status(400).json('Error: ' + err));
 });
 
-router.route('/:id').delete((req, res) => {
+router.route('/:id').delete((req, res) => { // deleting courses by id
   Detail.findByIdAndDelete(req.params.id)
     .then(() => res.json('Course deleted.'))
     .catch(err => res.status(400).json('Error: ' + err));
 });
 
-router.route('/update/:id').post((req, res) => {
+router.route('/update/:id').post((req, res) => { // updating course information
   Detail.findById(req.params.id)
     .then(detail => {
       detail.name = req.body.name;
       detail.course_id = req.body.course_id;
       detail.instructor = req.body.instructor;
+      detail.ge = req.body.ge;
       detail.aplus = Number(req.body.aplus);
       detail.a = Number(req.body.a);
       detail.aminus = Number(req.body.aminus);
@@ -85,7 +100,12 @@ router.route('/update/:id').post((req, res) => {
       detail.d = Number(req.body.d);
       detail.dminus = Number(req.body.dminus);
       detail.f = Number(req.body.f);
+      detail.I = Number(req.body.I);
+      detail.P = Number(req.body.P);
+      detail.NP = Number(req.body.NP);
+      detail.Y = Number(req.body.Y);
       detail.quarter = req.body.quarter;
+      detail.enrollment = Array(req.body.enrollment);
 
       detail.save()
         .then(() => res.json('Detail updated!'))
