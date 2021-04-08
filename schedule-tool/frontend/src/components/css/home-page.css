@@ -1,0 +1,23 @@
+.test{
+    font-family: "Proxima Nova", "Helvetica Neue";
+    background-image: url('../HomeIllustration.png');
+    /* height: 100%;  */
+    width: '100vw';
+    height: '100vh';
+
+    /* Center and scale the image nicely */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.whatwedo {
+    margin-top: 60rem;
+    text-align: center;
+}
+/* 
+body, html {
+    height: 100%;
+    margin: 0;
+} */
+

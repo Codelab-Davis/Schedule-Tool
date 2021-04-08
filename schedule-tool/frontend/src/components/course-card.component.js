@@ -59,9 +59,10 @@ export default class CourseCard extends Component{
         })
     }
     
+    // creating unordered list and using map for card component
     render(){
         return(
-            <ul class="list-unstyled"> // creating unordered list and using map for card component
+            <ul class="list-unstyled"> 
                 {this.state.detail.map(currentdetail => {
                 return(
                 <li>
@@ -80,7 +81,7 @@ export default class CourseCard extends Component{
                                             <i class="icon-book-open primary font-large-2 float-right"></i>
                                         </div> */}
                                     </div>
-                                </div>d
+                                </div>
                             </div>
                         </div>
                     </div>
