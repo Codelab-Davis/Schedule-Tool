@@ -11,6 +11,8 @@ import GradeInfo from "./components/grade-info.component";
 import DetailsList from "./components/class-search.component";
 import EditCourse from "./components/edit-class.component";
 import CreateCourse from "./components/create-class.component";
+import AboutPage from "./components/about-page.component";
+
 
 function App() {
   return (
@@ -23,6 +25,8 @@ function App() {
         <Route path="/list" component={DetailsList} />
         <Route path="/edit" component={EditCourse} />
         <Route path="/create" component={CreateCourse} />
+        <Route path="/about" component={AboutPage} />
+
     </Router>
   );
 }
