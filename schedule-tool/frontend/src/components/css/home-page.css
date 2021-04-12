@@ -1,23 +1,113 @@
-.test{
+
+.intro{
     font-family: "Proxima Nova", "Helvetica Neue";
     background-image: url('../HomeIllustration.png');
     /* height: 100%;  */
-    width: '100vw';
-    height: '100vh';
+    width: 100vw;
+    height: 106vh;
+    top: 0;
+    left: 0;
+
 
     /* Center and scale the image nicely */
-    background-position: center;
+    background-size: 100% 100%;
     background-repeat: no-repeat;
     background-size: cover;
+    position: relative;
+    display: block;
+    object-fit: cover;
+    margin: 0 auto;
+    margin-top: -24px;
+}
+
+.introtext{
+    position: relative;
+    top: 50%;
+    left: 15%;
+    transform: translateY(-50%);
+}
+
+.title {
+    margin: 10;   
+}
+
+.Aggie{
+    font-family: "Proxima Nova", "Helvetica Neue";
+    color: #162857;
+    margin: 0;
+    
+}
+.Explorer{
+    font-family: "Proxima Nova", "Helvetica Neue";
+    color: #EAB517;
+    margin: 0;
+    
+}
+.Description{
+    font-family: "Proxima Nova", "Helvetica Neue";
+    color: #EAB517;
+    margin: 20;
+}
+.button{
+    padding: 10;
+}
+a#homebutton{
+    background-color: #162857;
+    color: #FFFFFF;
 }
 
 .whatwedo {
-    margin-top: 60rem;
+    /*margin-top: 60rem;*/
+    font-family: "Proxima Nova", "Helvetica Neue";
+    color: #162857;
+    position: absolute;
+    width: 100%;
+    bottom: 80px;
     text-align: center;
+    margin: 0;
 }
 /* 
 body, html {
     height: 100%;
     margin: 0;
 } */
+.mission{
+    width: 100%;
+    height: 300px;
+}
+.missionleft{
+    font-family: "Proxima Nova", "Helvetica Neue";
+    color: #162857;
+    text-align: center;
+    float: left;
+    width: 50%;
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.missionright{
+    font-family: "Proxima Nova", "Helvetica Neue";
+    color: #162857;
+    float: right;
+    width: 50%;
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+}
+.features{
+    background-color: #162857;
+    width: 100%;
+    height: 450px;
+}
+.featuresleft{
+    font-family: "Proxima Nova", "Helvetica Neue";
+    color: #FFFFFF;
+    text-align: center;
+    float: left;
+    width: 50%;
+    position: relative;
+    top: 20%;
+    transform: translateY(-50%);
+}
 
