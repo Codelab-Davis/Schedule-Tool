@@ -34,22 +34,28 @@ export default class HomePage extends Component {
                 </div>
                 <div class="features">
                     <div class="featurestitle"><b>Features</b></div>
-                    <div id="featuresleft" class="col-md-6">
-                        <a href="grades"> 
-                            <div id="gradecard" class="card">
-                                <div id="gradecardtitle"class="container"><b>Grade Distribution</b></div>
-                                <div id="gradecarddescription"></div>
+                    <div class="container">
+                        <div class="row">
+                            <div id="featuresleft" class="col-md-6 d-flex justify-content-center">
+                                <a href="grades"> 
+                                    <div id="gradecard" class="card">
+                                        <div class="card-body">
+                                            <div id="gradecardtitle" ><b>Grade Distribution</b></div>
+                                            <div id="gradecarddescription"></div>
+                                        </div>
+                                    </div>
+                                </a>
                             </div>
-                        </a>
-                    </div>
-                    <div id="featuresright" class="col-md-6">
-                        <a href="search">
-                            <div class="enrollmentcard">
-                                <div class="enrollmentcardimage"></div>
-                                <div class="enrollmentcardtitle"><b></b></div>
-                                <div class="enrollmentcarddescription"></div>
+                            <div id="featuresright" class="col-md-6 justify-content-center">
+                                <a href="search">
+                                    <div id="enrollmentcard" class="card">
+                                        <div id="enrollmentcardimage"></div>
+                                        <div id="enrollmentcardtitle"><b></b></div>
+                                        <div id="enrollmentcarddescription"></div>
+                                    </div>
+                                </a>
                             </div>
-                        </a>
+                        </div>
                     </div>
                 </div>
                 <div class="footer">
