@@ -1,6 +1,19 @@
+/* @font-face {
+    font-family: ProximaNova;
+    src: url("/src/fonts/ProximaNova-Regular.otf") format("opentype");
+  } */
+
+html{
+    scroll-behavior: smooth;
+    font-size: 10px;
+}
+
+a:link{
+    text-decoration: none!important;
+}
 
 .intro{
-    font-family: "Proxima Nova", "Helvetica Neue";
+    font-family: "ProximaNova", "Helvetica Neue";
     background-image: url('../HomeIllustration.png');
     /* height: 100%;  */
     width: 100vw;
@@ -17,13 +30,13 @@
     display: block;
     object-fit: cover;
     margin: 0 auto;
-    margin-top: -24px;
+    margin-top: -20px;
 }
 
 .introtext{
     position: relative;
     top: 50%;
-    left: 15%;
+    text-align: center;
     transform: translateY(-50%);
 }
 
@@ -32,82 +45,144 @@
 }
 
 .Aggie{
-    font-family: "Proxima Nova", "Helvetica Neue";
+    font-family: "ProximaNova", "Helvetica Neue";
+    font-size: 6rem;
     color: #162857;
     margin: 0;
     
 }
 .Explorer{
-    font-family: "Proxima Nova", "Helvetica Neue";
+    font-family: "ProximaNova", "Helvetica Neue";
+    font-size: 6rem;
     color: #EAB517;
     margin: 0;
     
 }
 .Description{
-    font-family: "Proxima Nova", "Helvetica Neue";
+    font-family: "ProximaNova", "Helvetica Neue";
+    padding-top: 1rem;
+    font-size: 1.8rem;
     color: #EAB517;
     margin: 20;
 }
 .button{
-    padding: 10;
+    padding: 2rem;
+    outline-color: #162857;
 }
 a#homebutton{
+    font-family: "ProximaNova", "Helvetica Neue";
     background-color: #162857;
+    font-size: 1.8rem;
     color: #FFFFFF;
+    outline-color: #162857;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    padding-right: 3rem;
+    padding-left: 3rem;
+    border-radius: 1rem;
 }
 
-.whatwedo {
-    /*margin-top: 60rem;*/
-    font-family: "Proxima Nova", "Helvetica Neue";
-    color: #162857;
+.introarrow{
     position: absolute;
     width: 100%;
     bottom: 80px;
     text-align: center;
+}
+.whatwedo {
+    /*margin-top: 60rem;*/
+    font-family: "ProximaNova", "Helvetica Neue";
+    font-size: 1.8rem;
+    color: #162857;
+    text-align: center;
     margin: 0;
 }
-/* 
-body, html {
-    height: 100%;
-    margin: 0;
-} */
+
+.arrow{
+    display: inline-block;
+    color: #162857;
+    width: 1.2rem;
+    height: 1.2rem;
+    border: 2.5px solid transparent;
+    border-right-color: #162857;
+    border-bottom-color: #162857;
+    transform: rotate(45deg);
+}
+
 .mission{
     width: 100%;
-    height: 300px;
+    height: 400px;
 }
-.missionleft{
-    font-family: "Proxima Nova", "Helvetica Neue";
+#missionleft{
+    font-family: "ProximaNova", "Helvetica Neue";
+    font-size: 4.5rem;
     color: #162857;
     text-align: center;
     float: left;
-    width: 50%;
+    width: 40%;
     position: relative;
     top: 50%;
     transform: translateY(-50%);
+    padding-left: 8rem;
 }
 
-.missionright{
-    font-family: "Proxima Nova", "Helvetica Neue";
+#missionright{
+    font-family: "ProximaNova", "Helvetica Neue";
+    font-size: 2.1rem;
     color: #162857;
     float: right;
-    width: 50%;
+    width: 60%;
     position: relative;
     top: 50%;
     transform: translateY(-50%);
+    line-height: 3.4rem;
+    padding-top: 3rem;
+    padding-right: 190px;
 }
+
 .features{
     background-color: #162857;
     width: 100%;
-    height: 450px;
+    height: 500px;
 }
-.featuresleft{
-    font-family: "Proxima Nova", "Helvetica Neue";
+
+.featurestitle
+{
+    font-family: "ProximaNova", "Helvetica Neue";
+    font-size: 4.5rem;
     color: #FFFFFF;
+    background-color: #162857;
+    width: 100%;
+    padding-left: 200px;
+    padding-top: 70px;
+}
+
+.featuresleft{
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+}
+
+.footer{
+    width: 100%;
+    height: 150px;
+    font-family: "ProximaNova", "Helvetica Neue";
+    font-size: 2rem;
+    color: #4F7094;
     text-align: center;
-    float: left;
-    width: 50%;
-    position: relative;
-    top: 20%;
-    transform: translateY(-50%);
+    padding-top: 65px;
+}
+.footertext{
+}
+
+.footerCatalog{
+    padding-right: 20rem;
+}
+
+.footerGrades{
+    padding-right: 20rem;
+}
+.footerEnrollment{
+    padding-right: 20rem;
+}
+
+.footerAbout{
 }
 
