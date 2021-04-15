@@ -4,9 +4,52 @@ import { Area, Line, BarChart, Bar, Cell, XAxis, YAxis, CartesianGrid, Tooltip, 
 import { ComposedChart } from 'recharts';
 //import axios from 'axios';
 
-/*const CourseStuff = props => (
+//var MongoClient = require()
+
+
+// var aplus = props.detail.aplus
+// var a = props.detail.a
+// var aminus = props.detail.aminus
+// var bplus = props.detail.bplus
+// var b = props.detail.b
+// var bminus = props.detail.bminus
+// var cplus = props.detail.cplus
+// var c = props.detail.c
+// var cminus = props.detail.cminus
+// var dplus = props.detail.dplus
+// var d = props.detail.d
+// var dminus = props.detail.dminus
+// var f = props.detai.f
+// var I = props.detail.I
+// var P = props.detail.P
+// var NP = props.detail.NP
+// var Y = props.detail.Y
+
+// let grades = [aplus, a, aminus, bplus, b, bminus, cplus, c, cminus, dplus, d, dminus, fplus, f, I, P, NP, Y]
+
+// function genDist(grades) {
+//   let grade_name = ['A+', 'A', 'A-', 'B+', 'B', 'B-', 'C+', 'C', 'C-', 'D+', 'D', 'D-', 'F', 'I', 'P', 'NP', 'Y']
+//   var res = []
+//   for (var i = 0; i < grades.length; i++){
+//     var dict = {}
+//     dict['name'] = grade_name[i]
+//     dict['uv'] = grades[i]
+//     res.push(dict)
+//   }
+//   return res
+// }
+// for (var i = 0; i < res.length; i++){
+//   System.out.println(res[i])
+// }
+
+// create GradeInfoHelper object
+// pass in grade distribution
+//    e.g. [numA+, numA, numA-, ...]
+// call object.getDist() -> this will return array of dictionaries
+
+const CourseStuff = props => (
     <tr>
-      <td>{props.detail.name}</td> //adding the following information to the course
+      <td>{props.detail.name}</td> 
       <td>{props.detail.course_id}</td>
       <td>{props.detail.instructor}</td>
       <td>{props.detail.aplus}</td>
@@ -28,7 +71,8 @@ import { ComposedChart } from 'recharts';
       <td>{props.detail.Y}</td>
       <td>{props.detail.quarter}</td>
     </tr>
-  )*/
+  )
+
   const data = [
     {
       name: 'A+',
