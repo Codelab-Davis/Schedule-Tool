@@ -16,7 +16,8 @@ class ClassWebInfo:
         self.__genUnits()
         self.__genDesc()
         self.__genSeats()
-        self.__genMax_Enroll()        
+        self.__genMax_Enroll()   
+        self.__genFinal_Exam()     
 
     def __genGE_List(self):
         self.ge_list = []
@@ -68,7 +69,17 @@ class ClassWebInfo:
         if not match:
             return
 
-        self.max_enroll = match.group(1)                        
+        self.max_enroll = match.group(1)
+
+    def __genFinal_Exam(self):
+        self.final_exam = ""
+        text = html2text.html2text(self.r.text)
+        match = re.search(r"Final Exam:\*\*\s*(\S.*?)\s*---", text, re.S)
+        
+        if not match:
+            return
+
+        self.final_exam = match.group(1)                        
 
     def getGE_List(self):
         return self.ge_list
@@ -85,6 +96,9 @@ class ClassWebInfo:
     def getMax_Enroll(self):
         return self.max_enroll
 
+    def getFinal_Exam(self):
+        return self.final_exam
+
 if __name__ == "__main__":
     test = ClassWebInfo(44644, 202101)
     print(test.getGE_List())
@@ -92,5 +106,5 @@ if __name__ == "__main__":
     print(test.getDesc())
     print(test.getSeats())
     print(test.getMax_Enroll())
-
+    print(test.getFinal_Exam())
 
