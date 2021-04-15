@@ -22,40 +22,52 @@ export default class HomePage extends Component {
                         </div>
                         <div class="introarrow">
                                 <div class="whatwedo"> What we do </div>
-                            <a href="#mission">    
-                                <div class="arrow">
-                                </div>
-                            </a>
+                                <a href="#mission">    
+                                    <div class="arrow"></div>
+                                </a>
                         </div>
                     </div>
                 </div>
                 <div id="mission" class="mission">
-                    <h1 class="missionleft"><b>Our Mission</b></h1> 
-                    <div class="missionright">To help provide transparency and additional information about UC Davis courses in order to help students make better decisions during course registration.</div>
+                    <h1 id="missionleft" class="col-md-5"><b>Our Mission</b></h1> 
+                    <div id="missionright" class="col=md-7">To help provide transparency and additional information about UC Davis courses in order to help students make better decisions during course registration.</div>
                 </div>
-                <div class="featurestitle"><b>Features</b></div>
                 <div class="features">
-                    <div class="featuresleft">
-                    <a href="grades">
-                        <div class="gradecard">
-                            <div class="gradecardimage"></div>
-                            <div class="gradecardtitle"><b>Grade Distribution</b></div>
-                            <div class="gradecarddescription">We provide grade distributions for most UC Davis courses, along with the terms and professors that teach those courses.</div>
-                        </div>
-                    </a>
+                    <div class="featurestitle"><b>Features</b></div>
+                    <div id="featuresleft" class="col-md-6">
+                        <a href="grades"> 
+                            <div class="gradecard">
+                                <div class="gradecardimage"></div>
+                                <div class="gradecardtitle"><b></b></div>
+                                <div class="gradecarddescription"></div>
+                            </div>
+                        </a>
                     </div>
-                    <div class="featuresright">
-                        <a href="search" >
+                    <div id="featuresright" class="col-md-6">
+                        <a href="search">
                             <div class="enrollmentcard">
                                 <div class="enrollmentcardimage"></div>
-                                <div class="enrollmentcardtitle"><b>Enrollment Probability</b></div>
-                                <div class="enrollmentcarddescription">We provide information on how many students are enrolling for courses within each day of the scheduling period.</div>
+                                <div class="enrollmentcardtitle"><b></b></div>
+                                <div class="enrollmentcarddescription"></div>
                             </div>
                         </a>
                     </div>
                 </div>
                 <div class="footer">
-                    
+                    <div class="footertext">
+                        <a href="course">
+                            <span class="footerCatalog">Catalog</span>
+                        </a>
+                        <a href="grades">
+                            <span class="footerGrades">Grades</span>
+                        </a>
+                        <a href="list">
+                            <span class="footerEnrollment">Enrollment</span>
+                        </a>
+                        <a href="about">
+                            <span class="footerAbout">About</span>
+                        </a>
+                    </div>
                 </div>
             </div>
         )
