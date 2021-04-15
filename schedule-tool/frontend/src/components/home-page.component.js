@@ -36,10 +36,9 @@ export default class HomePage extends Component {
                     <div class="featurestitle"><b>Features</b></div>
                     <div id="featuresleft" class="col-md-6">
                         <a href="grades"> 
-                            <div class="gradecard">
-                                <div class="gradecardimage"></div>
-                                <div class="gradecardtitle"><b></b></div>
-                                <div class="gradecarddescription"></div>
+                            <div id="gradecard" class="card">
+                                <div id="gradecardtitle"class="container"><b>Grade Distribution</b></div>
+                                <div id="gradecarddescription"></div>
                             </div>
                         </a>
                     </div>

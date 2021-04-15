@@ -1,0 +1,41 @@
+.members{
+    background-color: #162857;
+    width: 100%;
+    height: 600px;
+}
+
+.memberstitle{
+    font-family: "ProximaNova", "Helvetica Neue";
+    font-size: 4.5rem;
+    color: #FFFFFF;
+    background-color: #162857;
+    width: 100%;
+    padding-left: 200px;
+    padding-top: 70px;
+}
+
+.footer{
+    width: 100%;
+    height: 125px;
+    font-family: "ProximaNova", "Helvetica Neue";
+    font-size: 2rem;
+    color: #162857;
+    text-align: center;
+    padding-top: 55px;
+}
+.footertext{
+}
+
+.footerCatalog{
+    padding-right: 20rem;
+}
+
+.footerGrades{
+    padding-right: 20rem;
+}
+.footerEnrollment{
+    padding-right: 20rem;
+}
+
+.footerAbout{
+}
