@@ -85,7 +85,7 @@ a#homebutton{
 .introarrow{
     position: absolute;
     width: 100%;
-    bottom: 80px;
+    bottom: 70px;
     text-align: center;
 }
 .whatwedo {
@@ -142,7 +142,7 @@ a#homebutton{
 .features{
     background-color: #162857;
     width: 100%;
-    height: 500px;
+    height: 600px;
 }
 
 .featurestitle
