@@ -54,6 +54,9 @@ export default class HomePage extends Component {
                         </a>
                     </div>
                 </div>
+                <div class="footer">
+                    
+                </div>
             </div>
         )
     }
