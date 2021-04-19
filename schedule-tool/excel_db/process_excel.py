@@ -125,4 +125,10 @@ class Course:
 
         course_info = course_web_info.ClassWebInfo(crn, term_code)
         self.ge_list = course_info.getGE_List()
+        self.units = course_info.getUnits()
+        self.seats = course_info.getSeats()
+        self.max_seats = course_info.getMax_Enroll()
+        self.description = course_info.getDesc()
+        self.final_exam = course_info.getFinal_Exam()
+        self.prereq = course_info.getPrereq()
 

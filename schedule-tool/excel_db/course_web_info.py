@@ -12,19 +12,21 @@ class ClassWebInfo:
             print("Error: could not access course info for crn:" + str(crn) + " and term: " + str(termcode))
             sys.exit()
         
+        self.text = html2text.html2text(self.r.text)
+
         self.__genGE_List()
         self.__genUnits()
         self.__genDesc()
         self.__genSeats()
         self.__genMax_Enroll()   
-        self.__genFinal_Exam()     
+        self.__genFinal_Exam()
+        self.__genPrereq()    
 
     def __genGE_List(self):
         self.ge_list = []
 
-        text = html2text.html2text(self.r.text)
-        # print(self.r.text)
-        match = re.search(r"\*\*New GE Credit.*?\*\*\s*(\S.*?)\s*\*\*", text, re.S)
+        print(self.text)
+        match = re.search(r"\*\*New GE Credit.*?\*\*\s*(\S.*?)\s*\*\*", self.text, re.S)
         if not match:
             return
 
@@ -36,8 +38,7 @@ class ClassWebInfo:
     
     def __genUnits(self):
         self.units = ""
-        text = html2text.html2text(self.r.text)
-        match = re.search(r"\*\*Units:\*\*\s(\S)", text, re.S)
+        match = re.search(r"\*\*Units:\*\*\s(\S)", self.text, re.S)
         if not match:
             return
 
@@ -45,8 +46,7 @@ class ClassWebInfo:
 
     def __genDesc(self):
         self.desc = ""
-        text = html2text.html2text(self.r.text)
-        match = re.search(r"\*\*Description:\*\*\s*(\S.*?)\s*---", text, re.S)
+        match = re.search(r"\*\*Description:\*\*\s*(\S.*?)\s*---", self.text, re.S)
         
         if not match:
             return
@@ -55,8 +55,7 @@ class ClassWebInfo:
     
     def __genSeats(self):
         self.seats = ""
-        text = html2text.html2text(self.r.text)
-        match = re.search(r"\*\*Available Seats:\*\*\s(\S)", text, re.S)
+        match = re.search(r"\*\*Available Seats:\*\*\s(\S)", self.text, re.S)
         if not match:
             return
 
@@ -64,8 +63,7 @@ class ClassWebInfo:
 
     def __genMax_Enroll(self):
         self.max_enroll = ""
-        text = html2text.html2text(self.r.text)
-        match = re.search(r"\*\*Maximum Enrollment:\*\*\s(\S*)", text, re.S)
+        match = re.search(r"\*\*Maximum Enrollment:\*\*\s(\S*)", self.text, re.S)
         if not match:
             return
 
@@ -73,13 +71,22 @@ class ClassWebInfo:
 
     def __genFinal_Exam(self):
         self.final_exam = ""
-        text = html2text.html2text(self.r.text)
-        match = re.search(r"Final Exam:\*\*\s*(\S.*?)\s*---", text, re.S)
+        match = re.search(r"Final Exam:\*\*\s+(\S.*?)\s*---", self.text, re.S)
         
         if not match:
             return
 
-        self.final_exam = match.group(1)                        
+        self.final_exam = match.group(1)
+
+    def __genPrereq(self):
+        self.prereq = ""
+        match = re.search(r"\*\*Prerequisite:\*\*\s*(\S.*?)\s*---", self.text, re.S)
+        
+        if not match:
+            return
+
+        self.prereq = match.group(1)
+                              
 
     def getGE_List(self):
         return self.ge_list
@@ -98,6 +105,9 @@ class ClassWebInfo:
 
     def getFinal_Exam(self):
         return self.final_exam
+    
+    def getPrereq(self):
+        return self.prereq
 
 if __name__ == "__main__":
     test = ClassWebInfo(44644, 202101)
@@ -107,4 +117,5 @@ if __name__ == "__main__":
     print(test.getSeats())
     print(test.getMax_Enroll())
     print(test.getFinal_Exam())
+    print(test.getPrereq())
 
