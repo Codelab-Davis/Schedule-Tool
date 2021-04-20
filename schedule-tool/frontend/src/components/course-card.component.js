@@ -4,12 +4,12 @@ import axios from 'axios';
 import{gql} from 'apollo-boost';
 import {graphql} from 'react-apollo';
 
-const getCourseQuery = gql`
-  {
-    courses{
+// const getCourseQuery = gql`
+//   {
+//     courses{
 
-    }
-  }`
+//     }
+//   }`
 
 const Detail = props => (
     <tr>
