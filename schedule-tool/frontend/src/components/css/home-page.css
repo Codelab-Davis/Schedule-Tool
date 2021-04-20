@@ -172,6 +172,10 @@ a#homebutton{
     padding-top: 40px;
 }
 
+#gradecardtitle{
+    font-family: "ProximaNova", "Helvetica Neue";
+    font-size: 2rem;
+}
 
 .footer{
     width: 100%;

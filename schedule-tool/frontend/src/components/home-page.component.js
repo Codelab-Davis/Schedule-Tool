@@ -40,7 +40,8 @@ export default class HomePage extends Component {
                                 <a href="grades"> 
                                     <div id="gradecard" class="card">
                                         <div class="card-body">
-                                            <div id="gradecardtitle" ><b>Grade Distribution</b></div>
+                                            <div id="gradecardimage"></div>
+                                            <div id="gradecardtitle"><b>Grade Distribution</b></div>
                                             <div id="gradecarddescription"></div>
                                         </div>
                                     </div>
