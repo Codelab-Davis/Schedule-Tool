@@ -8,6 +8,7 @@ import DetailsList from "./class-search.component";
 import EditCourse from "./edit-class.component";
 import CreateCourse from "./create-class.component";
 import AboutPage from "./about-page.component";
+import GraphClientTest from "./../graphClientTest";
 
 export default function RouterPage(props) {
     return (
@@ -19,6 +20,14 @@ export default function RouterPage(props) {
           <Route path="/edit" component={EditCourse} />
           <Route path="/create" component={CreateCourse} />
           <Route path="/about" component={AboutPage} />
+          <Route path="/test" component={GraphClientTest} />
         </Switch>
     )
 }
+
+// Example of a route based on a specific course: (uncomment it)
+{/* <Route
+    exact
+    path="/course/:courseId"
+    component={(props) => <SomeComponent {...props} />}
+/> */}

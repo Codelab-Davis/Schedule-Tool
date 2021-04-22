@@ -2,7 +2,10 @@ import React, { PureComponent } from 'react';
 //import { Link } from 'react-router-dom';
 import { Area, Line, BarChart, Bar, Cell, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import { ComposedChart } from 'recharts';
+import { gql } from 'apollo-boost';
+import { graphql } from 'react-apollo';
 //import axios from 'axios';
+
 
 //var MongoClient = require()
 
