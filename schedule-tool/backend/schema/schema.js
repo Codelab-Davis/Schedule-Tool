@@ -60,7 +60,7 @@ const RootQuery = new GraphQLObjectType({
         courses: {
             type: new graphql.GraphQLList(CourseType),
             resolve(parent, args){
-                return Detail.find({"course_id": 'ECS32'});
+                return Detail.find({"course_id": 'AAS178'});
             }
         }
     }
