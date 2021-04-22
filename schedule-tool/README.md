@@ -1,7 +1,9 @@
 # AggieExplorer
 
 Development Team: Minh-Tu Nguyen, Salma Hassen, Elizabeth Hopkins, John Jung, Prabhdeep Kainth
+
 Design Team: Ke Lin, Kiran Poonia
+
 Advisors: James Junaidi, Gennifer Hom, Omid Mogasemi
 Built during the Winter/Spring 2021 cohort of CodeLab
 
