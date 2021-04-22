@@ -4,28 +4,28 @@ import { graphql } from 'react-apollo';
 
 
 
-// var name = "ECS120"
+var name = "ECS122A"
 
-// const getCoursesQuery = gql`
-//     query ($names: String!) {  
-//         course_id(id: $names) {
-//             name
-//             instructor
-//         }
-//     }
-// `;
-
-const params = { name: "ECS120"}
-
-// `www.google.com/${name}`
 const getCoursesQuery = gql`
-    {         
-        course_id(id: "ECS120") {
+    query ($name: String!) {  
+        course_id(id: $name) {
             name
             instructor
         }
     }
 `;
+
+// const params = { name: "ECS120"}
+
+// // `www.google.com/${name}`
+// const getCoursesQuery = gql`
+//     {         
+//         course_id(id: $name) {
+//             name
+//             instructor
+//         }
+//     }
+// `;
 
 // const getCoursesQuery = gql`
 // {
@@ -49,4 +49,12 @@ class GraphClientTest extends Component {
     }
 }
 
-export default graphql(getCoursesQuery)(GraphClientTest);
+export default graphql(getCoursesQuery, {
+    options: (props) => {
+        return {
+            variables: {
+                name: name
+            }
+        }
+    }
+})(GraphClientTest);
