@@ -5,7 +5,7 @@ import { graphql } from 'react-apollo';
 
 const getCoursesQuery = gql`
 {
-  courses {
+  course_id(id: "AAS178") {
     name
     instructor
   }
@@ -14,13 +14,12 @@ const getCoursesQuery = gql`
 
 class GraphClientTest extends Component {
     render() {
-        console.log(this.props);
+        console.log(this.props.data.courses);
         console.log("hello there");
         return (
             <div>
-                <ul id="list">
-                <li>Name</li>
-                </ul>
+                hi
+            
             </div>
         )
     }
