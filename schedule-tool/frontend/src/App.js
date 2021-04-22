@@ -32,7 +32,6 @@ function App() {
           <Route path="/edit" component={EditCourse} />
           <Route path="/create" component={CreateCourse} />
           <Route path="/about" component={AboutPage} />
-
       </Router>
     </ApolloProvider>
   );
