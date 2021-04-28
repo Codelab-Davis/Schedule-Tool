@@ -4,7 +4,20 @@ const router = require('express').Router();
 let Detail = require('../models/detail.model');
 
 router.route('/').get((req, res) => {
-  Detail.find()
+  var filter = {};
+  var projections = null;
+  var options = {};
+
+  if("start" in req.query && "limit" in req.query){
+    options.skip = parseInt(req.query.start);
+    options.limit = parseInt(req.query.limit);
+  }
+
+  if(("filter" in req.query) && (req.query.filter.length > 0)) {
+    filter.name = {"$regex": req.query.filter, "$options": "i"};
+  }
+
+  Detail.find(filter, projections, options)
     .then(detail => res.json(detail))
     .catch(err => res.status(400).json('Error: ' + err));
 });
