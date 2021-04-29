@@ -30,7 +30,7 @@ export default class HomePage extends Component {
                 </div>
                 <div id="mission" class="mission">
                     <h1 id="missionleft" class="col-md-5"><b>Our Mission</b></h1> 
-                    <div id="missionright" class="col=md-7">To help provide transparency and additional information about UC Davis courses in order to help students make better decisions during course registration.</div>
+                    <div id="missionright" class="col-md-7">To help provide transparency and additional information about UC Davis courses in order to help students make better decisions during course registration.</div>
                 </div>
                 <div class="features">
                     <div class="featurestitle"><b>Features</b></div>
