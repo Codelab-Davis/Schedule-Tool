@@ -1,0 +1,72 @@
+.card{
+    font-family: "ProximaNova", "Helvetica Neue";
+    height: auto;
+    width: auto;
+    border: none;
+    margin-left: 8%;
+    padding-bottom: 10px;
+}
+.left_side{
+    width: 100%;
+    height: auto;
+}
+.left_side_card{
+    
+}
+
+.left-content{
+    overflow: auto;
+}
+
+.right-content{
+    height: 100%;
+    border-left: 1px solid #BEBEBE; 
+}
+
+.right-text{
+    font-family: "ProximaNova", "Helvetica Neue";
+    color: #5A5A5A;
+    font-size: 1.4rem;
+    text-align: center;
+    margin-top: 20%;
+     
+}
+
+.line-1{
+    margin-bottom: 3px;
+}
+
+.line-2{
+    margin-top: -5px;
+}
+
+#catalog_cow{
+    height: 125px;  
+    width: auto; 
+}
+
+.footer{
+    width: 100%;
+    height: 125px;
+    font-family: "ProximaNova", "Helvetica Neue";
+    font-size: 2rem;
+    color: #162857;
+    text-align: center;
+    padding-top: 55px;
+}
+.footertext{
+    color: #162857;
+}
+
+.footerCatalog{
+    padding-right: 20rem;
+}
+
+.footerGrades{
+    padding-right: 20rem;
+}
+.footerEnrollment{
+    padding-right: 20rem;
+}
+
+

@@ -3,13 +3,9 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 import{gql} from 'apollo-boost';
 import {graphql} from 'react-apollo';
-
-// const getCourseQuery = gql`
-//   {
-//     courses{
-
-//     }
-//   }`
+import './css/course-cards.css'; 
+import catalog_cow from "./images/catalog_cow.png";
+import cow_emoji from "./images/cow_emoji.png";
 
 const Detail = props => (
     <tr>
@@ -21,16 +17,6 @@ const Detail = props => (
 var items;
 
 export default class CourseCard extends Component{
-    // constructor(props) {
-    //     super(props);
-
-    //     this.state = {
-    //         name: '',
-    //         course_id: '',
-    //     }
-
-    // }
-
     constructor(props) {
         super(props);
     
@@ -69,36 +55,78 @@ export default class CourseCard extends Component{
     }
     
     // creating unordered list and using map for card component
+    // render(){
+    //     return(
+    //         <ul class="list-unstyled"> 
+    //             {this.state.detail.map(currentdetail => {
+    //             return(
+    //             <li>
+    //             <div class="row">
+    //                 <div class="col-xl-3 col-sm-6 col-12">
+    //                     <div class="card">
+    //                         <div class="card-content">
+    //                             <div class="card-body">
+    //                                 <div class="media d-flex">
+    //                                     <div class="media-body text-left">
+    //                                         <h3 class="primary">{currentdetail.name}</h3>
+    //                                         <span>{currentdetail.course_id}</span>
+    //                                         <a href="courseinfo" class="stretched-link"></a>
+    //                                     </div>
+    //                                 </div>
+    //                             </div>
+    //                         </div>
+    //                     </div>
+    //                 </div>
+    //             </div>
+    //             </li>
+    //             );
+    //             })} 
+    //         </ul>  <img src={cow_emoji} id="cow_emoji"/>
+    //       )
+    // }
+    
     render(){
-        return(
-            <ul class="list-unstyled"> 
-                {this.state.detail.map(currentdetail => {
-                return(
-                <li>
+          return(
+            <html>
+              <body>
+              <div class="page">
                 <div class="row">
-                    <div class="col-xl-3 col-sm-6 col-12">
-                        <div class="card">
-                            <div class="card-content">
-                                <div class="card-body">
-                                    <div class="media d-flex">
-                                        <div class="media-body text-left">
-                                            <h3 class="primary">{currentdetail.name}</h3>
-                                            <span>{currentdetail.course_id}</span>
-                                            <a href="courseinfo" class="stretched-link"></a>
-                                        </div>
-                                        {/* <div class="align-self-center">
-                                            <i class="icon-book-open primary font-large-2 float-right"></i>
-                                        </div> */}
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+               
+                <div id = "splitleft" class="col-md-4"> 
+                  <li>
+                  <div class="card">
+                              <div class="card-body">
+                                <div class="media d-flex">
+                                  <div class="align-self-center">
+                                              <h3 class="primary">Course Name</h3>
+                                              <p>CourseID</p>
+                                              <p> Enrollement Here </p>
+                                              <div class= "left_side">
+                                              <p align= "right"> Unit Count</p> </div>
+                                              <a href="courseinfo" class="stretched-link"></a>
+                                          </div>
+                                      </div>
+                                  </div>
+                              </div>
+                  </li>
                 </div>
-                </li>
-                );
-                })} 
-            </ul>
-          )
-    }
+                <hr/>
+          
+              
+              <div id="splitright" class="col-sm-8">
+                <div class="right-content">
+                <div class="right-text">
+                    <div class="catalog_cow"><img src={catalog_cow} id="catalog_cow"/> </div>
+                    <p class="line-1">Go ahead and search</p> 
+                    <p class="line-2">or filter for classes! </p>
+                </div>
+                </div>
+              </div>
+              </div>
+              </div>
+              
+              </body>
+            </html>
+            )
+      }
 }
