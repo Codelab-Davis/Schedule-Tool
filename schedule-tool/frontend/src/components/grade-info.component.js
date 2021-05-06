@@ -1,178 +1,429 @@
-import React, { PureComponent } from 'react';
-//import { Link } from 'react-router-dom';
-import { Area, Line, BarChart, Bar, Cell, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
-import { ComposedChart } from 'recharts';
-import { gql } from 'apollo-boost';
-import { graphql } from 'react-apollo';
-//import axios from 'axios';
+import React, { Component, PureComponent } from "react";
+import Select, { createFilter } from "react-select";
+import axios from "axios";
+import WindowedSelect from "react-windowed-select";
+import {
+  Area,
+  Line,
+  BarChart,
+  Bar,
+  Cell,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  Legend,
+  ResponsiveContainer,
+} from "recharts";
+import { ComposedChart } from "recharts";
+import { gql } from "apollo-boost";
+import { graphql } from "react-apollo";
 
+// Main component to export from thid module.
+// This is composed of 2 parts
+// - List of course, quarter and instructor selection and add selected class
+// - Chart area to display grade information of selected class
 
-//var MongoClient = require()
+// Course drop down selection component
+// Selects course, quatrter and instructor to identify unique course or set of courses to average the grades
+export default class GradePage extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {};
 
+    // course detail information from backend server that fetch from mongo DB
+    this.state.courseDetails = [];
+    this.state.fullCourseDetails = [];
 
-// var aplus = props.detail.aplus
-// var a = props.detail.a
-// var aminus = props.detail.aminus
-// var bplus = props.detail.bplus
-// var b = props.detail.b
-// var bminus = props.detail.bminus
-// var cplus = props.detail.cplus
-// var c = props.detail.c
-// var cminus = props.detail.cminus
-// var dplus = props.detail.dplus
-// var d = props.detail.d
-// var dminus = props.detail.dminus
-// var f = props.detai.f
-// var I = props.detail.I
-// var P = props.detail.P
-// var NP = props.detail.NP
-// var Y = props.detail.Y
+    this.gradeIds = [
+      "aplus",
+      "a",
+      "aminus",
+      "bplus",
+      "b",
+      "bminus",
+      "cplus",
+      "c",
+      "cminus",
+      "dplus",
+      "d",
+      "dminus",
+      "f",
+      "Y",
+      "P",
+      "NP",
+      "I",
+    ];
 
-// let grades = [aplus, a, aminus, bplus, b, bminus, cplus, c, cminus, dplus, d, dminus, fplus, f, I, P, NP, Y]
+    this.gradeNames = [];
+    this.gradeIds.forEach((grade) =>
+      this.gradeNames.push(
+        grade.replace("plus", "+").replace("minus", "-").toUpperCase()
+      )
+    );
 
-// function genDist(grades) {
-//   let grade_name = ['A+', 'A', 'A-', 'B+', 'B', 'B-', 'C+', 'C', 'C-', 'D+', 'D', 'D-', 'F', 'I', 'P', 'NP', 'Y']
-//   var res = []
-//   for (var i = 0; i < grades.length; i++){
-//     var dict = {}
-//     dict['name'] = grade_name[i]
-//     dict['uv'] = grades[i]
-//     res.push(dict)
-//   }
-//   return res
-// }
-// for (var i = 0; i < res.length; i++){
-//   System.out.println(res[i])
-// }
+    this.state.coursesGradesData = [];
+    this.state.formattedData = [];
+    this.state.chartLegend = [];
 
-// create GradeInfoHelper object
-// pass in grade distribution
-//    e.g. [numA+, numA, numA-, ...]
-// call object.getDist() -> this will return array of dictionaries
+    this.gradeNames.forEach((name) => {
+      this.state.formattedData.push({ name: name });
+    });
 
-const CourseStuff = props => (
-    <tr>
-      <td>{props.detail.name}</td> 
-      <td>{props.detail.course_id}</td>
-      <td>{props.detail.instructor}</td>
-      <td>{props.detail.aplus}</td>
-      <td>{props.detail.a}</td>
-      <td>{props.detail.aminus}</td>
-      <td>{props.detail.bplus}</td>
-      <td>{props.detail.b}</td>
-      <td>{props.detail.bminus}</td>
-      <td>{props.detail.cplus}</td>
-      <td>{props.detail.c}</td>
-      <td>{props.detail.cminus}</td>
-      <td>{props.detail.dplus}</td>
-      <td>{props.detail.d}</td>
-      <td>{props.detail.dminus}</td>
-      <td>{props.detail.fplus}</td>
-      <td>{props.detail.I}</td>
-      <td>{props.detail.P}</td>
-      <td>{props.detail.NP}</td>
-      <td>{props.detail.Y}</td>
-      <td>{props.detail.quarter}</td>
-    </tr>
-  )
+    this.MAX_COURSE_DETAIL = 4;
+    this.COURSE_DETAIL_COLOR = ["#FF8189", "#00B2E3", "#FFDA6D", "#74EA37"];
 
-  const data = [
-    {
-      name: 'A+',
-      uv: 8,
-    },
-    {
-      name: 'B',
-      uv: 6,
-    },
-    {
-      name: 'C',
-      uv: 12,
-    },
-    {
-      name: 'D',
-      uv: 2,
-    },
-    {
-      name: 'D-',
-      uv: 2,
-    },
-    {
-      name: 'F',
-      uv: 1,
-    },
-    {
-      name: 'P',
-      uv: 15,
-    },
-  ];
+    // selected course, quarter and instructor information
+    this.state.selectedCourse = null;
+    this.state.selectedQuarter = null;
+    this.state.selectedInstructor = null;
 
-// var details; // contains a course's set of data:
+    this.state.enableAddCourse = false;
 
-// const data = {
-//   {
-//     name: 'A+',
-//     uv: details.aplus,
-//   }
-// };
+    this.state.courseOptions = [];
+    this.state.quarterOptions = [];
+    this.state.instructorOptions = [];
 
-  
-/*export default class GradeInfo extends Component{
-    constructor(props) {
-        super(props);
+    this.handleCourseChangeRef = this.handleCourseChange.bind(this);
+    this.handleQuarterChangeRef = this.handleQuarterChange.bind(this);
+    this.handleInstructureChangeRef = this.handleInstructureChange.bind(this);
+    this.addCourseRef = this.addCourse.bind(this);
 
-        this.state = {
-            name: 'Computer Architecture',
-            course_id: 'ECS150',
-            instructor: '',
-            aplus: 20,
-            a: 10,
-            aminus: 19,
-            bplus: 12,
-            b: 20,
-            bminus: 10,
-            cplus: 6,
-            c: 3,
-            cminus: 1,
-            dplus: 2,
-            d: 4,
-            dminus: 0,
-            f: 1,
-            I: 1,
-            P: 2,
-            NP: 2,
-            Y: 0,
-            quarter: 'FQ2020'
+    this.courseListRef = React.createRef();
+    this.quarterListRef = React.createRef();
+    this.instructorListRef = React.createRef();
+  }
+
+  componentDidMount() {
+    // get course information from server backend. This is onetime action when webpage is loaded or reloaded
+    this.getCourseData();
+  }
+
+  // call backend ot fetch the course information
+  async getCourseData() {
+    // create query to pass with REST request
+    var reqParams = new URLSearchParams({});
+    ["course_id", "name"].forEach((groupItem) => {
+      reqParams.append("group[]", groupItem);
+    });
+    ["quarter", "instructor"].forEach((groupItem) => {
+      reqParams.append("detail[]", groupItem);
+    });
+
+    // Call server to get the information
+    return axios
+      .get("http://localhost:5000/detail", { params: reqParams })
+      .then((response) => {
+        // Use setState function and that will trigger re-render
+        this.state.courseDetails = response.data;
+        this.setState({ loadingInfo: false });
+        // this function populates the course list
+        this.updateCourseList();
+        //console.log(this.state.courseDetails);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+
+  // populate course list from course detail information
+  updateCourseList() {
+    var courseList = [];
+    this.state.courseDetails.forEach((course) => {
+      courseList.push({
+        value: course.course_id,
+        label: course.course_id + "-" + course.name,
+      });
+    });
+
+    // this will trigger rerender and course list will show up
+    this.setState({ courseOptions: courseList });
+  }
+
+  async getFullCourseDetail() {
+    // create search parameter for course detail info
+    var reqParams = new URLSearchParams({});
+
+    // match ID, quarter and instructor. Since groupby and match is identical, expect it to give array size 1 with
+    // all matches courses
+    [
+      "course_id",
+      this.state.selectedCourse,
+      "quarter",
+      this.state.selectedQuarter,
+      "instructor",
+      this.state.selectedInstructor,
+    ].forEach((matchItem) => {
+      reqParams.append("match[]", matchItem);
+    });
+
+    // get all courses for this ID in given quarter conducted by same instructor
+    ["course_id", "quarter", "instructor"].forEach((groupItem) => {
+      reqParams.append("group[]", groupItem);
+    });
+    // request full detail of grouped and matched courses
+
+    reqParams.append("fulldetail", true);
+
+    //console.log("Just before axios" + this.courseDisplayLimit + " " + this.courseIdxStart);
+    // send request to server
+
+    return axios
+      .get("http://localhost:5000/detail", { params: reqParams })
+      .then((response) => {
+        var fullCourse = [];
+        response.data[0].courses.forEach((details) => {
+          fullCourse.push(details);
+        });
+
+        var courseAccumulation = { info: {}, grades: {}, percentages: {} };
+        courseAccumulation["info"]["courseID"] = fullCourse[0].course_id;
+        courseAccumulation["info"]["name"] = fullCourse[0].name;
+        courseAccumulation["info"]["quarter"] = fullCourse[0].quarter;
+        courseAccumulation["info"]["instructor"] = fullCourse[0].instructor;
+
+        var totalGrades = 0;
+        for (
+          var indexGrade = 0;
+          indexGrade < this.gradeIds.length;
+          indexGrade++
+        ) {
+          var gradeId = this.gradeIds[indexGrade];
+          var gradeName = this.gradeNames[indexGrade];
+          courseAccumulation["grades"][gradeName] = 0;
+          fullCourse.forEach((course) => {
+            courseAccumulation["grades"][gradeName] += course[gradeId];
+            totalGrades += course[gradeId];
+          });
         }
-    }*/
 
-    export default class Example extends PureComponent {
-        static demoUrl = 'https://codesandbox.io/s/tiny-bar-chart-35meb';
-      
-        render() {
-          return (
-            <div style={{ width: 500, height: 300 }}>
-				<ResponsiveContainer>
-					<ComposedChart
-						width={500}
-						height={400}
-						data={data}
-						margin={{
-							top: 20, right: 20, bottom: 20, left: 20,
-						}}
-					>
-						<CartesianGrid stroke="#f5f5f5" />
-						<XAxis dataKey="name" />
-						<YAxis />
-						<Tooltip />
-						<Legend />
-						{/* <Area type="monotone" dataKey="amt" fill="#8884d8" stroke="#8884d8" /> */}
-						  <Bar dataKey="uv" barSize={20} fill="#413ea0" />
-						{/* <Line type="monotone" dataKey="uv" stroke="#ff7300" /> */}
-					</ComposedChart>
-				</ResponsiveContainer>
-			</div>
-          );
+        for (
+          var indexGrade = 0;
+          indexGrade < this.gradeNames.length;
+          indexGrade++
+        ) {
+          var gradeName = this.gradeNames[indexGrade];
+          courseAccumulation["percentages"][gradeName] =
+            (courseAccumulation["grades"][gradeName] * 100) / totalGrades;
         }
-      }
-      
+
+        if(this.state.coursesGradesData.length < this.MAX_COURSE_DETAIL) {
+          this.state.coursesGradesData.push(courseAccumulation);
+          this.formatGrades();  
+        } else {
+          console.log("too many classes added already");
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+
+  formatGrades() {
+    var temp = [];
+    var tempLegend = [];
+
+    this.state.formattedData.forEach((gradeData) => {
+      var name = gradeData["name"];
+      var gradeMap = { name: name };
+      this.state.coursesGradesData.forEach((course) => {
+        var id = course.info.courseID;
+        var grade = course.percentages[name];
+        gradeMap[id] = grade;
+      });
+
+      temp.push(gradeMap);
+    });
+    
+    var colorIndex = 0;
+    this.state.coursesGradesData.forEach((course) => {
+      var name = course.info.courseID;
+      tempLegend.push(<Bar dataKey={name} fill={this.COURSE_DETAIL_COLOR[colorIndex]} />);
+      colorIndex++;
+    });
+
+    this.setState({ formattedData: temp, chartLegend: tempLegend });
+  }
+
+  addCourse(event) {
+    // console.log(this.state.selectedCourse);
+    // console.log(this.state.selectedQuarter);
+    // console.log(this.state.selectedInstructor);
+
+    this.getFullCourseDetail();
+
+    this.setState({
+      enableAddCourse: false,
+      quarterOptions: [],
+      instructorOptions: [],
+    });
+    this.courseListRef.current.setState({ value: null });
+    this.quarterListRef.current.setState({ value: null });
+    this.instructorListRef.current.setState({ value: null });
+  }
+
+  handleInstructureChange(event) {
+    this.state.selectedInstructor = event.value;
+    this.setState({ enableAddCourse: true });
+  }
+
+  handleQuarterChange(event) {
+    this.state.selectedQuarter = event.value;
+    this.state.selectedInstructor = null;
+
+    var filteredIDInfo = this.state.courseDetails.filter(
+      (course) => course.course_id == this.state.selectedCourse
+    );
+
+    // console.log(filteredIDInfo);
+
+    var filteredQuarterInfo = filteredIDInfo[0].courses.filter(
+      (course) => course.quarter == this.state.selectedQuarter
+    );
+    // console.log(filteredQuarterInfo);
+
+    var instructorSet = new Set();
+    filteredQuarterInfo.forEach((quarter) => {
+      instructorSet.add(quarter.instructor);
+    });
+
+    var instructorList = [];
+    instructorSet.forEach((instructor) => {
+      instructorList.push({
+        value: instructor,
+        label: instructor,
+      });
+    });
+
+    this.instructorListRef.current.setState({ value: null });
+    this.setState({
+      instructorOptions: instructorList,
+      enableAddCourse: false,
+    });
+  }
+
+  // called when course is selected - populate qaurter list here
+  handleCourseChange(event) {
+    // get the selected course and filter course detail info for desired course ID
+    this.state.selectedCourse = event.value;
+    this.state.selectedQuarter = null;
+    this.state.selectedInstructor = null;
+
+    this.state.instructorOptions = [];
+    var filteredInfo = this.state.courseDetails.filter(
+      (course) => course.course_id == this.state.selectedCourse
+    );
+
+    var quarterSet = new Set();
+    filteredInfo[0].courses.forEach((course) => {
+      quarterSet.add(course.quarter);
+    });
+
+    var quarterList = [];
+    quarterSet.forEach((quarter) => {
+      quarterList.push({
+        value: quarter,
+        label: quarter,
+      });
+    });
+
+    this.setState({ quarterOptions: quarterList, enableAddCourse: false });
+    this.quarterListRef.current.setState({ value: null });
+    this.instructorListRef.current.setState({ value: null });
+
+    // console.log(filteredInfo);
+    // console.log(quarterList);
+  }
+
+  render(props) {
+    // console.log(this.showCourseTable);
+
+    // console.log(this.state.selectedCourse);
+
+    // console.log(this.state.formattedData);
+    // console.log(this.state.chartLegend);
+
+    // var borderStyle = "1px solid black";
+    var borderStyle = "none";
+
+    return (
+      <div>
+        <div
+          className="row"
+          style={{
+            border: borderStyle,
+            marginTop: "5rem",
+            marginBottom: "10rem",
+          }}
+        >
+          <div className="col-1" style={{ border: borderStyle }} />
+          <div className="col-3" style={{ border: borderStyle }}>
+            <WindowedSelect
+              ref={this.courseListRef}
+              onChange={this.handleCourseChangeRef}
+              options={this.state.courseOptions}
+              placeholder="Search for a class"
+            />
+          </div>
+          <div className="col-3" style={{ border: borderStyle }}>
+            <WindowedSelect
+              ref={this.quarterListRef}
+              placeholder="Quarter"
+              isDisabled={this.state.quarterOptions.length == 0}
+              options={this.state.quarterOptions}
+              onChange={this.handleQuarterChangeRef}
+            />
+          </div>
+          <div className="col-3" style={{ border: borderStyle }}>
+            <WindowedSelect
+              ref={this.instructorListRef}
+              placeholder="Instructor"
+              isDisabled={this.state.instructorOptions.length == 0}
+              options={this.state.instructorOptions}
+              onChange={this.handleInstructureChangeRef}
+            />
+          </div>
+          <div className="col-1" style={{ border: borderStyle }}>
+            <button
+              type="button"
+              className="btn btn-primary"
+              disabled={!this.state.enableAddCourse}
+              onClick={this.addCourseRef}
+            >
+              Add Class
+            </button>
+          </div>
+          <div className="col-1" style={{ border: borderStyle }} />
+        </div>
+        <div className="row" style={{ border: borderStyle }}>
+          <div
+            className="row border"
+            style={{
+              position: "fixed",
+              bottom: "10%",
+              right: "20%",
+              width: "70%",
+              height: "60%",
+            }}
+          >
+            <ResponsiveContainer>
+              <BarChart
+                width={500}
+                height={400}
+                data={this.state.formattedData}
+                margin={{ top: 20, right: 20, bottom: 20, left: 20 }}
+              >
+                <CartesianGrid stroke="#f5f5f5" />
+                <XAxis dataKey="name" />
+                <YAxis />
+                <Tooltip />
+                <Legend />
+                {this.state.chartLegend}
+              </BarChart>
+            </ResponsiveContainer>
+          </div>
+        </div>        
+      </div>
+    );
+  }
+}

@@ -5,8 +5,9 @@ let Detail = require('../models/detail.model');
 
 router.route('/').get((req, res) => {
   var filter = {};
-  var projections = null;
+  var projections = "null";
   var options = {};
+  var aggregateArray = [];
 
   if("start" in req.query && "limit" in req.query){
     options.skip = parseInt(req.query.start);
@@ -17,9 +18,68 @@ router.route('/').get((req, res) => {
     filter.name = {"$regex": req.query.filter, "$options": "i"};
   }
 
-  Detail.find(filter, projections, options)
-    .then(detail => res.json(detail))
-    .catch(err => res.status(400).json('Error: ' + err));
+  // Detail.find(filter, projections, options)
+  //   .then(detail => res.json(detail))
+  //   .catch(err => res.status(400).json('Error: ' + err));
+  var filter = {};
+  if ('match' in req.query) {
+    // create list of items to match
+    filterList = [];
+    for (var index = 0; index < req.query.match.length; index = index + 2) {
+      var matchItem = req.query.match[index];
+      var value = req.query.match[index + 1];
+      var filterItem = {};
+      filterItem[matchItem] = value;
+      filterList.push(filterItem);
+    }
+    // create filter aggregation pipeline
+    filter = {$and: filterList};
+  }
+
+  if('group' in req.query) {
+    var groupIDmap = {};
+    var groupAddons = {};
+    var project = {"_id" : 0};
+    var sort = {};
+
+    req.query.group.forEach(item => {groupIDmap[item] = ("$" + item)});
+    req.query.group.forEach(item => {project[item] = ("$_id." + item)});
+    req.query.group.forEach(item => {sort[item] = 1});
+
+    if('detail' in req.query) {
+      req.query.detail.forEach(item => {
+        // groupAddons[item] = ("$$ROOT." + item);
+        groupAddons[item] = ("$" + item);
+      });
+
+      project["courses"] = "$courses";
+    } else if('fulldetail' in req.query) {
+      groupAddons = "$$ROOT";
+      project["courses"] = "$courses";
+    }
+
+    // console.log(groupIDmap);
+    // console.log(groupAddons);
+    // console.log(project);
+
+    aggregateArray.push({$match: filter});
+    aggregateArray.push({$group: {"_id" : groupIDmap, "courses" : {"$push" : groupAddons}}});
+    aggregateArray.push({$project: project});
+    aggregateArray.push({$sort: sort});
+  }
+
+  // console.log(JSON.stringify(aggregateArray, null, 2));
+  Detail.aggregate(aggregateArray).exec()
+    .then(detail => {
+      //console.log(JSON.stringify(detail, null, 2));
+      res.json(detail);
+    })
+    .catch(err => {
+      console.log(err);
+      res.status(400).json('Error: ' + err);
+  });
+
+
 });
 
 router.route('/add').post((req, res) => { // adding courses and respective info
