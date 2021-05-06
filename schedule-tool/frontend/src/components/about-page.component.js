@@ -11,6 +11,7 @@ import salmaimage from "./TeamImages/salma.png";
 import elizabethimage from "./TeamImages/elizabeth.jpeg";
 import prabhdeepimage from "./TeamImages/prabhdeep.jpg";
 import johnimage from "./TeamImages/john.jpg";
+import groupimage from "./TeamImages/group.png";
 
 
 
@@ -19,9 +20,15 @@ export default class AboutPage extends Component {
         return(
             <div>
                 <div class="row" id="AboutOurTeam">
-                    <div id="aboutimage" class="col-md-7"></div> 
+                    <div id="aboutimage" class="col-md-7">
+                        <img src={groupimage} id="group"/>    
+                    </div> 
                     <div id="aboutdescription" class="col-md-5">
-                        <h1 id="abouttitle"><b>About Our Team</b></h1>
+                        <div id="aboutinfo">
+                            <h1 id="abouttitle"><b>About Our Team</b></h1>
+                            <div id="aboutdescrip">
+The UC Davis Waitlist Tool was built by a small team of developers and designers during the winter/spring 2021 cohort of CodeLab! Our goal was to create a web platform to help students at UC Davis make better decisions on their course choices by providing extra information. Visit our CodeLab site here to learn more about our organization and the different projects we do!</div>
+                        </div>
                     </div>
                 </div>
                 <div class="members">

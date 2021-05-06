@@ -49,10 +49,10 @@ export default class HomePage extends Component {
                                 </a>
                             </div>
                             <div class="col-md-1 justify-content-center"></div>
-                            <div id="featuresright" class="col-md-6 justify-content-center">
+                            <div id="featuresright" class="col-md-5 justify-content-center">
                                 <a href="search">
                                     <div id="enrollmentcard" class="card">
-                                        <div id="enrollmentcardimage"><img src={enrollmentimage}/></div>
+                                        <div id="enrollmentcardimage"><img src={enrollmentimage} id="enrollmentimage"/></div>
                                         <div id="enrollmentcardtitle"><b>Enrollment Probability</b></div>
                                         <div id="enrollmentcarddescription">We provide information on how many students are enrolling for courses within each day of the scheduling period.</div>
                                     </div>

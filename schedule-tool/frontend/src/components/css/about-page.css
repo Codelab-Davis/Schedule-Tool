@@ -3,18 +3,35 @@
     height: 650px;
 }
 
+#group{
+    width: 600px;
+    height: auto;
+}
+
+#aboutimage{
+    text-align: center;
+    top: 18%;
+    margin-left: -20px;
+}
+
 #aboutdescription{
+    top: 27%;
+    margin-left: -45px;
+}
+
+#abouttitle{
     font-family: "ProximaNova", "Helvetica Neue";
-    font-size: 2.1rem;
+    font-size: 3.5rem;
     color: #162857;
-    float: right;
-    width: 60%;
-    position: relative;
-    top: 50%;
-    transform: translateY(-50%);
-    line-height: 3.4rem;
-    padding-top: 3rem;
-    padding-right: 190px;
+}
+
+#aboutdescrip{
+    font-family: "ProximaNova", "Helvetica Neue";
+    font-size: 1.8rem;
+    color: #162857;
+    padding-top: 20px;
+    padding-right: 10px;
+    line-height: 3.3rem;
 }
 
 .members{
@@ -31,6 +48,7 @@
     width: 100%;
     padding-left: 170px;
     padding-top: 70px;
+    padding-bottom: 20px;
 }
 
 #james{
