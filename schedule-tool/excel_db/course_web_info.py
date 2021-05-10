@@ -11,7 +11,7 @@ class ClassWebInfo:
         if(self.r.status_code != 200):
             print("Error: could not access course info for crn:" + str(crn) + " and term: " + str(termcode))
             sys.exit()
-        
+        self.crn = crn
         self.text = html2text.html2text(self.r.text)
 
         self.__genGE_List()
@@ -21,11 +21,13 @@ class ClassWebInfo:
         self.__genMax_Enroll()   
         self.__genFinal_Exam()
         self.__genPrereq()    
+        self.__genCourseName()
+        self.__genInstructor()
 
     def __genGE_List(self):
         self.ge_list = []
 
-        print(self.text)
+        # print(self.text)
         match = re.search(r"\*\*New GE Credit.*?\*\*\s*(\S.*?)\s*\*\*", self.text, re.S)
         if not match:
             return
@@ -55,19 +57,19 @@ class ClassWebInfo:
     
     def __genSeats(self):
         self.seats = ""
-        match = re.search(r"\*\*Available Seats:\*\*\s(\S)", self.text, re.S)
+        match = re.search(r"\*\*Available Seats:\*\*\s*(\d+)", self.text, re.S)
         if not match:
             return
 
-        self.seats = match.group(1)                        
+        self.seats = int(match.group(1))                   
 
     def __genMax_Enroll(self):
         self.max_enroll = ""
-        match = re.search(r"\*\*Maximum Enrollment:\*\*\s(\S*)", self.text, re.S)
+        match = re.search(r"\*\*Maximum Enrollment:\*\*\s*(\d+)", self.text, re.S)
         if not match:
             return
 
-        self.max_enroll = match.group(1)
+        self.max_enroll = int(match.group(1))
 
     def __genFinal_Exam(self):
         self.final_exam = ""
@@ -87,6 +89,21 @@ class ClassWebInfo:
 
         self.prereq = match.group(1)
                               
+    def __genCourseName(self):
+        self.course_name = ""
+        match = re.search(r"\\-\s*(.*?)\s*\n", self.text, re.S)
+
+        if not match:
+            print("Error: course name not found in crn: " + str(self.crn))
+            print(self.text)
+            sys.exit()
+        self.course_name = match.group(1)
+
+    def __genInstructor(self):
+        self.instructor = ""
+        match = re.search(r"\*\*Instructor:\*\*\s(.*?)\s*\n", self.text, re.S)
+
+        self.instructor = match.group(1)
 
     def getGE_List(self):
         return self.ge_list
@@ -108,9 +125,15 @@ class ClassWebInfo:
     
     def getPrereq(self):
         return self.prereq
+    
+    def getCourse_Name(self):
+        return self.course_name
+
+    def getInstructor(self):
+        return self.instructor
 
 if __name__ == "__main__":
-    test = ClassWebInfo(44644, 202101)
+    test = ClassWebInfo(20001, 202110)
     print(test.getGE_List())
     print(test.getUnits())
     print(test.getDesc())
@@ -118,4 +141,7 @@ if __name__ == "__main__":
     print(test.getMax_Enroll())
     print(test.getFinal_Exam())
     print(test.getPrereq())
+    print(test.getCourse_Name())
+    print(test.getInstructor())
+
 
