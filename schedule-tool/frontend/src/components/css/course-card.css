@@ -1,4 +1,38 @@
+@font-face {
+    font-family: ProximaNova;
+    src: url("/src/fonts/Proxima_Nova_Reg.ttf") format("truetype");
+    font-family: ProximaNova-Bold;
+    src: url("/src/fonts/Proxima_Nova_Bold.ttf") format("truetype");
+  }
+
+html{
+    scroll-behavior: smooth;
+    font-size: 10px;
+}
+
 .page{
     width: 100%;
 }
 
+.filtertitle{
+    font-family: "ProximaNova-Bold", "Helvetica Neue";
+    font-size: 3rem;
+}
+
+#quar{
+    font-family: "ProximaNova", "Helvetica Neue";
+    font-size: 1.2rem;
+    padding-right: 1.2rem;
+}
+#checktext{
+    padding-right: 0.5rem;
+}
+
+#searchbar{
+    height: 3rem;
+}
+
+#corebox{
+    border: 1px solid black;
+
+}
