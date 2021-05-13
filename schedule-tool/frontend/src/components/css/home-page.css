@@ -1,7 +1,12 @@
-/* @font-face {
+@font-face {
     font-family: ProximaNova;
-    src: url("/src/fonts/ProximaNova-Regular.otf") format("opentype");
-  } */
+    src: url("/src/fonts/Proxima_Nova_reg.ttf") format("truetype");
+  }
+
+  @font-face{
+    font-family: ProximaNova-Bold;
+    src: url("/src/fonts/Proxima_Nova_Bold.ttf") format("truetype");
+  }
 
 html{
     scroll-behavior: smooth;
@@ -46,23 +51,23 @@ a, a:hover, a:focus, a:active {
 }
 
 .Aggie{
-    font-family: "ProximaNova", "Helvetica Neue";
-    font-size: 6rem;
+    font-family: "ProximaNova-Bold", "Helvetica Neue";
+    font-size: 7rem;
     color: #162857;
     margin: 0;
     
 }
 .Explorer{
-    font-family: "ProximaNova", "Helvetica Neue";
-    font-size: 6rem;
+    font-family: "ProximaNova-Bold", "Helvetica Neue";
+    font-size: 7rem;
     color: #EAB517;
     margin: 0;
     
 }
 .Description{
     font-family: "ProximaNova", "Helvetica Neue";
-    padding-top: 1rem;
-    font-size: 1.8rem;
+    padding-top: 0.8rem;
+    font-size: 2.15rem;
     color: #EAB517;
     margin: 20;
 }
@@ -76,10 +81,10 @@ a#homebutton{
     font-size: 1.8rem;
     color: #FFFFFF;
     outline-color: #162857;
-    padding-top: 1rem;
-    padding-bottom: 1rem;
-    padding-right: 3rem;
-    padding-left: 3rem;
+    padding-top: 1.5rem;
+    padding-bottom: 1.5rem;
+    padding-right: 5rem;
+    padding-left: 5rem;
     border-radius: 1rem;
 }
 
@@ -114,8 +119,8 @@ a#homebutton{
     height: 400px;
 }
 #missionleft{
-    font-family: "ProximaNova", "Helvetica Neue";
-    font-size: 4.5rem;
+    font-family: "ProximaNova-Bold", "Helvetica Neue";
+    font-size: 5rem;
     color: #162857;
     text-align: center;
     float: left;
@@ -127,14 +132,14 @@ a#homebutton{
 
 #missionright{
     font-family: "ProximaNova", "Helvetica Neue";
-    font-size: 2.1rem;
-    color: #162857;
+    font-size: 2.2rem;
+    color: #5A5A5A;
     float: right;
     width: 60%;
     position: relative;
     top: 50%;
     transform: translateY(-50%);
-    line-height: 3.4rem;
+    line-height: 3.7rem;
     padding-top: 3rem;
     padding-right: 190px;
 }
@@ -147,8 +152,8 @@ a#homebutton{
 
 .featurestitle
 {
-    font-family: "ProximaNova", "Helvetica Neue";
-    font-size: 4.5rem;
+    font-family: "ProximaNova-Bold", "Helvetica Neue";
+    font-size: 5rem;
     color: #FFFFFF;
     background-color: #162857;
     width: 100%;
@@ -194,7 +199,7 @@ a#homebutton{
 
 #gradecarddescription{
     font-family: "ProximaNova", "Helvetica Neue";
-    font-size: 1.6rem;
+    font-size: 1.7rem;
     color: #5A5A5A;
     padding-top: 1rem;
     padding-left: 4.5rem;
@@ -224,7 +229,7 @@ a#homebutton{
 
 #enrollmentcarddescription{
     font-family: "ProximaNova", "Helvetica Neue";
-    font-size: 1.6rem;
+    font-size: 1.7rem;
     color: #5A5A5A;
     padding-top: 1rem;
     padding-left: 5.5rem;

@@ -1,3 +1,13 @@
+@font-face {
+    font-family: ProximaNova;
+    src: url("/src/fonts/Proxima_Nova_reg.ttf") format("truetype");
+  }
+
+  @font-face{
+    font-family: ProximaNova-Bold;
+    src: url("/src/fonts/Proxima_Nova_Bold.ttf") format("truetype");
+  }
+  
 .right-content{
     font-family: "ProximaNova", "Helvetica Neue";
     float: right;

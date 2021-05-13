@@ -11,6 +11,7 @@ const Detail = props => (
     <tr>
       <td>{props.detail.name}</td>
       <td>{props.detail.course_id}</td>
+      <td>{props.detail.units}</td>
     </tr>
   )
 
@@ -93,28 +94,30 @@ export default class CourseCard extends Component{
                 <div class="row">
                
                 <div id = "splitleft" class="col-md-4"> 
-                  <li>
+                  <ul class="list-unstyled"> 
+                  {this.state.detail.map(currentdetail => {
+                    return(
+                      <li>
                   <div class="card">
                               <div class="card-body">
                                 <div class="media d-flex">
                                   <div class="align-self-center">
-                                              <h3 class="primary">Course Name</h3>
-                                              <p>CourseID</p>
+                                              <h3 class="primary"><b>{currentdetail.course_id}</b></h3>
+                                              <p>{currentdetail.name}</p>
                                               <p> Enrollement Here </p>
                                               <div class= "left_side">
-                                              <p align= "right"> Unit Count</p> </div>
+                                             <div class= "unit-right">{currentdetail.units} Units</div> </div>
                                               <a href="courseinfo" class="stretched-link"></a>
                                           </div>
                                       </div>
                                   </div>
                               </div>
                   </li>
+                  ); })}
+                  </ul>
                 </div>
-                <hr/>
-          
-              
-              <div id="splitright" class="col-sm-8">
-                <div class="right-content">
+              <div id="splitright" class="col-sm-8 right-content">
+                <div>
                 <div class="right-text">
                     <div class="catalog_cow"><img src={catalog_cow} id="catalog_cow"/> </div>
                     <p class="line-1">Go ahead and search</p> 
@@ -125,8 +128,8 @@ export default class CourseCard extends Component{
               </div>
               </div>
               
-              </body>
-            </html>
-            )
+           </body>
+       </html>
+        )
       }
 }

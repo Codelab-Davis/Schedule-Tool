@@ -1,3 +1,13 @@
+@font-face {
+    font-family: ProximaNova;
+    src: url("/src/fonts/Proxima_Nova_reg.ttf") format("truetype");
+  }
+
+  @font-face{
+    font-family: ProximaNova-Bold;
+    src: url("/src/fonts/Proxima_Nova_Bold.ttf") format("truetype");
+  }
+
 #AboutOurTeam{
     width: 100%;
     height: 650px;
@@ -20,18 +30,18 @@
 }
 
 #abouttitle{
-    font-family: "ProximaNova", "Helvetica Neue";
+    font-family: "ProximaNova-Bold", "Helvetica Neue";
     font-size: 3.5rem;
-    color: #162857;
+    color: #5A5A5A;
 }
 
 #aboutdescrip{
     font-family: "ProximaNova", "Helvetica Neue";
-    font-size: 1.8rem;
-    color: #162857;
+    font-size: 1.9rem;
+    color: #5A5A5A;
     padding-top: 20px;
     padding-right: 10px;
-    line-height: 3.3rem;
+    line-height: 3.5rem;
 }
 
 .members{
@@ -41,7 +51,7 @@
 }
 
 .memberstitle{
-    font-family: "ProximaNova", "Helvetica Neue";
+    font-family: "ProximaNova-Bold", "Helvetica Neue";
     font-size: 4.5rem;
     color: #FFFFFF;
     background-color: #162857;
@@ -111,17 +121,17 @@
     border-radius: .5rem;
 }
 .name{
-    font-family: "ProximaNova", "Helvetica Neue";
-    font-size: 1.5rem;
+    font-family: "ProximaNova-Bold", "Helvetica Neue";
+    font-size: 1.6rem;
     color:  white;
     padding-top: 8px;
 }
 
 .position{
     font-family: "ProximaNova", "Helvetica Neue";
-    font-size: 1.4rem;
+    font-size: 1.5rem;
     color:  white;
-    padding-top: 5px;
+    padding-top: 1px;
 }
 
 .footer{

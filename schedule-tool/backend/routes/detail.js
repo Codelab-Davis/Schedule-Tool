@@ -33,6 +33,7 @@ router.route('/add').post((req, res) => { // adding courses and respective info
   const NP = Number(req.body.NP);
   const Y = Number(req.body.Y);
   const quarter = req.body.quarter;
+  const units = req.body.units;
   const enrollment = Array(req.body.enrollment);
 
   const newDetail = new Detail({
@@ -58,6 +59,7 @@ router.route('/add').post((req, res) => { // adding courses and respective info
     NP,
     Y,
     quarter,
+    units,
     enrollment,
   });
 
@@ -105,6 +107,7 @@ router.route('/update/:id').post((req, res) => { // updating course information
       detail.NP = Number(req.body.NP);
       detail.Y = Number(req.body.Y);
       detail.quarter = req.body.quarter;
+      detail.units = req.body.units;
       detail.enrollment = Array(req.body.enrollment);
 
       detail.save()

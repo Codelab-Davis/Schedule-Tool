@@ -27,7 +27,7 @@ export default class AboutPage extends Component {
                         <div id="aboutinfo">
                             <h1 id="abouttitle"><b>About Our Team</b></h1>
                             <div id="aboutdescrip">
-The UC Davis Waitlist Tool was built by a small team of developers and designers during the winter/spring 2021 cohort of CodeLab! Our goal was to create a web platform to help students at UC Davis make better decisions on their course choices by providing extra information. Visit our CodeLab site here to learn more about our organization and the different projects we do!</div>
+AggieExplorer was built by a small team of developers and designers during the Winter/Spring 2021 cohort of CodeLab! Our goal was to create a web platform to help students at UC Davis make better decisions on their course choices by providing extra information. Visit our CodeLab site <a href="https://codelabdavis.com/" target="_blank"><b>here</b></a> to learn more about our organization and the different projects we do!</div>
                         </div>
                     </div>
                 </div>
@@ -35,21 +35,6 @@ The UC Davis Waitlist Tool was built by a small team of developers and designers
                     <div class="memberstitle"><b>Current Members</b></div>
                 <div class="container px-5 py-5">
                     <div class="row">
-                        <div class="col pr-3 pl-3">
-                            <img src={jamesimage} id="james"/>
-                            <div class="name"><b>James Juinadi</b></div>
-                            <div class="position">VP and Project Mentor</div>
-                        </div>
-                        <div class="col pr-3 pl-3">
-                            <img src={omidimage} id="omid"/>
-                            <div class="name"><b>Omid Mogasemi</b></div>
-                            <div class="position">VP and Mentor</div>
-                        </div>
-                        <div class="col pr-3 pl-3">
-                            <img src={genniferimage} id="gennifer"/>
-                            <div class="name"><b>Gennifer Hom</b></div>
-                            <div class="position">VP of Design</div>
-                        </div>
                         <div class="col pr-3 pl-3">
                             <img src={minhtuimage} id="minhtu"/>
                             <div class="name"><b>Minh-Tu Nguyen</b></div>
@@ -60,10 +45,6 @@ The UC Davis Waitlist Tool was built by a small team of developers and designers
                             <div class="name"><b>Ke Lin</b></div>
                             <div class="position">Designer</div>
                         </div>
-                    </div>
-                </div>
-                <div class="container px-5 py-5">
-                    <div class="row">
                         <div class="col pr-3 pl-3">
                             <div class="kiran"><img src={kiranimage} id="kiran"/></div>
                             <div class="name"><b>Kiran Poonia</b></div>
@@ -79,6 +60,10 @@ The UC Davis Waitlist Tool was built by a small team of developers and designers
                             <div class="name"><b>Salma Hassen</b></div>
                             <div class="position">Software Developer</div>
                         </div>
+                    </div>
+                </div>
+                <div class="container px-5 py-5">
+                    <div class="row">
                         <div class="col pr-3 pl-3">
                             <img src={elizabethimage} id="elizabeth"/>
                             <div class="name"><b>Elizabeth Hopkins</b></div>
@@ -88,6 +73,21 @@ The UC Davis Waitlist Tool was built by a small team of developers and designers
                             <img src={prabhdeepimage} id="prabhdeep"/>
                             <div class="name"><b>Prabhdeep Kainth</b></div>
                             <div class="position">Software Developer</div>
+                        </div>
+                        <div class="col pr-3 pl-3">
+                            <img src={jamesimage} id="james"/>
+                            <div class="name"><b>James Juinadi</b></div>
+                            <div class="position">VP and Project Mentor</div>
+                        </div>
+                        <div class="col pr-3 pl-3">
+                            <img src={omidimage} id="omid"/>
+                            <div class="name"><b>Omid Mogasemi</b></div>
+                            <div class="position">VP and Mentor</div>
+                        </div>
+                        <div class="col pr-3 pl-3">
+                            <img src={genniferimage} id="gennifer"/>
+                            <div class="name"><b>Gennifer Hom</b></div>
+                            <div class="position">VP of Design</div>
                         </div>
                     </div>
                 </div>
