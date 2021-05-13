@@ -18,7 +18,7 @@ import { Button,  ButtonGroup, DropdownButton, MenuItem, Dropdown } from 'react-
 function myFunction() {
   var x = document.getElementById("extrafeatures");
   if (x.style.display === "none") {
-    x.style.display = "in-line";
+    x.style.display = "inline";
   } else {
     x.style.display = "none";
   }
@@ -194,10 +194,9 @@ class CourseCard extends Component{
                       </label>
                       </div>
                     </div>
-                    <div id="quarter" class="col-sm-4 other2">
+                    <div id="quarter" class="col-sm-3 other2">
                     <Dropdown>
-                      <Dropdown.Toggle variant="success" id="dropdown-basic">
-                        Year
+                      <Dropdown.Toggle variant="success" id="dropdown-basic">Year
                       </Dropdown.Toggle>
 
                       <Dropdown.Menu>
@@ -207,6 +206,7 @@ class CourseCard extends Component{
                       </Dropdown.Menu>
                     </Dropdown>
                     </div>
+                    <div id="placeholder" class="col-md-1 other"></div>
                   </div>
                   <div class="row">
                     <div id="CRN" class="col-md-5 other">
@@ -249,7 +249,7 @@ class CourseCard extends Component{
                     </div>
                     <div id="placeholder" class="col-md-1 other"></div>
                     <div id="meeting-type" class="col-md-5 other">
-                        <Dropdown class="MeetingDrop">
+                        {/* <Dropdown class="MeetingDrop">
                           <Dropdown.Toggle variant="success" id="dropdown-basic">
                             Meeting Type
                           </Dropdown.Toggle>
@@ -259,7 +259,7 @@ class CourseCard extends Component{
                             <Dropdown.Item href="#/action-2">Another action</Dropdown.Item>
                             <Dropdown.Item href="#/action-3">Something else</Dropdown.Item>
                           </Dropdown.Menu>
-                        </Dropdown>
+                        </Dropdown> */}
                     </div>
                     <div id="placeholder" class="col-md-1 other"></div>
                   </div>

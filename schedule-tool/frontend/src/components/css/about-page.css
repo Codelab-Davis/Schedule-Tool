@@ -1,9 +1,48 @@
 @font-face {
     font-family: ProximaNova;
-    src: url("/src/fonts/Proxima_Nova_Reg.ttf") format("truetype");
+    src: url("/src/fonts/Proxima_Nova_reg.ttf") format("truetype");
+  }
+
+  @font-face{
     font-family: ProximaNova-Bold;
     src: url("/src/fonts/Proxima_Nova_Bold.ttf") format("truetype");
   }
+
+#AboutOurTeam{
+    width: 100%;
+    height: 650px;
+}
+
+#group{
+    width: 600px;
+    height: auto;
+}
+
+#aboutimage{
+    text-align: center;
+    top: 18%;
+    margin-left: -20px;
+}
+
+#aboutdescription{
+    top: 27%;
+    margin-left: -45px;
+}
+
+#abouttitle{
+    font-family: "ProximaNova-Bold", "Helvetica Neue";
+    font-size: 3.5rem;
+    color: #5A5A5A;
+}
+
+#aboutdescrip{
+    font-family: "ProximaNova", "Helvetica Neue";
+    font-size: 1.9rem;
+    color: #5A5A5A;
+    padding-top: 20px;
+    padding-right: 10px;
+    line-height: 3.5rem;
+}
 
 .members{
     background-color: #162857;

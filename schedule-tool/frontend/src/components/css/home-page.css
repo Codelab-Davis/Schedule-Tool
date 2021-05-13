@@ -1,6 +1,6 @@
 @font-face {
     font-family: ProximaNova;
-    src: url("/src/fonts/Proxima_Nova_Reg.ttf") format("truetype");
+    src: url("/src/fonts/Proxima_Nova_reg.ttf") format("truetype");
     font-family: ProximaNova-Bold;
     src: url("/src/fonts/Proxima_Nova_Bold.ttf") format("truetype");
   }
