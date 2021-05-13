@@ -1,33 +1,28 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import './css/navbar.css';
 
 export default class Navbar extends Component {
 
   render() {
     return (
-      <nav className="navbar navbar-dark bg-dark navbar-expand-lg">
-        <Link to="/" className="navbar-brand">Schedule Tool</Link>
-        <div className="collpase navbar-collapse">
-        <ul className="navbar-nav mr-auto">
-          <li className="navbar-item">
-          <Link to="/" className="nav-link">Home Page</Link>
-          </li>
-          <li className="navbar-item">
-          <Link to="/course" className="nav-link">Courses</Link>
-          </li>
-          <li className="navbar-item">
-          <Link to="/courseinfo" className="nav-link">Course Info</Link>
-          </li>
-          <li className="navbar-item">
-          <Link to="/list" className="nav-link">Class Search</Link>
-          </li>
-          <li className="navbar-item">
-          <Link to="/edit" className="nav-link">Edit Class</Link>
-          </li>
-          <li className="navbar-item">
-          <Link to="/create" className="nav-link">Create Class</Link>
-          </li>
-        </ul>
+      <nav id="navbar" className="navbar navbar-dark navbar-expand-lg">
+        <Link id="navbartitle" to="/" className="navbar-brand">AggieExplorer</Link>
+        <div id="navlinks" className="navlinks collpase navbar-collapse">
+          <ul className="navbar-nav ml-auto">
+            <li className="navbar-item">
+            <Link id="navlinksspace" to="/course" className="nav-link">Catalog</Link>
+            </li>
+            <li className="navbar-item">
+            <Link id="navlinksspace" to="/grades" className="nav-link">Grades</Link>
+            </li>
+            <li className="navbar-item">
+            <Link id="navlinksspace" to="/list" className="nav-link">Class Search</Link>
+            </li>
+            <li className="navbar-item">
+            <Link id="navlinksspace" to="/about" className="nav-link">About</Link>
+            </li>
+          </ul>
         </div>
       </nav>
     );

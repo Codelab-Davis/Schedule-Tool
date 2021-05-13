@@ -1,94 +1,147 @@
-import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
-import axios from 'axios';
+import React, { Component } from "react";
+import axios from "axios";
+import filterIcon from "./filter-control-adjustment-icon.jpg"
 
-const Detail = props => (
-    <tr>
-      <td>{props.detail.name}</td>
-      <td>{props.detail.course_id}</td>
-    </tr>
-  )
-
-var items;
-
+// Top level layout of 2 parts
+// - Left side is course list with quick filter
+// - Right side is detailed filter or course detail
 export default class CourseCard extends Component{
-    // constructor(props) {
-    //     super(props);
+  constructor(props) {
+    super(props);
+    this.state = {};
+  }
 
-    //     this.state = {
-    //         name: '',
-    //         course_id: '',
-    //     }
+  // TODO: Add course detailed view when available
+  render() {
+    return (
+      <div className="row">
+        <div className="col-3"><CourseList/></div>
+        <div className="col-9"></div>
+      </div>
+    );
+  }
+}
 
-    // }
+class CourseList extends Component {
+  constructor(props) {
+    super(props);
+    // create state
+    this.state = {};
+    // init course detail to empty list
+    this.state.detail = [];
 
-    constructor(props) {
-        super(props);
-    
-        this.deleteDetail = this.deleteDetail.bind(this)
-    
-        this.state = {detail: []};
-      }
-    
-      componentDidMount() {
-        axios.get('http://localhost:5000/detail/')
-          .then(response => {
-            this.setState({ detail: response.data })
-            // put items from get request into variable items 
-            items = response.data;
-            console.log("hit", items);
-    
-          })
-          .catch((error) => {
-            console.log(error);
-          })
-      }
-    
-      deleteDetail(id) {
-        axios.delete('http://localhost:5000/detail/'+id)
-          .then(response => { console.log(response.data)});
-    
-        this.setState({
-          detail: this.state.detail.filter(el => el._id !== id)
-        })
-      }
+    // TODO: course fetch limit. Create class variables to store how many courses to fetch
+    this.numCourses = 20;
+    // TODO: course index tracking. Create class variables to track current database index
+    this.startCourseIndex = 0;
 
-    detailList() {
-        return this.state.detail.map(currentdetail => {
-            return <Detail detail={currentdetail} deleteDetail={this.deleteDetail} key={currentdetail._id}/>;
-        })
+    this.filter = "";
+
+    // TODO: Create reference for prev and next button click and bind them. Add to HTML
+    this.onClickPrevRef = this.clickPreviousHandler.bind(this);
+    this.onClickNextRef = this.clickNextHandler.bind(this);
+    this.filterChageRef = this.filterChangeHandler.bind(this);
+  }
+
+  componentDidMount() {
+    this.refreshDB();
+  }
+
+  refreshDB() {
+    // get course details from database
+    var requestParams = new URLSearchParams({
+      "limit" : this.numCourses,
+      "start" : this.startCourseIndex,
+      "filter" : this.filter
+    });
+
+    axios
+      .get("http://localhost:5000/detail/", {params:requestParams})
+      .then((response) => {
+        var recievedCount = response.data.length;
+
+        if((recievedCount == 0) && (this.startCourseIndex != 0)) {
+          this.startCourseIndex = Math.max(0, this.startCourseIndex - this.numCourses);
+        } else {
+          this.setState({ detail: response.data });
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+
+  // TODO: previous click call back handler
+  clickPreviousHandler() {
+    this.startCourseIndex = Math.max(0, this.startCourseIndex - this.numCourses);
+    this.refreshDB();
+  }
+
+  // TODO: next click call back handler
+  clickNextHandler() {
+    this.startCourseIndex = this.startCourseIndex + this.numCourses;
+    this.refreshDB();
+  }
+
+  filterChangeHandler(event) {
+    this.filter = event.target.value;
+    this.startCourseIndex = 0;
+    this.refreshDB();
+  }
+
+  // creating unordered list and using map for card component
+  render() {
+
+    // all course HTML info array
+    var course_info = [];
+
+    var border_style = "none";
+
+    for(var index = 0; index < this.state.detail.length; index++) {
+      // this course HTML info
+      var this_course = (
+        <tr className="row" style={{marginLeft:"0px", marginRight:"0px"}}>
+            <td className="col-8" style={{border:border_style}}>
+              <h4><strong>{this.state.detail[index].course_id}</strong></h4>
+              <h4>{this.state.detail[index].name}</h4>
+            </td>
+            <td className="col-4" style={{border:border_style, textAlign:"center", marginTop:"1rem"}}>
+              <h4>{this.state.detail[index].units} Units</h4>
+            </td>
+        </tr>
+      );
+      course_info.push(this_course);
     }
-    
-    render(){
-        return(
-            <ul class="list-unstyled"> // creating unordered list and using map for card component
-                {this.state.detail.map(currentdetail => {
-                return(
-                <li>
-                <div class="row">
-                    <div class="col-xl-3 col-sm-6 col-12">
-                        <div class="card">
-                            <div class="card-content">
-                                <div class="card-body">
-                                    <div class="media d-flex">
-                                        <div class="media-body text-left">
-                                            <h3 class="primary">{currentdetail.name}</h3>
-                                            <span>{currentdetail.course_id}</span>
-                                            <a href="courseinfo" class="stretched-link"></a>
-                                        </div>
-                                        {/* <div class="align-self-center">
-                                            <i class="icon-book-open primary font-large-2 float-right"></i>
-                                        </div> */}
-                                    </div>
-                                </div>d
-                            </div>
-                        </div>
-                    </div>
+
+    return(
+      <div>
+        <table className="table table-hover">
+          <thead>
+            <tr className="row" style={{marginLeft:"0px", marginRight:"0px"}}>
+              <th className="col-11" style={{border:border_style}}>
+                <div className="form_group mb-3">
+                  <input type="text" class="form-control" placeholder="search for classes" onChange={this.filterChageRef}/>
                 </div>
-                </li>
-                );
-                })} 
-            </ul>
-          )
-    }
+              </th>
+              <th className="col-1" style={{border:border_style}}> 
+                <img src={filterIcon} style={{height:"3rem", marginBottom:"0.7rem"}}></img>
+              </th>
+            </tr>
+          </thead>
+          
+          <tbody style={{display:"block", height:"70vh", overflowY:"scroll"}}>
+            {course_info}
+          </tbody>
+
+        </table>
+
+        <div className="row" style={{marginTop:"30px", marginLeft:"20px"}}>
+          <button type="button" className="btn btn-primary btn-sm col-2" style={{height:"30px", marginRight:"20px"}} onClick={this.onClickPrevRef}>Prev</button>
+          <button type="button" className="btn btn-primary btn-sm col-2" style={{height:"30px", marginRight:"20px"}} onClick={this.onClickNextRef}>Next</button>
+          <div className="col-8"></div>
+        </div>
+
+      </div>        
+    );
+  }
 }

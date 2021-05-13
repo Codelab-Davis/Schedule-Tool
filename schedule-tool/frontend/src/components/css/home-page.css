@@ -1,0 +1,206 @@
+/* @font-face {
+    font-family: ProximaNova;
+    src: url("/src/fonts/ProximaNova-Regular.otf") format("opentype");
+  } */
+
+html{
+    scroll-behavior: smooth;
+    font-size: 10px;
+}
+
+a:link{
+    text-decoration: none!important;
+}
+
+.intro{
+    font-family: "ProximaNova", "Helvetica Neue";
+    background-image: url('../HomeIllustration.png');
+    /* height: 100%;  */
+    width: 100vw;
+    height: 106vh;
+    top: 0;
+    left: 0;
+
+
+    /* Center and scale the image nicely */
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
+    display: block;
+    object-fit: cover;
+    margin: 0 auto;
+    margin-top: -20px;
+}
+
+.introtext{
+    position: relative;
+    top: 50%;
+    text-align: center;
+    transform: translateY(-50%);
+}
+
+.title {
+    margin: 10;   
+}
+
+.Aggie{
+    font-family: "ProximaNova", "Helvetica Neue";
+    font-size: 6rem;
+    color: #162857;
+    margin: 0;
+    
+}
+.Explorer{
+    font-family: "ProximaNova", "Helvetica Neue";
+    font-size: 6rem;
+    color: #EAB517;
+    margin: 0;
+    
+}
+.Description{
+    font-family: "ProximaNova", "Helvetica Neue";
+    padding-top: 1rem;
+    font-size: 1.8rem;
+    color: #EAB517;
+    margin: 20;
+}
+.button{
+    padding: 2rem;
+    outline-color: #162857;
+}
+a#homebutton{
+    font-family: "ProximaNova", "Helvetica Neue";
+    background-color: #162857;
+    font-size: 1.8rem;
+    color: #FFFFFF;
+    outline-color: #162857;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    padding-right: 3rem;
+    padding-left: 3rem;
+    border-radius: 1rem;
+}
+
+.introarrow{
+    position: absolute;
+    width: 100%;
+    bottom: 70px;
+    text-align: center;
+}
+.whatwedo {
+    /*margin-top: 60rem;*/
+    font-family: "ProximaNova", "Helvetica Neue";
+    font-size: 1.8rem;
+    color: #162857;
+    text-align: center;
+    margin: 0;
+}
+
+.arrow{
+    display: inline-block;
+    color: #162857;
+    width: 1.2rem;
+    height: 1.2rem;
+    border: 2.5px solid transparent;
+    border-right-color: #162857;
+    border-bottom-color: #162857;
+    transform: rotate(45deg);
+}
+
+.mission{
+    width: 100%;
+    height: 400px;
+}
+#missionleft{
+    font-family: "ProximaNova", "Helvetica Neue";
+    font-size: 4.5rem;
+    color: #162857;
+    text-align: center;
+    float: left;
+    width: 40%;
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+    padding-left: 8rem;
+}
+
+#missionright{
+    font-family: "ProximaNova", "Helvetica Neue";
+    font-size: 2.1rem;
+    color: #162857;
+    float: right;
+    width: 60%;
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+    line-height: 3.4rem;
+    padding-top: 3rem;
+    padding-right: 190px;
+}
+
+.features{
+    background-color: #162857;
+    width: 100%;
+    height: 800px;
+}
+
+.featurestitle
+{
+    font-family: "ProximaNova", "Helvetica Neue";
+    font-size: 4.5rem;
+    color: #FFFFFF;
+    background-color: #162857;
+    width: 100%;
+    padding-left: 200px;
+    padding-top: 70px;
+}
+
+#featuresleft{
+    padding-top: 40px;
+    margin-left: -10px;
+}
+
+.card{
+    width: 45rem;
+    height: 45rem;
+    margin-left: 10rem;
+    margin-right: 10rem;
+}
+
+#featuresright{
+    padding-top: 40px;
+}
+
+#gradecardtitle{
+    font-family: "ProximaNova", "Helvetica Neue";
+    font-size: 2rem;
+}
+
+.footer{
+    width: 100%;
+    height: 125px;
+    font-family: "ProximaNova", "Helvetica Neue";
+    font-size: 2rem;
+    color: #162857;
+    text-align: center;
+    padding-top: 55px;
+}
+.footertext{
+    color: #162857;
+}
+
+.footerCatalog{
+    padding-right: 20rem;
+}
+
+.footerGrades{
+    padding-right: 20rem;
+}
+.footerEnrollment{
+    padding-right: 20rem;
+}
+
+.footerAbout{
+}
+

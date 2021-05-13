@@ -24,6 +24,10 @@ const CourseType = new GraphQLObjectType({
         d: { type: GraphQLString },
         dminus: { type: GraphQLString },
         f: { type: GraphQLString },
+        I: { type: GraphQLString} ,
+        P: { type: GraphQLString} ,
+        NP: { type: GraphQLString} ,
+        Y: { type: GraphQLString} ,
         quarter: { type: GraphQLString },
         id: { type: GraphQLString },
     })
@@ -41,7 +45,7 @@ const RootQuery = new GraphQLObjectType({
             resolve(parent, args) {
                 // code to get data from db
                 console.log("hit", args.id);
-                return Detail.find({"course_id": args.id});
+                    return Detail.find({"course_id": args.id});
             }
         },
         // query for course by id (mongodb id, not course id)
@@ -56,7 +60,7 @@ const RootQuery = new GraphQLObjectType({
         courses: {
             type: new graphql.GraphQLList(CourseType),
             resolve(parent, args){
-                return Detail.find({"course_id": 'ECS32'});
+                return Detail.find({"course_id": 'AAS178'});
             }
         }
     }
