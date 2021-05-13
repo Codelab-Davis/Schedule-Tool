@@ -1,7 +1,9 @@
-/* @font-face {
+@font-face {
     font-family: ProximaNova;
-    src: url("/src/fonts/ProximaNova-Regular.otf") format("opentype");
-  } */
+    src: url("/src/fonts/Proxima_Nova_Reg.ttf") format("truetype");
+    font-family: ProximaNova-Bold;
+    src: url("/src/fonts/Proxima_Nova_Bold.ttf") format("truetype");
+  }
 
 html{
     scroll-behavior: smooth;
@@ -113,7 +115,7 @@ a#homebutton{
     height: 400px;
 }
 #missionleft{
-    font-family: "ProximaNova", "Helvetica Neue";
+    font-family: "ProximaNova-Bold", "Helvetica Neue";
     font-size: 4.5rem;
     color: #162857;
     text-align: center;

@@ -1,3 +1,10 @@
+@font-face {
+    font-family: ProximaNova;
+    src: url("/src/fonts/Proxima_Nova_Reg.ttf") format("truetype");
+    font-family: ProximaNova-Bold;
+    src: url("/src/fonts/Proxima_Nova_Bold.ttf") format("truetype");
+  }
+
 .members{
     background-color: #162857;
     width: 100%;

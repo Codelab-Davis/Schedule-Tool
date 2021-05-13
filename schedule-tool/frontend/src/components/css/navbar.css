@@ -1,5 +1,10 @@
+@font-face {
+    font-family: ProximaNova;
+    src: url("/src/fonts/Proxima_Nova_Reg.ttf") format("truetype");
+  }
+
 #navbar{
-    font-family: "Proxima Nova", "Helvetica Neue";
+    font-family: "ProximaNova", "Helvetica Neue";
     font-size: 1.5rem;
     background-color: #162857;
     overflow: auto;
@@ -9,7 +14,7 @@
     padding-right: 1.5rem;
 }
 #navbartitle{
-    font-family: "Proxima Nova", "Helvetica Neue";
+    font-family: "ProximaNova", "Helvetica Neue";
     font-size: 2rem;
 }
 #navlinksspace{
@@ -17,7 +22,7 @@
     color: #FFFFFF;
 }
 #navlinks{
-    font-family: "Proxima Nova", "Helvetica Neue";
+    font-family: "ProximaNova", "Helvetica Neue";
     padding-left: 2rem;
     color: #FFFFFF;
     margin: 0;

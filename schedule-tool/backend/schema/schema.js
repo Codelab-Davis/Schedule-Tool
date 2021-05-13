@@ -62,6 +62,19 @@ const RootQuery = new GraphQLObjectType({
             resolve(parent, args){
                 return Detail.find({"course_id": 'AAS178'});
             }
+        },
+        course_filter: {
+            type: new graphql.GraphQLList(CourseType),
+            args: { course_id: { type: GraphQLString }, instructor: { type: GraphQLString }, units: { type: GraphQLString} },
+            resolve(parent, args) {
+                if (args.instructor.length == 0) {
+                    return Detail.find({"course_id": args.course_id, "units": args.units });
+                } else if (args.course_id.length == 0) {
+                    return Detail.find({"instructor": args.instructor, "units": args.units });
+                } else {
+                    return Detail.find({"course_id": args.course_id, "instructor": args.instructor, "units": args.units});
+                }
+            }
         }
     }
 })

@@ -1,147 +1,342 @@
-import React, { Component } from "react";
-import axios from "axios";
-import filterIcon from "./filter-control-adjustment-icon.jpg"
+import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
+import axios from 'axios';
+import{gql} from 'apollo-boost';
+import {graphql} from 'react-apollo';
+import {courseFilterQuery} from './../queries.js';
 
-// Top level layout of 2 parts
-// - Left side is course list with quick filter
-// - Right side is detailed filter or course detail
-export default class CourseCard extends Component{
-  constructor(props) {
-    super(props);
-    this.state = {};
-  }
+import './css/course-card.css'; 
+import { Button,  ButtonGroup, DropdownButton, MenuItem, Dropdown } from 'react-bootstrap';
 
-  // TODO: Add course detailed view when available
-  render() {
-    return (
-      <div className="row">
-        <div className="col-3"><CourseList/></div>
-        <div className="col-9"></div>
-      </div>
-    );
+// const getCourseQuery = gql`
+//   {
+//     courses{
+
+//     }
+//   }`
+
+function myFunction() {
+  var x = document.getElementById("extrafeatures");
+  if (x.style.display === "none") {
+    x.style.display = "in-line";
+  } else {
+    x.style.display = "none";
   }
 }
 
-class CourseList extends Component {
-  constructor(props) {
-    super(props);
-    // create state
-    this.state = {};
-    // init course detail to empty list
-    this.state.detail = [];
-
-    // TODO: course fetch limit. Create class variables to store how many courses to fetch
-    this.numCourses = 20;
-    // TODO: course index tracking. Create class variables to track current database index
-    this.startCourseIndex = 0;
-
-    this.filter = "";
-
-    // TODO: Create reference for prev and next button click and bind them. Add to HTML
-    this.onClickPrevRef = this.clickPreviousHandler.bind(this);
-    this.onClickNextRef = this.clickNextHandler.bind(this);
-    this.filterChageRef = this.filterChangeHandler.bind(this);
+function changeText() {
+  var element = document.getElementById('AdvancedText');
+  if(element.innerHTML == 'Show Advanced Options'){
+    element.innerHTML = 'Hide Advanced Options'
   }
-
-  componentDidMount() {
-    this.refreshDB();
+  else{
+    element.innerHTML = 'Show Advanced Options'
   }
+}
 
-  refreshDB() {
-    // get course details from database
-    var requestParams = new URLSearchParams({
-      "limit" : this.numCourses,
-      "start" : this.startCourseIndex,
-      "filter" : this.filter
-    });
+const Detail = props => (
+    <tr>
+      <td>{props.detail.name}</td>
+      <td>{props.detail.course_id}</td>
+    </tr>
+  )
 
-    axios
-      .get("http://localhost:5000/detail/", {params:requestParams})
-      .then((response) => {
-        var recievedCount = response.data.length;
+var items;
 
-        if((recievedCount == 0) && (this.startCourseIndex != 0)) {
-          this.startCourseIndex = Math.max(0, this.startCourseIndex - this.numCourses);
-        } else {
-          this.setState({ detail: response.data });
-        }
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }
+class CourseCard extends Component{
+    // constructor(props) {
+    //     super(props);
 
-  // TODO: previous click call back handler
-  clickPreviousHandler() {
-    this.startCourseIndex = Math.max(0, this.startCourseIndex - this.numCourses);
-    this.refreshDB();
-  }
+    //     this.state = {
+    //         name: '',
+    //         course_id: '',
+    //     }
 
-  // TODO: next click call back handler
-  clickNextHandler() {
-    this.startCourseIndex = this.startCourseIndex + this.numCourses;
-    this.refreshDB();
-  }
+    // }
 
-  filterChangeHandler(event) {
-    this.filter = event.target.value;
-    this.startCourseIndex = 0;
-    this.refreshDB();
-  }
 
-  // creating unordered list and using map for card component
-  render() {
+    constructor(props) {
+        super(props);
 
-    // all course HTML info array
-    var course_info = [];
+        this.onChangeInstructor = this.onChangeInstructor.bind(this);
+    
+        this.deleteDetail = this.deleteDetail.bind(this)
+    
+        this.state = {
+          detail: [],
+          course_name: "",
+          instructor: "James",
+          units:"",
+        };
+      }
 
-    var border_style = "none";
 
-    for(var index = 0; index < this.state.detail.length; index++) {
-      // this course HTML info
-      var this_course = (
-        <tr className="row" style={{marginLeft:"0px", marginRight:"0px"}}>
-            <td className="col-8" style={{border:border_style}}>
-              <h4><strong>{this.state.detail[index].course_id}</strong></h4>
-              <h4>{this.state.detail[index].name}</h4>
-            </td>
-            <td className="col-4" style={{border:border_style, textAlign:"center", marginTop:"1rem"}}>
-              <h4>{this.state.detail[index].units} Units</h4>
-            </td>
-        </tr>
-      );
-      course_info.push(this_course);
+      // to refetch data using graphql query
+      // function fetchData() {
+      //   this.props.data.refetch({ 
+      //     course_name: nameState,
+      //     instructor_name: instructorState,
+      //     units_count: unitsState,
+      //    })
+      // }
+
+      // data located here:
+      // let data = this.props.data.course_id;
+    
+      componentDidMount() {
+        axios.get('http://localhost:5000/detail/')
+          .then(response => {
+            this.setState({ detail: response.data })
+            // put items from get request into variable items 
+            items = response.data;
+            console.log("hit", items);
+    
+          })
+          .catch((error) => {
+            console.log(error);
+          })
+
+          console.log("my state", this.state);
+      }
+
+      onChangeInstructor(e) {
+        this.setState({
+          instructor: e.target.value
+        })
+        console.log("changed state", this.state);
+      }
+
+      // function buttonclicked() {
+      //   fetchData(this.state.instructor, this.state.units, );
+      //   this,setState({
+      //     detail: this.props.data.course_id,
+      //   });
+      // }
+    
+      deleteDetail(id) {
+        axios.delete('http://localhost:5000/detail/'+id)
+          .then(response => { console.log(response.data)});
+    
+        this.setState({
+          detail: this.state.detail.filter(el => el._id !== id)
+        })
+      }
+
+    detailList() {
+        return this.state.detail.map(currentdetail => {
+            return <Detail detail={currentdetail} deleteDetail={this.deleteDetail} key={currentdetail._id}/>;
+        })
     }
+    
+    
+    // creating unordered list and using map for card component
+    render(){
+        return(
+          <html>
+          <body>
+          <div class="page">
+           <div class="row">
+            <div id = "splitleft" class="col-md-4">
+            <ul class="list-unstyled"> 
+                {this.state.detail.map(currentdetail => {
+                return(
+                <li>
+                  <div class="row">
+                      <div class="col-xl-3 col-sm-6 col-12">
+                          <div class="card">
+                              <div class="card-content">
+                                  <div class="card-body">
+                                      <div class="media d-flex">
+                                          <div class="media-body text-left">
+                                              <h3 class="primary">{currentdetail.name}</h3>
+                                              <span>{currentdetail.course_id}</span>
+                                              <a href="courseinfo" class="stretched-link"></a>
+                                          </div>
+                                          {/* <div class="align-self-center">
+                                              <i class="icon-book-open primary font-large-2 float-right"></i>
+                                          </div> */}
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+                </li>
+                );
+                })} 
+            </ul>
+            </div>
+              <div id="splitright" class="col-sm-8">
+                  <h1 class="filtertitle">Filters</h1>
+                  <div class="row">
+                    <div id="quarter" class="col-md-8 other">
+                      <div id="quartertitle">Quarter</div>
+                      <div id="quarterboxes">
+                      <label class="checkbox-inline" id="quar"><span id="checktext">Fall</span>
+                        <input type="checkbox"/>
+                        <span class="checkmark"></span>
+                      </label>
+                      <label class="checkbox-inline" id="quar"> <span id="checktext">Winter</span>
+                        <input type="checkbox"/>
+                        <span class="checkmark"></span>
+                      </label>
+                      <label class="checkbox-inline" id="quar"> <span id="checktext">Spring</span>
+                        <input type="checkbox"/>
+                        <span class="checkmark"></span>
+                      </label>
+                      <label class="checkbox-inline" id="quar"> <span id="checktext">Summer I</span>
+                        <input type="checkbox"/>
+                        <span class="checkmark"></span>
+                      </label>
+                      <label class="checkbox-inline" id="quar"> <span id="checktext">Summer II</span>
+                        <input type="checkbox"/>
+                        <span class="checkmark"></span>
+                      </label>
+                      </div>
+                    </div>
+                    <div id="quarter" class="col-sm-4 other2">
+                    <Dropdown>
+                      <Dropdown.Toggle variant="success" id="dropdown-basic">
+                        Year
+                      </Dropdown.Toggle>
 
-    return(
-      <div>
-        <table className="table table-hover">
-          <thead>
-            <tr className="row" style={{marginLeft:"0px", marginRight:"0px"}}>
-              <th className="col-11" style={{border:border_style}}>
-                <div className="form_group mb-3">
-                  <input type="text" class="form-control" placeholder="search for classes" onChange={this.filterChageRef}/>
+                      <Dropdown.Menu>
+                        <Dropdown.Item href="#/action-1">Action</Dropdown.Item>
+                        <Dropdown.Item href="#/action-2">Another action</Dropdown.Item>
+                        <Dropdown.Item href="#/action-3">Something else</Dropdown.Item>
+                      </Dropdown.Menu>
+                    </Dropdown>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div id="CRN" class="col-md-5 other">
+                    <div id="title">CRN</div>
+                    <div class="input-group mb-4">
+                          <input type="search" placeholder="CRN" aria-describedby="button-addon5" class="form-control" id="searchbar"/>
+                      </div>
+                    </div>
+                    <div id="placeholder" class="col-md-1 other"></div>
+                    <div id="course-level" class="col-md-5 other">
+                      <div id="title">Course Level</div>
+                      <div class="input-group mb-4">
+                          <input type="search" placeholder="Course Level" aria-describedby="button-addon5" class="form-control" id="searchbar"/>
+                      </div>
+                    </div>
+                    <div id="placeholder" class="col-md-1 other"></div>
+                  </div>
+                  <div class="row">
+                    <div id="Subject" class="col-md-5 other">
+                      <div id="title">Subject</div>
+                      <div class="input-group mb-4">
+                        <input type="search" placeholder="Subject" aria-describedby="button-addon5" class="form-control" id="searchbar"/>
+                      </div>
+                    </div>
+                    <div id="placeholder" class="col-md-1 other"></div>
+                    <div id="units" class="col-md-5 other">
+                      <div id="title">Units</div>
+                      <div class="input-group mb-4">
+                          <input type="search" placeholder="Units" aria-describedby="button-addon5" class="form-control" id="searchbar"/>
+                      </div>
+                    </div>
+                    <div id="placeholder" class="col-md-1 other"></div>
+                  </div>
+                  <div class="row">
+                    <div id="instructor" class="col-md-5 other">
+                      <div id="title">Instructor</div>
+                      <div class="input-group mb-4">
+                        <input type="search" placeholder="instructor" aria-describedby="button-addon5" class="form-control" id="searchbar" onChange={this.onChangeInstructor}/>
+                      </div>
+                    </div>
+                    <div id="placeholder" class="col-md-1 other"></div>
+                    <div id="meeting-type" class="col-md-5 other">
+                        <Dropdown class="MeetingDrop">
+                          <Dropdown.Toggle variant="success" id="dropdown-basic">
+                            Meeting Type
+                          </Dropdown.Toggle>
+
+                          <Dropdown.Menu>
+                            <Dropdown.Item href="#/action-1">Action</Dropdown.Item>
+                            <Dropdown.Item href="#/action-2">Another action</Dropdown.Item>
+                            <Dropdown.Item href="#/action-3">Something else</Dropdown.Item>
+                          </Dropdown.Menu>
+                        </Dropdown>
+                    </div>
+                    <div id="placeholder" class="col-md-1 other"></div>
+                  </div>
+                  <div class="row" id="extrafeatures">
+                    <div id="coreliteracies" class="col-md-5">
+                      <p class="coretitle">Core Literacies</p>
+                      <div id="corebox">
+                        <label class="container">
+                          <input type="checkbox" />ACGH (Amer Cultr, Gov, Hist)
+                          <span class="checkmark"></span>
+                        </label>
+                        <label class="container">
+                          <input type="checkbox"/>DD (Domestic Diversity)
+                          <span class="checkmark"></span>
+                        </label>
+                        <label class="container">
+                          <input type="checkbox"/>OL (Oral Lit)
+                          <span class="checkmark"></span>
+                        </label>
+                        <label class="container">
+                          <input type="checkbox"/>QL (Qualitative Lit)
+                          <span class="checkmark"></span>
+                        </label>
+                        <label class="container">
+                          <input type="checkbox"/>SL (Scientific Lit)
+                          <span class="checkmark"></span>
+                        </label>
+                        <label class="container">
+                          <input type="checkbox"/>VL (Visual Lit)
+                          <span class="checkmark"></span>
+                        </label>
+                        <label class="container">
+                          <input type="checkbox"/>WC (World Cultr)
+                          <span class="checkmark"></span>
+                        </label>
+                        <label class="container">
+                          <input type="checkbox"/>WE (Writing Exp)
+                          <span class="checkmark"></span>
+                        </label>
+                      </div>
+                    </div>
+                    <div id="placeholder" class="col-md-1 other"></div>
+                    <div id="GEs" class="col-md-5">
+                      <p class="getitle">GE Options</p>
+                      <label class="container">
+                        <input type="checkbox" />AH (Arts & Hum)
+                        <span class="checkmark"></span>
+                      </label>
+                      <label class="container">
+                        <input type="checkbox"/>SE (Sci & Eng)
+                        <span class="checkmark"></span>
+                      </label>
+                      <label class="container">
+                        <input type="checkbox"/>SS (Social Sci)
+                        <span class="checkmark"></span>
+                      </label>
+                    </div>
+                  </div>
+                  <button id="AdvancedButton" onClick={myFunction}>Show Advanced Options</button>
                 </div>
-              </th>
-              <th className="col-1" style={{border:border_style}}> 
-                <img src={filterIcon} style={{height:"3rem", marginBottom:"0.7rem"}}></img>
-              </th>
-            </tr>
-          </thead>
-          
-          <tbody style={{display:"block", height:"70vh", overflowY:"scroll"}}>
-            {course_info}
-          </tbody>
+              </div>
+          </div>
 
-        </table>
-
-        <div className="row" style={{marginTop:"30px", marginLeft:"20px"}}>
-          <button type="button" className="btn btn-primary btn-sm col-2" style={{height:"30px", marginRight:"20px"}} onClick={this.onClickPrevRef}>Prev</button>
-          <button type="button" className="btn btn-primary btn-sm col-2" style={{height:"30px", marginRight:"20px"}} onClick={this.onClickNextRef}>Next</button>
-          <div className="col-8"></div>
-        </div>
-
-      </div>        
-    );
-  }
+        </body>
+        </html>
+        )
+    }
 }
+
+export default graphql(courseFilterQuery, {
+  options: (props) => {
+    return {
+      variables: {
+        course_name: "",
+        instructor_name: "",
+        units_count: "",
+      }
+    }
+  }
+})(CourseCard);
