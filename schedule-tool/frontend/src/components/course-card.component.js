@@ -18,9 +18,19 @@ import { Button,  ButtonGroup, DropdownButton, MenuItem, Dropdown } from 'react-
 function myFunction() {
   var x = document.getElementById("extrafeatures");
   if (x.style.display === "none") {
-    x.style.display = "block";
+    x.style.display = "in-line";
   } else {
     x.style.display = "none";
+  }
+}
+
+function changeText() {
+  var element = document.getElementById('AdvancedText');
+  if(element.innerHTML == 'Show Advanced Options'){
+    element.innerHTML = 'Hide Advanced Options'
+  }
+  else{
+    element.innerHTML = 'Show Advanced Options'
   }
 }
 
@@ -159,8 +169,9 @@ class CourseCard extends Component{
               <div id="splitright" class="col-sm-8">
                   <h1 class="filtertitle">Filters</h1>
                   <div class="row">
-                    <div id="quarter" class="col-md-6 other">
+                    <div id="quarter" class="col-md-8 other">
                       <div id="quartertitle">Quarter</div>
+                      <div id="quarterboxes">
                       <label class="checkbox-inline" id="quar"><span id="checktext">Fall</span>
                         <input type="checkbox"/>
                         <span class="checkmark"></span>
@@ -181,8 +192,9 @@ class CourseCard extends Component{
                         <input type="checkbox"/>
                         <span class="checkmark"></span>
                       </label>
+                      </div>
                     </div>
-                    <div id="quarter" class="col-sm-6 other2">
+                    <div id="quarter" class="col-sm-4 other2">
                     <Dropdown>
                       <Dropdown.Toggle variant="success" id="dropdown-basic">
                         Year
@@ -198,14 +210,14 @@ class CourseCard extends Component{
                   </div>
                   <div class="row">
                     <div id="CRN" class="col-md-5 other">
-                    <div id="CRNTitle">CRN</div>
+                    <div id="title">CRN</div>
                     <div class="input-group mb-4">
                           <input type="search" placeholder="CRN" aria-describedby="button-addon5" class="form-control" id="searchbar"/>
                       </div>
                     </div>
                     <div id="placeholder" class="col-md-1 other"></div>
                     <div id="course-level" class="col-md-5 other">
-                      <div id="CLTitle">Course Level</div>
+                      <div id="title">Course Level</div>
                       <div class="input-group mb-4">
                           <input type="search" placeholder="Course Level" aria-describedby="button-addon5" class="form-control" id="searchbar"/>
                       </div>
@@ -214,14 +226,14 @@ class CourseCard extends Component{
                   </div>
                   <div class="row">
                     <div id="Subject" class="col-md-5 other">
-                      <div id="SubjectTitle">Subject</div>
+                      <div id="title">Subject</div>
                       <div class="input-group mb-4">
                         <input type="search" placeholder="Subject" aria-describedby="button-addon5" class="form-control" id="searchbar"/>
                       </div>
                     </div>
                     <div id="placeholder" class="col-md-1 other"></div>
                     <div id="units" class="col-md-5 other">
-                      <div id="UnitsTitle">Units</div>
+                      <div id="title">Units</div>
                       <div class="input-group mb-4">
                           <input type="search" placeholder="Units" aria-describedby="button-addon5" class="form-control" id="searchbar"/>
                       </div>
@@ -230,14 +242,14 @@ class CourseCard extends Component{
                   </div>
                   <div class="row">
                     <div id="instructor" class="col-md-5 other">
-                      <div id="InstructorTitle">Instructor</div>
+                      <div id="title">Instructor</div>
                       <div class="input-group mb-4">
-                        <input type="search" placeholder="instructor" aria-describedby="button-addon5" class="form-control" onChange={this.onChangeInstructor}/>
+                        <input type="search" placeholder="instructor" aria-describedby="button-addon5" class="form-control" id="searchbar" onChange={this.onChangeInstructor}/>
                       </div>
                     </div>
                     <div id="placeholder" class="col-md-1 other"></div>
                     <div id="meeting-type" class="col-md-5 other">
-                        <Dropdown>
+                        <Dropdown class="MeetingDrop">
                           <Dropdown.Toggle variant="success" id="dropdown-basic">
                             Meeting Type
                           </Dropdown.Toggle>
@@ -305,9 +317,8 @@ class CourseCard extends Component{
                         <span class="checkmark"></span>
                       </label>
                     </div>
-                    <div id="placeholder" class="col-md-1 other"></div>
                   </div>
-                  <button onClick={myFunction}>Advanced Options</button>
+                  <button id="AdvancedButton" onClick={myFunction}>Show Advanced Options</button>
                 </div>
               </div>
           </div>
