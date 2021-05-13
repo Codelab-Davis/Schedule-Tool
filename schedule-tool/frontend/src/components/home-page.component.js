@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import './css/home-page.css'; 
-import background from './HomeIllustration.png';
+import gradeimage from "./images/grade.png"
+import enrollmentimage from "./images/enrollment.png"
 
 
 export default class HomePage extends Component {
@@ -21,7 +22,7 @@ export default class HomePage extends Component {
                             </p> 
                         </div>
                         <div class="introarrow">
-                                <div class="whatwedo"> What we do </div>
+                                <div class="whatwedo"><b>What we do</b></div>
                                 <a href="#mission">    
                                     <div class="arrow"></div>
                                 </a>
@@ -36,23 +37,24 @@ export default class HomePage extends Component {
                     <div class="featurestitle"><b>Features</b></div>
                     <div class="container">
                         <div class="row">
-                            <div id="featuresleft" class="col-md-6 d-flex justify-content-center">
+                            <div id="featuresleft" class="col-md-5 d-flex justify-content-center">
                                 <a href="grades"> 
                                     <div id="gradecard" class="card">
                                         <div class="card-body">
-                                            <div id="gradecardimage"></div>
+                                            <div id="gradecardimage"><img src={gradeimage} id="gradeimage"/></div>
                                             <div id="gradecardtitle"><b>Grade Distribution</b></div>
-                                            <div id="gradecarddescription"></div>
+                                            <div id="gradecarddescription">We provide grade distributions for most UC Davis courses, along with the terms and professors that teach those courses.</div>
                                         </div>
                                     </div>
                                 </a>
                             </div>
-                            <div id="featuresright" class="col-md-6 justify-content-center">
+                            <div class="col-md-1 justify-content-center"></div>
+                            <div id="featuresright" class="col-md-5 justify-content-center">
                                 <a href="search">
                                     <div id="enrollmentcard" class="card">
-                                        <div id="enrollmentcardimage"></div>
-                                        <div id="enrollmentcardtitle"><b></b></div>
-                                        <div id="enrollmentcarddescription"></div>
+                                        <div id="enrollmentcardimage"><img src={enrollmentimage} id="enrollmentimage"/></div>
+                                        <div id="enrollmentcardtitle"><b>Enrollment Probability</b></div>
+                                        <div id="enrollmentcarddescription">We provide information on how many students are enrolling for courses within each day of the scheduling period.</div>
                                     </div>
                                 </a>
                             </div>

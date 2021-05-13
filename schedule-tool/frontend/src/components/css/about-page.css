@@ -8,17 +8,91 @@
 .members{
     background-color: #162857;
     width: 100%;
-    height: 600px;
+    height: 800px;
 }
 
 .memberstitle{
-    font-family: "ProximaNova", "Helvetica Neue";
+    font-family: "ProximaNova-Bold", "Helvetica Neue";
     font-size: 4.5rem;
     color: #FFFFFF;
     background-color: #162857;
     width: 100%;
-    padding-left: 200px;
+    padding-left: 170px;
     padding-top: 70px;
+    padding-bottom: 20px;
+}
+
+#james{
+    width: 170px;
+    height: auto;
+    border-radius: .5rem;
+}
+
+#omid{
+    width: 170px;
+    height: auto;
+    border-radius: .5rem;
+}
+
+#gennifer{
+    width: 170px;
+    height: auto;
+    border-radius: .5rem;
+}
+
+#minhtu{
+    width: 170px;
+    height: auto;
+    border-radius: .5rem;
+}
+
+#ke{
+    width: 170px;
+    height: auto;
+    border-radius: .5rem;
+}
+
+#kiran{
+    width: 170px;
+    height: auto;
+    border-radius: .5rem;
+}
+
+#john{
+    width: 170px;
+    height: auto;
+    border-radius: .5rem;
+}
+
+#salma{
+    width: 170px;
+    height: auto;
+    border-radius: .5rem;
+}
+
+#elizabeth{
+    width: 170px;
+    height: auto;
+    border-radius: .5rem;
+}
+
+#prabhdeep{
+    width: 170px;
+    height: auto;
+    border-radius: .5rem;
+}
+.name{
+    font-family: "ProximaNova-Bold", "Helvetica Neue";
+    font-size: 1.6rem;
+    color:  white;
+    padding-top: 8px;
+}
+
+.position{
+    font-family: "ProximaNova", "Helvetica Neue";
+    font-size: 1.5rem;
+    color:  white;
+    padding-top: 1px;
 }
 
 .footer{

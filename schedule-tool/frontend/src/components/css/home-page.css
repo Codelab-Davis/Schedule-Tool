@@ -10,16 +10,17 @@ html{
     font-size: 10px;
 }
 
-a:link{
-    text-decoration: none!important;
+a, a:hover, a:focus, a:active {
+    text-decoration: none;
+    color: inherit;
 }
 
 .intro{
     font-family: "ProximaNova", "Helvetica Neue";
-    background-image: url('../HomeIllustration.png');
+    background-image: url('../images/HomeIllustration2.png');
     /* height: 100%;  */
     width: 100vw;
-    height: 106vh;
+    height: 100vh;
     top: 0;
     left: 0;
 
@@ -47,23 +48,23 @@ a:link{
 }
 
 .Aggie{
-    font-family: "ProximaNova", "Helvetica Neue";
-    font-size: 6rem;
+    font-family: "ProximaNova-Bold", "Helvetica Neue";
+    font-size: 7rem;
     color: #162857;
     margin: 0;
     
 }
 .Explorer{
-    font-family: "ProximaNova", "Helvetica Neue";
-    font-size: 6rem;
+    font-family: "ProximaNova-Bold", "Helvetica Neue";
+    font-size: 7rem;
     color: #EAB517;
     margin: 0;
     
 }
 .Description{
     font-family: "ProximaNova", "Helvetica Neue";
-    padding-top: 1rem;
-    font-size: 1.8rem;
+    padding-top: 0.8rem;
+    font-size: 2.15rem;
     color: #EAB517;
     margin: 20;
 }
@@ -77,10 +78,10 @@ a#homebutton{
     font-size: 1.8rem;
     color: #FFFFFF;
     outline-color: #162857;
-    padding-top: 1rem;
-    padding-bottom: 1rem;
-    padding-right: 3rem;
-    padding-left: 3rem;
+    padding-top: 1.5rem;
+    padding-bottom: 1.5rem;
+    padding-right: 5rem;
+    padding-left: 5rem;
     border-radius: 1rem;
 }
 
@@ -124,19 +125,18 @@ a#homebutton{
     position: relative;
     top: 50%;
     transform: translateY(-50%);
-    padding-left: 8rem;
 }
 
 #missionright{
     font-family: "ProximaNova", "Helvetica Neue";
-    font-size: 2.1rem;
-    color: #162857;
+    font-size: 2.2rem;
+    color: #5A5A5A;
     float: right;
     width: 60%;
     position: relative;
     top: 50%;
     transform: translateY(-50%);
-    line-height: 3.4rem;
+    line-height: 3.7rem;
     padding-top: 3rem;
     padding-right: 190px;
 }
@@ -149,34 +149,89 @@ a#homebutton{
 
 .featurestitle
 {
-    font-family: "ProximaNova", "Helvetica Neue";
-    font-size: 4.5rem;
+    font-family: "ProximaNova-Bold", "Helvetica Neue";
+    font-size: 5rem;
     color: #FFFFFF;
     background-color: #162857;
     width: 100%;
-    padding-left: 200px;
+    padding-left: 160px;
     padding-top: 70px;
 }
 
 #featuresleft{
-    padding-top: 40px;
-    margin-left: -10px;
+    padding-top: 50px;
+    padding-left: 60px;
 }
 
 .card{
-    width: 45rem;
-    height: 45rem;
-    margin-left: 10rem;
-    margin-right: 10rem;
+    width: 50rem;
+    height: 50rem;
+    border-radius: 1rem;
 }
 
 #featuresright{
-    padding-top: 40px;
+    padding-top: 50px;
+    padding-left: 65px;
+}
+
+#gradecardimage{
+    text-align: center;
+    margin-left: -20px;
+    padding-top: 35px;
+    padding-bottom: 20px;
+}
+
+#gradeimage{
+    width: 370px;
+    height: auto;
+    
 }
 
 #gradecardtitle{
     font-family: "ProximaNova", "Helvetica Neue";
-    font-size: 2rem;
+    font-size: 3rem;
+    color: #5A5A5A;
+    padding-left: 4.5rem;
+}
+
+#gradecarddescription{
+    font-family: "ProximaNova", "Helvetica Neue";
+    font-size: 1.7rem;
+    color: #5A5A5A;
+    padding-top: 1rem;
+    padding-left: 4.5rem;
+    padding-right: 4rem;
+    line-height: 3rem;
+}
+
+#enrollmentcardimage{
+    text-align: center;
+    margin-left: -20px;
+    padding-top: 48px;
+    padding-bottom: 20px;
+}
+
+#enrollmentimage{
+    width: 380px;
+    height: auto;
+}
+
+#enrollmentcardtitle{
+    font-family: "ProximaNova", "Helvetica Neue";
+    color: #5A5A5A;
+    font-size: 3rem;
+    padding-top: 0.8rem;
+    padding-left: 5.5rem;
+}
+
+#enrollmentcarddescription{
+    font-family: "ProximaNova", "Helvetica Neue";
+    font-size: 1.7rem;
+    color: #5A5A5A;
+    padding-top: 1rem;
+    padding-left: 5.5rem;
+    padding-right: 5.5rem;
+    line-height: 3rem;
 }
 
 .footer{
@@ -184,12 +239,12 @@ a#homebutton{
     height: 125px;
     font-family: "ProximaNova", "Helvetica Neue";
     font-size: 2rem;
-    color: #162857;
+    color: #4F7094;
     text-align: center;
     padding-top: 55px;
 }
 .footertext{
-    color: #162857;
+    color: #4F7094;
 }
 
 .footerCatalog{
@@ -205,4 +260,3 @@ a#homebutton{
 
 .footerAbout{
 }
-

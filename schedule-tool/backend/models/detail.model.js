@@ -27,6 +27,7 @@ const detailSchema = new Schema({ //components of a class/what are defined withi
   NP: { type: Number, required: true },//no pass
   Y: { type: Number, required: true },//pending judicial action
   quarter: { type: String, required: true },
+  units: { type: String, required: true },
   enrollment: { type: Array, required: true},
 }, {
   timestamps: true,

@@ -1,0 +1,43 @@
+@font-face {
+    font-family: ProximaNova;
+    src: url("/src/fonts/Proxima_Nova_reg.ttf") format("truetype");
+  }
+
+  @font-face{
+    font-family: ProximaNova-Bold;
+    src: url("/src/fonts/Proxima_Nova_Bold.ttf") format("truetype");
+  }
+  
+.right-content{
+    font-family: "ProximaNova", "Helvetica Neue";
+    float: right;
+    position: fixed;
+    text-align: center;
+    margin-top: 40%;
+}
+
+.footer{
+    width: 100%;
+    height: 125px;
+    font-family: "ProximaNova", "Helvetica Neue";
+    font-size: 2rem;
+    color: #162857;
+    text-align: center;
+    padding-top: 55px;
+}
+.footertext{
+    color: #162857;
+}
+
+.footerCatalog{
+    padding-right: 20rem;
+}
+
+.footerGrades{
+    padding-right: 20rem;
+}
+.footerEnrollment{
+    padding-right: 20rem;
+}
+
+
