@@ -1,6 +1,6 @@
 @font-face {
     font-family: ProximaNova;
-    src: url("/src/fonts/Proxima_Nova_Reg.ttf") format("truetype");
+    src: url("/src/fonts/Proxima_Nova_reg.ttf") format("truetype");
     font-family: ProximaNova-Bold;
     src: url("/src/fonts/Proxima_Nova_Bold.ttf") format("truetype");
   }
@@ -56,10 +56,17 @@ html{
 
 #dropdown-basic{
     background-color: transparent;
-    font-family: "ProximaNova-Bold", "Helvetica Neue";
+    border-color: #E3E3E3;
+    font-family: "ProximaNova", "Helvetica Neue";
     color: #162857;
-    font-size: 1.2rem;
+    font-size: 1.5rem;
+    margin-top: 1rem;
+    height: 4rem;
+    padding-left: 7rem;
+    padding-right: 7rem;
+    float: right;
 }
+
 
 #corebox{
     border: 1px solid black;
@@ -76,6 +83,7 @@ html{
     font-family: "ProximaNova-Bold", "Helvetica Neue";
     color: #162857;
     font-size: 1.6rem;
+    margin-left: -0.5rem;
 }
 
 #AdvancedText{
