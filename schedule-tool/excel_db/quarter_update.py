@@ -15,7 +15,8 @@ options = {
     'quarter'       : "FQ2021",
     'previous_year' : "20_21",
     'extension'     : ".xlsx",
-    'db_name'       : "schedule-tool",
+    # 'db_name'       : "schedule-tool",
+    'db_name'       : "pskainth_schedule-tool", 
 
     'pk_file_crn_map' : "crn_map_dump.pkl",
     'pk_file_course_enroll' : "course_enroll_dump.pkl",
@@ -155,22 +156,31 @@ class CurrentQuarter:
             instructor_list = []
 
             for crn in self.crn_map[course_id]:
-                if int(crn) == 94:
-                    print("ERROR: Invalid CRN: " + crn + " for courseId: " + course_id)
-                    
                 course_info = course_web_info.ClassWebInfo(crn, options['term'])
 
                 # print("CRN: " + crn + " Course_ID: " + course_id)
                 instructor = course_info.getInstructor() 
                 course_name = course_info.getCourse_Name()
 
-                if instructor not in instructor_list:
+                if instructor in instructor_list:
+                    # get the record with course Id and instructor
+                    filtered_course = list(filter(lambda course: \
+                        (course['course_id'] == course_id) and (course['instructor'] == instructor), self.course_list))
+                    if (len(filtered_course) != 1):
+                        print("ERROR: Unable to find unique course for course name: " + course_name + " instructor: " + instructor)
+                        sys.exit(0)
+                    filtered_course[0]['crn'].append(int(crn))
+                else:
+                    # insert new record for this course
                     instructor_list.append(instructor)
 
                     course = {
                         "name" : course_name,
+                        "crn"  : [int(crn)],
                         "course_id" : course_id,
                         "instructor" : instructor,
+                        "subj" : course_id[:3],
+                        "code" : course_id[3:],
                         "aplus" : 0,
                         "a" : 0,
                         "aminus" : 0,
