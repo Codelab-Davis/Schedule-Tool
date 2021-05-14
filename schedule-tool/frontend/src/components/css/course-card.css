@@ -1,0 +1,91 @@
+@font-face {
+    font-family: ProximaNova;
+    src: url("/src/fonts/Proxima_Nova_Reg.ttf") format("truetype");
+    font-family: ProximaNova-Bold;
+    src: url("/src/fonts/Proxima_Nova_Bold.ttf") format("truetype");
+  }
+
+html{
+    scroll-behavior: smooth;
+    font-size: 10px;
+}
+
+.page{
+    width: 100%;
+    height: auto;
+}
+
+#splitright{
+    padding-top: 6rem;
+}
+
+.filtertitle{
+    font-family: "ProximaNova-Bold", "Helvetica Neue";
+    font-size: 3rem;
+    padding-bottom: 3rem;
+}
+
+#quartertitle{
+    font-family: "ProximaNova", "Helvetica Neue";
+    font-size: 1.8rem;
+}
+
+#quarterboxes{
+    padding-top: 1rem;
+}
+
+#quar{
+    font-family: "ProximaNova", "Helvetica Neue";
+    font-size: 1.5rem;
+    padding-right: 2.8rem;
+}
+#checktext{
+    padding-right: 0.8rem;
+}
+
+#searchbar{
+    height: 4rem;
+}
+
+#title{
+    font-family: "ProximaNova", "Helvetica Neue";
+    font-size: 1.8rem;
+    padding-top: 1.8rem;
+    padding-bottom: 0.5rem;
+}
+
+#dropdown-basic{
+    background-color: transparent;
+    font-family: "ProximaNova-Bold", "Helvetica Neue";
+    color: #162857;
+    font-size: 1.2rem;
+}
+
+#corebox{
+    border: 1px solid black;
+}
+
+#extrafeatures{
+    display: none;
+}
+
+#AdvancedButton{
+    margin-top: 3rem;
+    background-color: transparent; /* Green */
+    border: none;
+    font-family: "ProximaNova-Bold", "Helvetica Neue";
+    color: #162857;
+    font-size: 1.6rem;
+}
+
+#AdvancedText{
+    font-family: "ProximaNova-Bold", "Helvetica Neue";
+    color: #162857;
+    font-size: 1.6rem;
+}
+
+#AdvancedText2{
+    font-family: "ProximaNova-Bold", "Helvetica Neue";
+    color: #162857;
+    font-size: 1.6rem;
+}

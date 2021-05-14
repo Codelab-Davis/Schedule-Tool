@@ -1,4 +1,43 @@
-# Getting Started with Create React App
+# AggieExplorer
+
+Development Team: Minh-Tu Nguyen, Salma Hassen, Elizabeth Hopkins, John Jung, Prabhdeep Kainth
+
+Design Team: Ke Lin, Kiran Poonia
+
+Advisors: James Junaidi, Gennifer Hom, Omid Mogasemi
+Built during the Winter/Spring 2021 cohort of CodeLab
+
+## About
+AggieExplorer is a tool that provides course statistics for UC Davis students
+
+## Quick Start:
+1. **Install the required node modules.**
+   Use npm i to install the node modules required in both the backend and frontend folders.
+
+   ```shell
+   # install the node modules
+   # first make sure to delete any existing node_modules folders
+   cd .\backend\
+   npm i
+   cd ..\frontend\
+   npm i
+
+   ```
+
+2. **Start up the development server.**
+   ```shell
+   # Connect to the backend server
+   cd .\backend\
+   nodemon server
+   # Start the localhost
+   cd ..\frontend\
+   npm start
+   ```
+
+
+
+<!-- # Getting Started with Create React App 
+<!-- ORIGINAL AUTO-GENERATED README CAN BE FOUND BELOW
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
@@ -18,6 +57,10 @@ You will also see any lint errors in the console.
 
 Launches the test runner in the interactive watch mode.\
 See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+
+
+
+
 
 ### `npm run build`
 
@@ -67,4 +110,4 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 
 ### `npm run build` fails to minify
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify) -->

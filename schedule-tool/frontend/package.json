@@ -1,0 +1,52 @@
+{
+  "name": "schedule-tool",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@testing-library/jest-dom": "^5.11.9",
+    "@testing-library/react": "^11.2.5",
+    "@testing-library/user-event": "^12.7.0",
+    "apollo-boost": "^0.4.9",
+    "axios": "^0.21.1",
+    "babel-preset-react": "^6.24.1",
+    "bootstrap": "^4.6.0",
+    "graphql": "^15.5.0",
+    "jquery": "^3.5.1",
+    "lodash": "^4.17.21",
+    "mdbreact": "^5.0.1",
+    "react": "^17.0.1",
+    "react-apollo": "^3.1.5",
+    "react-bootstrap": "^1.6.0",
+    "react-dom": "^17.0.1",
+    "react-router-dom": "^5.2.0",
+    "react-scripts": "4.0.2",
+    "react-select": "^4.3.1",
+    "react-windowed-select": "^3.1.1",
+    "recharts": "^2.0.9",
+    "web-vitals": "^1.1.0"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
+}
