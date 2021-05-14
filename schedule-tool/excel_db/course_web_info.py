@@ -133,7 +133,7 @@ class ClassWebInfo:
         return self.instructor
 
 if __name__ == "__main__":
-    test = ClassWebInfo(20001, 202110)
+    test = ClassWebInfo(53735, 202110)
     print(test.getGE_List())
     print(test.getUnits())
     print(test.getDesc())

@@ -10,7 +10,7 @@ if __name__ == "__main__":
 
     course_catalog_text = "./GenCat20212022.txt"
 
-    catalog_text_file = open(course_catalog_text, 'rt')
+    catalog_text_file = open(course_catalog_text, 'rt', encoding="utf8")
     catalog_text = catalog_text_file.read()
     catalog_text_file.close()
 

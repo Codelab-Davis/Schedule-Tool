@@ -54,6 +54,14 @@ class Course:
     # constructor - init the fields
     def __init__(self, df):
         self.name = df["CRSE_TITLE"].tolist()[0]
+        
+        crn_set = set()
+        for crn in df["CRN"].tolist():
+            crn_set.add(crn)
+        self.crn = list(crn_set)
+
+        self.subj = df["SUBJ"].tolist()[0]
+        self.code = str(df["CRSE"].tolist()[0])
         self.course_id = df["SUBJ_CODE"].tolist()[0]
         self.instructor = df["INSTRUCTOR"].tolist()[0]
         self.aplus = 0
