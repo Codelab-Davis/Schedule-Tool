@@ -15,8 +15,8 @@ options = {
     'quarter'       : "FQ2021",
     'previous_year' : "20_21",
     'extension'     : ".xlsx",
-    # 'db_name'       : "schedule-tool",
-    'db_name'       : "pskainth_schedule-tool", 
+    'db_name'       : "schedule-tool",
+    # 'db_name'       : "pskainth_schedule-tool", 
 
     'pk_file_crn_map' : "crn_map_dump.pkl",
     'pk_file_course_enroll' : "course_enroll_dump.pkl",
