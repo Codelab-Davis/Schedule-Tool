@@ -33,7 +33,6 @@ export default class GradePage extends Component {
 
     // course detail information from backend server that fetch from mongo DB
     this.state.courseDetails = [];
-    this.state.fullCourseDetails = [];
 
     this.gradeIds = [
       "aplus",
@@ -88,7 +87,7 @@ export default class GradePage extends Component {
     this.handleQuarterChangeRef = this.handleQuarterChange.bind(this);
     this.handleInstructureChangeRef = this.handleInstructureChange.bind(this);
     this.addCourseRef = this.addCourse.bind(this);
-
+    this.handleCourseDeleteRef = this.handleCourseDelete.bind(this);
     this.courseListRef = React.createRef();
     this.quarterListRef = React.createRef();
     this.instructorListRef = React.createRef();
@@ -97,6 +96,30 @@ export default class GradePage extends Component {
   componentDidMount() {
     // get course information from server backend. This is onetime action when webpage is loaded or reloaded
     this.getCourseData();
+  }
+
+  handleCourseDelete(event) {
+    var deleteIndex = parseInt(event.target.getAttribute("data-index"));
+    // remove from coursesGradeData, formattedData, chartLegend
+
+    // console.log(this.state.coursesGradesData);
+    // var gradeAdjust = this.state.coursesGradesData;
+    // var formattedAdust = this.state.formattedData;
+    // var chartLegendAdjust = this.state.chartLegend;
+
+    // gradeAdjust.splice(deleteIndex, 1);
+    // formattedAdust.splice(deleteIndex, 1);
+    // chartLegendAdjust.splice(deleteIndex, 1);
+
+    // this.setState({
+    //   coursesGradesData : gradeAdjust,
+    //   formattedData: formattedAdust,
+    //   chartLegend: chartLegendAdjust
+    // })
+
+    this.state.coursesGradesData.splice(deleteIndex, 1);
+    this.state.formattedData.splice(deleteIndex, 1);
+    this.formatGrades();
   }
 
   // call backend ot fetch the course information
@@ -146,19 +169,30 @@ export default class GradePage extends Component {
 
     // match ID, quarter and instructor. Since groupby and match is identical, expect it to give array size 1 with
     // all matches courses
-    [
+    var reqParamsMatchList = [
       "course_id",
       this.state.selectedCourse,
       "quarter",
       this.state.selectedQuarter,
-      "instructor",
-      this.state.selectedInstructor,
-    ].forEach((matchItem) => {
+    ];
+
+    if (this.state.selectedInstructor != "All Instructors") {
+      reqParamsMatchList.push("instructor");
+      reqParamsMatchList.push(this.state.selectedInstructor);
+    }
+
+    reqParamsMatchList.forEach((matchItem) => {
       reqParams.append("match[]", matchItem);
     });
 
+    var reqParamsGroupList = ["course_id", "quarter"];
+
+    if (this.state.selectedInstructor != "All Instructors") {
+      reqParamsGroupList.push("instructor");
+    }
+
     // get all courses for this ID in given quarter conducted by same instructor
-    ["course_id", "quarter", "instructor"].forEach((groupItem) => {
+    reqParamsGroupList.forEach((groupItem) => {
       reqParams.append("group[]", groupItem);
     });
     // request full detail of grouped and matched courses
@@ -180,7 +214,7 @@ export default class GradePage extends Component {
         courseAccumulation["info"]["courseID"] = fullCourse[0].course_id;
         courseAccumulation["info"]["name"] = fullCourse[0].name;
         courseAccumulation["info"]["quarter"] = fullCourse[0].quarter;
-        courseAccumulation["info"]["instructor"] = fullCourse[0].instructor;
+        // courseAccumulation["info"]["instructor"] = fullCourse[0].instructor;
 
         var totalGrades = 0;
         for (
@@ -207,9 +241,9 @@ export default class GradePage extends Component {
             (courseAccumulation["grades"][gradeName] * 100) / totalGrades;
         }
 
-        if(this.state.coursesGradesData.length < this.MAX_COURSE_DETAIL) {
+        if (this.state.coursesGradesData.length < this.MAX_COURSE_DETAIL) {
           this.state.coursesGradesData.push(courseAccumulation);
-          this.formatGrades();  
+          this.formatGrades();
         } else {
           console.log("too many classes added already");
         }
@@ -234,11 +268,13 @@ export default class GradePage extends Component {
 
       temp.push(gradeMap);
     });
-    
+
     var colorIndex = 0;
     this.state.coursesGradesData.forEach((course) => {
       var name = course.info.courseID;
-      tempLegend.push(<Bar dataKey={name} fill={this.COURSE_DETAIL_COLOR[colorIndex]} />);
+      tempLegend.push(
+        <Bar dataKey={name} fill={this.COURSE_DETAIL_COLOR[colorIndex]} />
+      );
       colorIndex++;
     });
 
@@ -257,6 +293,7 @@ export default class GradePage extends Component {
       quarterOptions: [],
       instructorOptions: [],
     });
+
     this.courseListRef.current.setState({ value: null });
     this.quarterListRef.current.setState({ value: null });
     this.instructorListRef.current.setState({ value: null });
@@ -294,6 +331,13 @@ export default class GradePage extends Component {
         label: instructor,
       });
     });
+
+    if (instructorList.length > 1) {
+      instructorList.push({
+        value: "All Instructors",
+        label: "All Instructors",
+      });
+    }
 
     this.instructorListRef.current.setState({ value: null });
     this.setState({
@@ -342,9 +386,32 @@ export default class GradePage extends Component {
 
     // console.log(this.state.formattedData);
     // console.log(this.state.chartLegend);
+    // console.log(this.state.coursesGradesData);
 
-    // var borderStyle = "1px solid black";
-    var borderStyle = "none";
+    var borderStyle = "1px solid black";
+    // var borderStyle = "none";
+
+    var courseLegend = [];
+    var index = 0;
+    this.state.coursesGradesData.forEach((course) => {
+      courseLegend.push(
+        <div>
+          <button
+            type="button"
+            class="btn btn-outline-dark"
+            data-index={index}
+            style={{
+              display: this.state.chartLegend.length > index ? "" : "none",
+              height: "40%",
+              width: "50%",
+            }}
+            onClick={this.handleCourseDeleteRef}
+          >
+            {course["info"]["courseID"]}
+          </button>
+        </div>
+      );
+    });
 
     return (
       <div>
@@ -352,8 +419,8 @@ export default class GradePage extends Component {
           className="row"
           style={{
             border: borderStyle,
-            marginTop: "5rem",
-            marginBottom: "10rem",
+            marginTop: "3rem",
+            marginBottom: "7rem",
           }}
         >
           <div className="col-1" style={{ border: borderStyle }} />
@@ -395,21 +462,31 @@ export default class GradePage extends Component {
           </div>
           <div className="col-1" style={{ border: borderStyle }} />
         </div>
-        <div className="row" style={{ border: borderStyle }}>
+
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "row",
+            alignItems: "stretch",
+            border: borderStyle,
+            margin: "4%",
+            width: "70vw  ",
+            height: "70vh",
+            backgroundColor: "yellow",
+          }}
+        >
           <div
-            className="row border"
             style={{
-              position: "fixed",
-              bottom: "10%",
-              right: "20%",
-              width: "70%",
-              height: "60%",
+              flexGrow: 1,
+              flexShrink: 1,
+              border: borderStyle,
+              backgroundColor: "blue",
             }}
           >
             <ResponsiveContainer>
               <BarChart
-                width={500}
-                height={400}
+                width="99.8%"
+                height="99.8%"
                 data={this.state.formattedData}
                 margin={{ top: 20, right: 20, bottom: 20, left: 20 }}
               >
@@ -422,7 +499,10 @@ export default class GradePage extends Component {
               </BarChart>
             </ResponsiveContainer>
           </div>
-        </div>        
+          <div style={{ border: borderStyle, backgroundColor: "green"}}>
+            {courseLegend}
+          </div>
+        </div>
       </div>
     );
   }
