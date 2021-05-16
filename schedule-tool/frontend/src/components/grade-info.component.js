@@ -100,25 +100,9 @@ export default class GradePage extends Component {
 
   handleCourseDelete(event) {
     var deleteIndex = parseInt(event.target.getAttribute("data-index"));
-    // remove from coursesGradeData, formattedData, chartLegend
 
-    // console.log(this.state.coursesGradesData);
-    // var gradeAdjust = this.state.coursesGradesData;
-    // var formattedAdust = this.state.formattedData;
-    // var chartLegendAdjust = this.state.chartLegend;
-
-    // gradeAdjust.splice(deleteIndex, 1);
-    // formattedAdust.splice(deleteIndex, 1);
-    // chartLegendAdjust.splice(deleteIndex, 1);
-
-    // this.setState({
-    //   coursesGradesData : gradeAdjust,
-    //   formattedData: formattedAdust,
-    //   chartLegend: chartLegendAdjust
-    // })
-
+    this.COURSE_DETAIL_COLOR.push(this.state.coursesGradesData[deleteIndex]["info"]["color"]);
     this.state.coursesGradesData.splice(deleteIndex, 1);
-    this.state.formattedData.splice(deleteIndex, 1);
     this.formatGrades();
   }
 
@@ -142,7 +126,6 @@ export default class GradePage extends Component {
         this.setState({ loadingInfo: false });
         // this function populates the course list
         this.updateCourseList();
-        //console.log(this.state.courseDetails);
       })
       .catch((error) => {
         console.log(error);
@@ -199,7 +182,6 @@ export default class GradePage extends Component {
 
     reqParams.append("fulldetail", true);
 
-    //console.log("Just before axios" + this.courseDisplayLimit + " " + this.courseIdxStart);
     // send request to server
 
     return axios
@@ -214,7 +196,10 @@ export default class GradePage extends Component {
         courseAccumulation["info"]["courseID"] = fullCourse[0].course_id;
         courseAccumulation["info"]["name"] = fullCourse[0].name;
         courseAccumulation["info"]["quarter"] = fullCourse[0].quarter;
-        // courseAccumulation["info"]["instructor"] = fullCourse[0].instructor;
+        courseAccumulation["info"][
+          "instructor"
+        ] = this.state.selectedInstructor;
+        courseAccumulation["info"]["color"] = this.COURSE_DETAIL_COLOR.pop();
 
         var totalGrades = 0;
         for (
@@ -238,7 +223,7 @@ export default class GradePage extends Component {
         ) {
           var gradeName = this.gradeNames[indexGrade];
           courseAccumulation["percentages"][gradeName] =
-            (courseAccumulation["grades"][gradeName] * 100) / totalGrades;
+            parseFloat(((courseAccumulation["grades"][gradeName] * 100) / totalGrades).toFixed(2));
         }
 
         if (this.state.coursesGradesData.length < this.MAX_COURSE_DETAIL) {
@@ -273,7 +258,7 @@ export default class GradePage extends Component {
     this.state.coursesGradesData.forEach((course) => {
       var name = course.info.courseID;
       tempLegend.push(
-        <Bar dataKey={name} fill={this.COURSE_DETAIL_COLOR[colorIndex]} />
+        <Bar dataKey={name} fill={course["info"]["color"]} />
       );
       colorIndex++;
     });
@@ -282,10 +267,6 @@ export default class GradePage extends Component {
   }
 
   addCourse(event) {
-    // console.log(this.state.selectedCourse);
-    // console.log(this.state.selectedQuarter);
-    // console.log(this.state.selectedInstructor);
-
     this.getFullCourseDetail();
 
     this.setState({
@@ -312,12 +293,10 @@ export default class GradePage extends Component {
       (course) => course.course_id == this.state.selectedCourse
     );
 
-    // console.log(filteredIDInfo);
 
     var filteredQuarterInfo = filteredIDInfo[0].courses.filter(
       (course) => course.quarter == this.state.selectedQuarter
     );
-    // console.log(filteredQuarterInfo);
 
     var instructorSet = new Set();
     filteredQuarterInfo.forEach((quarter) => {
@@ -375,42 +354,63 @@ export default class GradePage extends Component {
     this.quarterListRef.current.setState({ value: null });
     this.instructorListRef.current.setState({ value: null });
 
-    // console.log(filteredInfo);
-    // console.log(quarterList);
   }
 
   render(props) {
-    // console.log(this.showCourseTable);
+    var borderStyle = "none";
 
-    // console.log(this.state.selectedCourse);
+    var courseLegend = [<div></div>, <div></div>, <div></div>, <div></div>];
 
-    // console.log(this.state.formattedData);
-    // console.log(this.state.chartLegend);
-    // console.log(this.state.coursesGradesData);
-
-    var borderStyle = "1px solid black";
-    // var borderStyle = "none";
-
-    var courseLegend = [];
     var index = 0;
     this.state.coursesGradesData.forEach((course) => {
-      courseLegend.push(
-        <div>
-          <button
-            type="button"
-            class="btn btn-outline-dark"
-            data-index={index}
-            style={{
-              display: this.state.chartLegend.length > index ? "" : "none",
-              height: "40%",
-              width: "50%",
-            }}
-            onClick={this.handleCourseDeleteRef}
-          >
-            {course["info"]["courseID"]}
-          </button>
+      courseLegend[index] = (
+        <div
+          style={{
+            border: "2px solid #BEBEBE",
+            borderRadius: "10px",
+            padding: "10px",
+            whiteSpace: "nowrap",
+            
+          }}
+        >
+          <div style={{display: "flex", flexDirection:"row"}}>
+            <span
+              className="dot"
+              style={{
+                borderRadius: "50%",
+                backgroundColor: course["info"]["color"],
+                display: "inline-block",
+                height: "17px",
+                width: "17px",
+                marginRight: "10px",
+                marginTop: "4px"
+              }}
+            ></span>
+            <h2>{course["info"]["courseID"]}</h2>
+            <button
+              data-index={index}
+              type="button"
+              className="btn float-right"
+              style={{ borderStyle: "none"}}
+              onClick={this.handleCourseDeleteRef}
+              style={{
+                marginLeft: "auto"
+              }}
+            >
+              X
+            </button>
+
+          </div>
+
+          <h3 style={{ color: "#BEBEBE" }}>{course["info"]["name"]}</h3>
+          <h4 style={{ color: "#BEBEBE" }}>
+            {" "}
+            {course["info"]["quarter"]} - {course["info"]["instructor"]}{" "}
+          </h4>
         </div>
       );
+
+      index++;
     });
 
     return (
@@ -463,24 +463,26 @@ export default class GradePage extends Component {
           <div className="col-1" style={{ border: borderStyle }} />
         </div>
 
+        {/* graph and legend row*/}
         <div
           style={{
             display: "flex",
             flexDirection: "row",
-            alignItems: "stretch",
+
             border: borderStyle,
             margin: "4%",
-            width: "70vw  ",
+            width: "92vw  ",
             height: "70vh",
-            backgroundColor: "yellow",
+            alignItems: "stretch",
+            justifyContent: "center",
           }}
         >
           <div
             style={{
               flexGrow: 1,
               flexShrink: 1,
+              width: "65%",
               border: borderStyle,
-              backgroundColor: "blue",
             }}
           >
             <ResponsiveContainer>
@@ -494,13 +496,41 @@ export default class GradePage extends Component {
                 <XAxis dataKey="name" />
                 <YAxis />
                 <Tooltip />
-                <Legend />
+                <Legend content={<div></div>} />
                 {this.state.chartLegend}
               </BarChart>
             </ResponsiveContainer>
           </div>
-          <div style={{ border: borderStyle, backgroundColor: "green"}}>
-            {courseLegend}
+
+          <div
+            style={{
+              display: "flex",
+              width: "35%",
+              height: "auto",
+              border: borderStyle,
+              alignSelf: "center",
+              justifyContent: "center",
+            }}
+          >
+            <div
+              className="table table-borderless"
+              style={{
+                borderCollapse: "separate",
+                borderSpacing: "10px",
+                width: "auto",
+              }}
+            >
+              <tbody>
+                <tr>
+                  <td>{courseLegend[0]}</td>
+                  <td>{courseLegend[1]}</td>
+                </tr>
+                <tr>
+                  <td>{courseLegend[2]}</td>
+                  <td>{courseLegend[3]}</td>
+                </tr>
+              </tbody>
+            </div>
           </div>
         </div>
       </div>
