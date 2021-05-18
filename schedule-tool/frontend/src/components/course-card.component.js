@@ -4,7 +4,8 @@ import axios from 'axios';
 import{gql} from 'apollo-boost';
 import {graphql} from 'react-apollo';
 import {courseFilterQuery} from './../queries.js';
-
+import filterIcon from "./images/filter-control-adjustment-icon.jpg"
+import catalog_cow from "./images/catalog_cow.png";
 import './css/course-card.css'; 
 import { Button,  ButtonGroup, DropdownButton, MenuItem, Dropdown } from 'react-bootstrap';
 
@@ -17,22 +18,41 @@ import { Button,  ButtonGroup, DropdownButton, MenuItem, Dropdown } from 'react-
 
 function myFunction() {
   var x = document.getElementById("extrafeatures");
+  var y = document.getElementById("AdvancedButton");
+  var z = document.getElementById("AdvancedButton2");
   if (x.style.display === "none") {
-    x.style.display = "inline";
+    x.style.display = "flex";
+    y.style.display = "none";
+    z.style.display = "block";
   } else {
     x.style.display = "none";
+    y.style.display = "block";
+    z.style.display = "none";
   }
 }
 
-function changeText() {
-  var element = document.getElementById('AdvancedText');
-  if(element.innerHTML == 'Show Advanced Options'){
-    element.innerHTML = 'Hide Advanced Options'
-  }
-  else{
-    element.innerHTML = 'Show Advanced Options'
+
+function hide_show() {
+  var x = document.getElementById("filter_right");
+  var y = document.getElementById("cow_right");
+  if (x.style.display === "none") {
+    x.style.display = "inline";
+    y.style.display = "none";
+  } else {
+    x.style.display = "none";
+    y.style.display = "inline";
   }
 }
+
+// function changeText() {
+//   var element = document.getElementById('AdvancedText');
+//   if(element.innerHTML == 'Show Advanced Options'){
+//     element.innerHTML = 'Hide Advanced Options'
+//   }
+//   else{
+//     element.innerHTML = 'Show Advanced Options'
+//   }
+// }
 
 const Detail = props => (
     <tr>
@@ -55,20 +75,20 @@ class CourseCard extends Component{
     // }
 
 
-    constructor(props) {
-        super(props);
+    // constructor(props) {
+    //     super(props);
 
-        this.onChangeInstructor = this.onChangeInstructor.bind(this);
+    //     this.onChangeInstructor = this.onChangeInstructor.bind(this);
     
-        this.deleteDetail = this.deleteDetail.bind(this)
+    //     this.deleteDetail = this.deleteDetail.bind(this)
     
-        this.state = {
-          detail: [],
-          course_name: "",
-          instructor: "James",
-          units:"",
-        };
-      }
+    //     this.state = {
+    //       detail: [],
+    //       course_name: "",
+    //       instructor: "James",
+    //       units:"",
+    //     };
+    //}
 
 
       // to refetch data using graphql query
@@ -127,46 +147,162 @@ class CourseCard extends Component{
             return <Detail detail={currentdetail} deleteDetail={this.deleteDetail} key={currentdetail._id}/>;
         })
     }
+
+    constructor(props) {
+      super(props);
+      // create state
+      this.state = {};
+      // init course detail to empty list
+      this.state.detail = [];
+  
+      // TODO: course fetch limit. Create class variables to store how many courses to fetch
+      this.numCourses = 20;
+      // TODO: course index tracking. Create class variables to track current database index
+      this.startCourseIndex = 0;
+  
+      this.filter = "";
+  
+      // TODO: Create reference for prev and next button click and bind them. Add to HTML
+      this.onClickPrevRef = this.clickPreviousHandler.bind(this);
+      this.onClickNextRef = this.clickNextHandler.bind(this);
+      this.filterChageRef = this.filterChangeHandler.bind(this);
+    }
+  
+    componentDidMount() {
+      this.refreshDB();
+    }
+  
+    refreshDB() {
+      // get course details from database
+      var requestParams = new URLSearchParams({
+        "limit" : this.numCourses,
+        "start" : this.startCourseIndex,
+        "filter" : this.filter
+      });
+  
+      axios
+        .get("http://localhost:5000/detail/", {params:requestParams})
+        .then((response) => {
+          var recievedCount = response.data.length;
+  
+          if((recievedCount == 0) && (this.startCourseIndex != 0)) {
+            this.startCourseIndex = Math.max(0, this.startCourseIndex - this.numCourses);
+          } else {
+            this.setState({ detail: response.data });
+          }
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
+  
+    // TODO: previous click call back handler
+    clickPreviousHandler() {
+      this.startCourseIndex = Math.max(0, this.startCourseIndex - this.numCourses);
+      this.refreshDB();
+    }
+  
+    // TODO: next click call back handler
+    clickNextHandler() {
+      this.startCourseIndex = this.startCourseIndex + this.numCourses;
+      this.refreshDB();
+    }
+  
+    filterChangeHandler(event) {
+      this.filter = event.target.value;
+      this.startCourseIndex = 0;
+      this.refreshDB();
+    }
     
     
     // creating unordered list and using map for card component
     render(){
+
+        // all course HTML info array
+        var course_info = [];
+    
+        var border_style = "none";
+    
+        for(var index = 0; index < this.state.detail.length; index++) {
+          // this course HTML info
+          var this_course = (
+            <tr className="row" style={{marginLeft:"0px", marginRight:"0px"}}>
+                <td className="col-8" style={{border:border_style}}>
+                  <h4><strong>{this.state.detail[index].course_id}</strong></h4>
+                  <h4>{this.state.detail[index].name}</h4>
+                </td>
+                <td className="col-4" style={{border:border_style, textAlign:"center", marginTop:"1rem"}}>
+                  <h4>{this.state.detail[index].units} Units</h4>
+                </td>
+            </tr>
+          );
+          course_info.push(this_course);
+        }
         return(
           <html>
           <body>
           <div class="page">
            <div class="row">
-            <div id = "splitleft" class="col-md-4">
+            <div id="splitleft" class="col-md-3">
+              <table className="table table-hover">
+                <thead>
+                  <tr className="row" style={{marginLeft:"0px", marginRight:"0px"}}>
+                    <th className="col-10" style={{border:border_style}}>
+                      <div className="form_group mb-3">
+                        <input type="text" class="form-control" placeholder="search for classes" onChange={this.filterChageRef}/>
+                      </div>
+                    </th>
+                    <th className="col-1" style={{border:border_style}}> 
+                      <button id = "filterbutton" onClick={hide_show}><img src={filterIcon} style={{height:"3rem", marginBottom:"0.7rem"}} ></img></button>
+                    </th>
+                    <th className="col-1" style={{border:border_style}}></th>
+                  </tr>
+                </thead>
+              <tbody style={{display:"block", height:"70vh", overflowY:"scroll"}}>
+                {course_info}
+              </tbody>
+
+            </table>
+
+            <div className="row" style={{marginTop:"30px", marginLeft:"20px"}}>
+              <button type="button" className="btn btn-primary btn-sm col-2" style={{height:"30px", marginRight:"20px"}} onClick={this.onClickPrevRef}>Prev</button>
+              <button type="button" className="btn btn-primary btn-sm col-2" style={{height:"30px", marginRight:"20px"}} onClick={this.onClickNextRef}>Next</button>
+              <div className="col-8"></div>
+            </div>
+            
+            {/* <button onClick={hide_show}>Filters</button>
             <ul class="list-unstyled"> 
                 {this.state.detail.map(currentdetail => {
                 return(
-                <li>
-                  <div class="row">
-                      <div class="col-xl-3 col-sm-6 col-12">
-                          <div class="card">
-                              <div class="card-content">
-                                  <div class="card-body">
-                                      <div class="media d-flex">
-                                          <div class="media-body text-left">
-                                              <h3 class="primary">{currentdetail.name}</h3>
-                                              <span>{currentdetail.course_id}</span>
+                  <li>
+                  <div class="card">
+                              <div class="card-body">
+                                <div class="media d-flex">
+                                  <div class="align-self-center">
+                                              <h3 class="primary"><b>{currentdetail.course_id}</b></h3>
+                                              <p>{currentdetail.name}</p>
+                                              <p> Enrollement Here </p>
+                                              <div class= "left_side">
+                                             <div class= "unit-right">{currentdetail.units} Units</div> </div>
                                               <a href="courseinfo" class="stretched-link"></a>
                                           </div>
-                                          {/* <div class="align-self-center">
-                                              <i class="icon-book-open primary font-large-2 float-right"></i>
-                                          </div> */}
                                       </div>
                                   </div>
                               </div>
-                          </div>
-                      </div>
-                  </div>
-                </li>
-                );
-                })} 
-            </ul>
+                  </li>
+                  ); })}
+                  </ul> */}
             </div>
-              <div id="splitright" class="col-sm-8">
+              <div id="splitright" class="col-sm-9 right-content">
+                <div id="cow_right">
+                  <div class="right-text">
+                      <div class="catalog_cow"><img src={catalog_cow} id="catalog_cow"/> </div>
+                      <p class="line-1">Go ahead and search</p> 
+                      <p class="line-2">or filter for classes! </p>
+                  </div>
+                </div>
+                <div id="filter_right">
+                  <div id="addgap">
                   <h1 class="filtertitle">Filters</h1>
                   <div class="row">
                     <div id="quarter" class="col-md-8 other">
@@ -253,7 +389,6 @@ class CourseCard extends Component{
                           <Dropdown.Toggle variant="success" id="dropdown-basic">
                             Meeting Type
                           </Dropdown.Toggle>
-
                           <Dropdown.Menu>
                             <Dropdown.Item href="#/action-1">Action</Dropdown.Item>
                             <Dropdown.Item href="#/action-2">Another action</Dropdown.Item>
@@ -267,36 +402,36 @@ class CourseCard extends Component{
                     <div id="coreliteracies" class="col-md-5">
                       <p class="coretitle">Core Literacies</p>
                       <div id="corebox">
-                        <label class="container">
-                          <input type="checkbox" />ACGH (Amer Cultr, Gov, Hist)
+                        <label class="container" id="core">
+                          <input type="checkbox" /><span id="coretext">ACGH (Amer Cultr, Gov, Hist)</span>
                           <span class="checkmark"></span>
                         </label>
-                        <label class="container">
-                          <input type="checkbox"/>DD (Domestic Diversity)
+                        <label class="container" id="core">
+                          <input type="checkbox"/><span id="coretext">DD (Domestic Diversity)</span>
                           <span class="checkmark"></span>
                         </label>
-                        <label class="container">
-                          <input type="checkbox"/>OL (Oral Lit)
+                        <label class="container" id="core">
+                          <input type="checkbox"/><span id="coretext">OL (Oral Lit)</span>
                           <span class="checkmark"></span>
                         </label>
-                        <label class="container">
-                          <input type="checkbox"/>QL (Qualitative Lit)
+                        <label class="container" id="core">
+                          <input type="checkbox"/><span id="coretext">QL (Qualitative Lit)</span>
                           <span class="checkmark"></span>
                         </label>
-                        <label class="container">
-                          <input type="checkbox"/>SL (Scientific Lit)
+                        <label class="container" id="core">
+                          <input type="checkbox"/><span id="coretext">SL (Scientific Lit)</span>
                           <span class="checkmark"></span>
                         </label>
-                        <label class="container">
-                          <input type="checkbox"/>VL (Visual Lit)
+                        <label class="container" id="core">
+                          <input type="checkbox"/><span id="coretext">VL (Visual Lit)</span>
                           <span class="checkmark"></span>
                         </label>
-                        <label class="container">
-                          <input type="checkbox"/>WC (World Cultr)
+                        <label class="container" id="core">
+                          <input type="checkbox"/><span id="coretext">WC (World Cultr)</span>
                           <span class="checkmark"></span>
                         </label>
-                        <label class="container">
-                          <input type="checkbox"/>WE (Writing Exp)
+                        <label class="container" id="core">
+                          <input type="checkbox"/><span id="coretext">WE (Writing Exp)</span>
                           <span class="checkmark"></span>
                         </label>
                       </div>
@@ -304,25 +439,29 @@ class CourseCard extends Component{
                     <div id="placeholder" class="col-md-1 other"></div>
                     <div id="GEs" class="col-md-5">
                       <p class="getitle">GE Options</p>
-                      <label class="container">
-                        <input type="checkbox" />AH (Arts & Hum)
-                        <span class="checkmark"></span>
-                      </label>
-                      <label class="container">
-                        <input type="checkbox"/>SE (Sci & Eng)
-                        <span class="checkmark"></span>
-                      </label>
-                      <label class="container">
-                        <input type="checkbox"/>SS (Social Sci)
-                        <span class="checkmark"></span>
-                      </label>
+                      <div id="gebox">
+                        <label class="container" id="ge">
+                          <input type="checkbox" /><span id="getext">AH (Arts & Hum)</span>
+                          <span class="checkmark"></span>
+                        </label>
+                        <label class="container" id="ge">
+                          <input type="checkbox"/><span id="getext">SE (Sci & Eng)</span>
+                          <span class="checkmark"></span>
+                        </label>
+                        <label class="container" id="ge">
+                          <input type="checkbox"/><span id="getext">SS (Social Sci)</span>
+                          <span class="checkmark"></span>
+                        </label>
+                      </div>
                     </div>
                   </div>
                   <button id="AdvancedButton" onClick={myFunction}>Show Advanced Options</button>
+                  <button id="AdvancedButton2" onClick={myFunction}>Hide Advanced Options</button>
+                  </div>
                 </div>
               </div>
-          </div>
-
+            </div>
+        </div>
         </body>
         </html>
         )
