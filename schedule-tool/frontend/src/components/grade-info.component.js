@@ -363,6 +363,34 @@ export default class GradePage extends Component {
 
     var index = 0;
     this.state.coursesGradesData.forEach((course) => {
+      // calculate course average
+      var gpaValues = [4.0, 3.7, 3.3, 3.0, 2.7, 2.3, 2.0, 1.7, 1.3, 1.0, 0.7, 0.3, 0.0];
+
+      var gpaIndex = 0;
+      var average = 0;
+
+      this.gradeIds.forEach(gradeName => {
+        if(gradeName == "f") {
+          break;
+        }
+
+        average += gpaValues[index] * course["percentages"][gradeName];
+        gpaIndex++;
+      })
+      
+      var averageIndex = 0;
+      for(var i = 0; i < 13; i++) {
+        if(average >= gpaValues[i]) {
+          averageIndex = i - 1;
+          break;
+        }
+      }
+
+      averageIndex = averageIndex < 0 ? 0 : averageIndex;
+      
+      
+    })
+
       courseLegend[index] = (
         <div
           style={{
@@ -406,6 +434,12 @@ export default class GradePage extends Component {
           <h4 style={{ color: "#BEBEBE" }}>
             {" "}
             {course["info"]["quarter"]} - {course["info"]["instructor"]}{" "}
+          </h4>
+          <h4 style={{fontWeight: "bold"}}> 
+              Course average
+          </h4>
+          <h4>
+
           </h4>
         </div>
       );
