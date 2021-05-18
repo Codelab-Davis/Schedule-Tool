@@ -6,6 +6,12 @@ router.route('/').get((req, res) => {
   var projections = null;
   var options = {};
 
+  // req.query.quarter -> req.query.Year
+  // var date ="";
+  // if (req.query.quarter == "fall") {
+  //   date = "fall" + req.query.year;
+  // }
+
   if("start" in req.query && "limit" in req.query){
     options.skip = parseInt(req.query.start);
     options.limit = parseInt(req.query.limit);
@@ -14,6 +20,30 @@ router.route('/').get((req, res) => {
   if(("filter" in req.query) && (req.query.filter.length > 0)) {
     filter.name = {"$regex": req.query.filter, "$options": "i"};
   }
+
+  if(("instructor" in req.query) && (req.query.instructor.length > 0)) {
+    filter.instructor = {"$regex": req.query.instructor, "$options": "i"};
+  }
+
+  if(("crn" in req.query) && (req.query.crn.length > 0)) {
+    filter.crn = {"$regex": req.query.crn, "$options": "i"};
+  }
+
+  if(("subj" in req.query) && (req.query.subj.length > 0)) {
+    filter.subj = {"$regex": req.query.subj, "$options": "i"};
+  }
+
+  if(("code" in req.query) && (req.query.code.length > 0)) {
+    filter.code = {"$regex": req.query.code, "$options": "i"};
+  }
+
+  if(("units" in req.query) && (req.query.units.length > 0)) {
+    filter.units = {"$regex": req.query.units, "$options": "i"};
+  }
+
+  // filter.quarter = {"$regex": date, "$options": "i"}
+
+  console.log("filter", filter);
 
   Detail.find(filter, projections, options)
     .then(detail => res.json(detail))

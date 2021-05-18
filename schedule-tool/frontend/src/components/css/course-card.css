@@ -100,6 +100,8 @@ html{
     display: none;
 }
 
+
+
 .coretitle{
     font-family: "ProximaNova", "Helvetica Neue";
     font-size: 1.8rem;
@@ -148,6 +150,7 @@ html{
     font-size: 1.6rem;
     margin-left: -0.5rem;
     margin-bottom: 6rem;
+    display: inline;
 }
 
 #AdvancedButton2{
@@ -173,7 +176,17 @@ html{
     color: #162857;
     font-size: 1.6rem;
 }
-pr
+
+#GoButton{
+    font-family: "ProximaNova-Bold", "Helvetica Neue";
+    color: #162857;
+    font-size: 1.6rem;
+    background-color: transparent; /* Green */
+    margin-top: 3rem;
+    margin-left: -0.5rem;
+    margin-bottom: 6rem;
+}
+
 .card{
     font-family: "ProximaNova", "Helvetica Neue";
     height: auto;
