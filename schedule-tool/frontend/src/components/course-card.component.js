@@ -20,13 +20,13 @@ function myFunction() {
   var x = document.getElementById("extrafeatures");
   var y = document.getElementById("AdvancedButton");
   var z = document.getElementById("AdvancedButton2");
-  if (x.style.display === "none") {
+  if (x.style.display == "none") {
     x.style.display = "flex";
     y.style.display = "none";
-    z.style.display = "block";
+    z.style.display = "inline";
   } else {
     x.style.display = "none";
-    y.style.display = "block";
+    y.style.display = "inline";
     z.style.display = "none";
   }
 }
@@ -35,14 +35,15 @@ function myFunction() {
 function hide_show() {
   var x = document.getElementById("filter_right");
   var y = document.getElementById("cow_right");
-  if (x.style.display === "none") {
-    x.style.display = "inline";
+  if (x.style.display == "none") {
+    x.style.display = "block";
     y.style.display = "none";
   } else {
     x.style.display = "none";
-    y.style.display = "inline";
+    y.style.display = "block";
   }
 }
+
 
 // function changeText() {
 //   var element = document.getElementById('AdvancedText');
@@ -161,24 +162,95 @@ class CourseCard extends Component{
       this.startCourseIndex = 0;
   
       this.filter = "";
+
+      this.crn = "";
+      this.instructor = "";
+      this.subj = "";
+      this.code = ""; // this is course level
+      this.units = "";
   
       // TODO: Create reference for prev and next button click and bind them. Add to HTML
       this.onClickPrevRef = this.clickPreviousHandler.bind(this);
       this.onClickNextRef = this.clickNextHandler.bind(this);
       this.filterChageRef = this.filterChangeHandler.bind(this);
+
+      this.crnChangeRef = this.crnChangeRefHandler.bind(this);
+      this.instructorChangeRef = this.instructorChangeRefHandler.bind(this);
+      this.subjChangeRef = this.subjChangeRefHandler.bind(this);
+      this.codeChangeRef = this.codeChangeRefHandler.bind(this);
+      this.unitsChangeRef = this.unitsChangeRefHandler.bind(this);
+
+      this.useFilterRef = this.useFilter.bind(this);
     }
   
     componentDidMount() {
       this.refreshDB();
     }
+
+    crnChangeRefHandler(e) {
+      this.crn = e.target.value;
+    }
+
+    instructorChangeRefHandler(e) {
+      this.instructor = e.target.value;
+    }
+    
+    subjChangeRefHandler(e) {
+      this.subj = e.target.value;
+    }
+
+    codeChangeRefHandler(e) {
+      this.code = e.target.value;
+    }
+
+    unitsChangeRefHandler(e) {
+      this.units = e.target.value;
+    }
+
+    useFilter() {
+
+      // axios
+      // .get("http://localhost:5000/detail/", {params:requestParams})
+      // .then((response) => {
+      //   var recievedCount = response.data.length;
+
+      //   if((recievedCount == 0) && (this.startCourseIndex != 0)) {
+      //     this.startCourseIndex = Math.max(0, this.startCourseIndex - this.numCourses);
+      //   } else {
+      //     this.setState({ detail: response.data });
+      //   }
+      // })
+      // .catch((error) => {
+      //   console.log(error);
+      // });
+
+
+      // console.log("state in usefilter functions", this.state);
+      console.log("in usefilter function", this.state);
+      let newDetail = this.state.detail.filter(function (el) {
+        return el;
+      });
+
+
+      console.log("new detil", newDetail);
+    }
   
     refreshDB() {
+
+      console.log("in refresh DB", this.instructor);
       // get course details from database
       var requestParams = new URLSearchParams({
         "limit" : this.numCourses,
         "start" : this.startCourseIndex,
-        "filter" : this.filter
+        "filter" : this.filter,
+        "instructor": this.instructor,
+        "crn": this.crn,
+        "subj": this.subj,
+        "code": this.code,
+        "units": this.units
       });
+
+      let instructorFilter = this.instructor;
   
       axios
         .get("http://localhost:5000/detail/", {params:requestParams})
@@ -188,6 +260,17 @@ class CourseCard extends Component{
           if((recievedCount == 0) && (this.startCourseIndex != 0)) {
             this.startCourseIndex = Math.max(0, this.startCourseIndex - this.numCourses);
           } else {
+            // add any filters here:
+            // filters are CRN, Subject, Instructor, Course Level, Units
+            console.log("in else statement", instructorFilter, response.data);
+            // let newDetail = response.data.filter(function (el) {
+            //   return el.instructor == instructorFilter;
+            //   // el.crn == this.crn &&
+            //   // el.subj == this.subj &&
+            //   // el.code == this.code &&
+            //   // el.units == this.units;
+            // });
+            // console.log("the newdetail", newDetail);
             this.setState({ detail: response.data });
           }
         })
@@ -253,7 +336,7 @@ class CourseCard extends Component{
                       </div>
                     </th>
                     <th className="col-1" style={{border:border_style}}> 
-                      <button id = "filterbutton" onClick={hide_show}><img src={filterIcon} style={{height:"3rem", marginBottom:"0.7rem"}} ></img></button>
+                      <button id = "filterbutton" onClick={hide_show} ><img src={filterIcon} style={{height:"3rem", marginBottom:"0.7rem"}} ></img></button>
                     </th>
                     <th className="col-1" style={{border:border_style}}></th>
                   </tr>
@@ -331,16 +414,16 @@ class CourseCard extends Component{
                       </div>
                     </div>
                     <div id="quarter" class="col-sm-3 other2">
-                    <Dropdown>
-                      <Dropdown.Toggle variant="success" id="dropdown-basic">Year
-                      </Dropdown.Toggle>
+                      <Dropdown>
+                        <Dropdown.Toggle variant="success" id="dropdown-basic">Year
+                        </Dropdown.Toggle>
 
-                      <Dropdown.Menu>
-                        <Dropdown.Item href="#/action-1">Action</Dropdown.Item>
-                        <Dropdown.Item href="#/action-2">Another action</Dropdown.Item>
-                        <Dropdown.Item href="#/action-3">Something else</Dropdown.Item>
-                      </Dropdown.Menu>
-                    </Dropdown>
+                        <Dropdown.Menu>
+                          <Dropdown.Item href="#/action-1">Action</Dropdown.Item>
+                          <Dropdown.Item href="#/action-2">Another action</Dropdown.Item>
+                          <Dropdown.Item href="#/action-3">Something else</Dropdown.Item>
+                        </Dropdown.Menu>
+                      </Dropdown>
                     </div>
                     <div id="placeholder" class="col-md-1 other"></div>
                   </div>
@@ -348,14 +431,14 @@ class CourseCard extends Component{
                     <div id="CRN" class="col-md-5 other">
                     <div id="title">CRN</div>
                     <div class="input-group mb-4">
-                          <input type="search" placeholder="CRN" aria-describedby="button-addon5" class="form-control" id="searchbar"/>
+                          <input type="search" onChange={this.crnChangeRef} placeholder="CRN" aria-describedby="button-addon5" class="form-control" id="searchbar"/>
                       </div>
                     </div>
                     <div id="placeholder" class="col-md-1 other"></div>
                     <div id="course-level" class="col-md-5 other">
                       <div id="title">Course Level</div>
                       <div class="input-group mb-4">
-                          <input type="search" placeholder="Course Level" aria-describedby="button-addon5" class="form-control" id="searchbar"/>
+                          <input type="search" onChange={this.codeChangeRef} placeholder="Course Level" aria-describedby="button-addon5" class="form-control" id="searchbar"/>
                       </div>
                     </div>
                     <div id="placeholder" class="col-md-1 other"></div>
@@ -364,14 +447,14 @@ class CourseCard extends Component{
                     <div id="Subject" class="col-md-5 other">
                       <div id="title">Subject</div>
                       <div class="input-group mb-4">
-                        <input type="search" placeholder="Subject" aria-describedby="button-addon5" class="form-control" id="searchbar"/>
+                        <input type="search" onChange={this.subjChangeRef} placeholder="Subject" aria-describedby="button-addon5" class="form-control" id="searchbar"/>
                       </div>
                     </div>
                     <div id="placeholder" class="col-md-1 other"></div>
                     <div id="units" class="col-md-5 other">
                       <div id="title">Units</div>
                       <div class="input-group mb-4">
-                          <input type="search" placeholder="Units" aria-describedby="button-addon5" class="form-control" id="searchbar"/>
+                          <input type="search" onChange={this.unitsChangeRef} placeholder="Units" aria-describedby="button-addon5" class="form-control" id="searchbar"/>
                       </div>
                     </div>
                     <div id="placeholder" class="col-md-1 other"></div>
@@ -380,7 +463,7 @@ class CourseCard extends Component{
                     <div id="instructor" class="col-md-5 other">
                       <div id="title">Instructor</div>
                       <div class="input-group mb-4">
-                        <input type="search" placeholder="instructor" aria-describedby="button-addon5" class="form-control" id="searchbar" onChange={this.onChangeInstructor}/>
+                        <input type="search" onChange={this.instructorChangeRef} placeholder="instructor" aria-describedby="button-addon5" class="form-control" id="searchbar"/>
                       </div>
                     </div>
                     <div id="placeholder" class="col-md-1 other"></div>
@@ -455,8 +538,18 @@ class CourseCard extends Component{
                       </div>
                     </div>
                   </div>
-                  <button id="AdvancedButton" onClick={myFunction}>Show Advanced Options</button>
-                  <button id="AdvancedButton2" onClick={myFunction}>Hide Advanced Options</button>
+                  <div class="row">
+                    <div id="advancedbuttons" class="col-md-5 other">
+                      <button id="AdvancedButton" onClick={myFunction}>Show Advanced Options</button>
+                      <button id="AdvancedButton2" onClick={myFunction}>Hide Advanced Options</button>
+                    </div>  
+                    <div id="placeholder" class="col-md-1 other"></div>
+                    <div id="gobuttons" class="col-md-5 other">
+                      {/* <button id="GoButton" onClick={this.useFilterRef}>Go!</button> */}
+                      <button id="GoButton" onClick={this.filterChageRef}>Go!</button>
+                    </div>  
+                    <div id="placeholder" class="col-md-1 other"></div>
+                  </div>
                   </div>
                 </div>
               </div>
