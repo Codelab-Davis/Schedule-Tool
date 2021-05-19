@@ -263,14 +263,7 @@ class CourseCard extends Component{
             // add any filters here:
             // filters are CRN, Subject, Instructor, Course Level, Units
             console.log("in else statement", instructorFilter, response.data);
-            // let newDetail = response.data.filter(function (el) {
-            //   return el.instructor == instructorFilter;
-            //   // el.crn == this.crn &&
-            //   // el.subj == this.subj &&
-            //   // el.code == this.code &&
-            //   // el.units == this.units;
-            // });
-            // console.log("the newdetail", newDetail);
+
             this.setState({ detail: response.data });
           }
         })

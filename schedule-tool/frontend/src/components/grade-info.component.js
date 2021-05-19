@@ -112,7 +112,7 @@ export default class GradePage extends Component {
 
     // Call server to get the information
     return axios
-      .get("http://localhost:5000/detail", { params: reqParams })
+      .get("http://localhost:5000/detail/grades", { params: reqParams })
       .then((response) => {
         // Use setState function and that will trigger re-render
         this.state.courseDetails = response.data;
@@ -169,7 +169,7 @@ export default class GradePage extends Component {
     // send request to server
 
     return axios
-      .get("http://localhost:5000/detail", { params: reqParams })
+      .get("http://localhost:5000/detail/grades", { params: reqParams })
       .then((response) => {
         var fullCourse = [];
         response.data[0].courses.forEach((details) => {
