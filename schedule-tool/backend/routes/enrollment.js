@@ -1,14 +1,27 @@
 const router = require('express').Router();
 let Enrollment = require('../models/enrollment.model');
-router.route('/').get((req,res) => {
+
+router.route('/').get(function(req,res){
+  console.log("received a get request for all the enrollment data");
   Enrollment.find()
   .then(function(data){
-    console.log("sucessful get request for every enrollment data");
-    console.log(data);
+    res.send({data})
+  })
+  .catch(function(err){
+    res.status(400).json("Error from the router" + err);
+  })
+})
+
+router.route('/names').get((req,res) => {
+  Enrollment.find({},{
+    name: 1
+  })
+  .then(function(data){
     res.send({data})
   })
   .catch(err => res.status(400).json("Error from router: " + err));
 })
+
 router.route('/add').post((req,res) =>{
     console.log('in the enrollment route')
     const name = req.body.name;
