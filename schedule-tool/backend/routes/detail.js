@@ -122,6 +122,29 @@ router.route('/').get((req, res) => {
     filter.units = {"$regex": req.query.units, "$options": "i"};
   }
 
+  if(("year" in req.query) && (req.query.year.length > 0)) {
+    if(("fall" in req.query) && (req.query.fall.length > 0)) {
+      req.query.quarter = req.query.fall + req.query.year
+      filter.quarter = {"$regex": req.query.quarter, "$options": "i"};
+    }
+    if(("winter" in req.query) && (req.query.winter.length > 0)) {
+      req.query.quarter = req.query.winter + req.query.year
+      filter.quarter = {"$regex": req.query.quarter, "$options": "i"};
+    }
+    if(("spring" in req.query) && (req.query.spring.length > 0)) {
+      req.query.quarter = req.query.spring + req.query.year
+      filter.quarter = {"$regex": req.query.quarter, "$options": "i"};
+    }
+    if(("ss1" in req.query) && (req.query.ss1.length > 0)) {
+      req.query.quarter = req.query.ss1 + req.query.year
+      filter.quarter = {"$regex": req.query.quarter, "$options": "i"};
+    }
+    if(("ss2" in req.query) && (req.query.ss2.length > 0)) {
+      req.query.quarter = req.query.ss2 + req.query.year
+      filter.quarter = {"$regex": req.query.quarter, "$options": "i"};
+    }
+  }
+
   // filter.quarter = {"$regex": date, "$options": "i"}
 
   console.log("filter", filter);

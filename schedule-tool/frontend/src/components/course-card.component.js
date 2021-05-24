@@ -168,6 +168,15 @@ class CourseCard extends Component{
       this.subj = "";
       this.code = ""; // this is course level
       this.units = "";
+
+      // quarter & year
+      this.fall = "";
+      this.winter = "";
+      this.spring = "";
+      this.ss1 = "";
+      this.ss2 = "";
+      this.year = "";
+
   
       // TODO: Create reference for prev and next button click and bind them. Add to HTML
       this.onClickPrevRef = this.clickPreviousHandler.bind(this);
@@ -179,6 +188,13 @@ class CourseCard extends Component{
       this.subjChangeRef = this.subjChangeRefHandler.bind(this);
       this.codeChangeRef = this.codeChangeRefHandler.bind(this);
       this.unitsChangeRef = this.unitsChangeRefHandler.bind(this);
+
+      this.fallChangeRef = this.fallChangeRefHandler.bind(this);
+      this.winterChangeRef = this.winterChangeRefHandler.bind(this);
+      this.springChangeRef = this.springChangeRefHandler.bind(this);
+      this.ss1ChangeRef = this.ss1ChangeRefHandler.bind(this);
+      this.ss2ChangeRef = this.ss2ChangeRefHandler.bind(this);
+      this.yearChangeRef = this.yearChangeRefHandler.bind(this);
 
       this.useFilterRef = this.useFilter.bind(this);
     }
@@ -205,6 +221,30 @@ class CourseCard extends Component{
 
     unitsChangeRefHandler(e) {
       this.units = e.target.value;
+    }
+
+    fallChangeRefHandler(e) {
+      this.fall = "FQ";
+    }
+
+    winterChangeRefHandler(e) {
+      this.winter = "WQ";
+    }
+
+    springChangeRefHandler(e) {
+      this.fall = "SQ";
+    }
+
+    ss1ChangeRefHandler(e) {
+      this.ss1 = "SS1";
+    }
+
+    ss2ChangeRefHandler(e){
+      this.ss2 = "SS2";
+    }
+
+    yearChangeRefHandler(e){
+      this.year = e;
     }
 
     useFilter() {
@@ -247,7 +287,13 @@ class CourseCard extends Component{
         "crn": this.crn,
         "subj": this.subj,
         "code": this.code,
-        "units": this.units
+        "units": this.units,
+        "quarter": this.quarter
+        // "fall": this.fall,
+        // "winter": this.winter,
+        // "spring": this.spring,
+        // "ss1": this.ss1,
+        // "ss2": this.ss2
       });
 
       let instructorFilter = this.instructor;
@@ -385,36 +431,38 @@ class CourseCard extends Component{
                       <div id="quartertitle">Quarter</div>
                       <div id="quarterboxes">
                       <label class="checkbox-inline" id="quar"><span id="checktext">Fall</span>
-                        <input type="checkbox"/>
+                        <input type="checkbox" onChange={this.fallChangeRef}/>
                         <span class="checkmark"></span>
                       </label>
                       <label class="checkbox-inline" id="quar"> <span id="checktext">Winter</span>
-                        <input type="checkbox"/>
+                        <input type="checkbox" onChange={this.winterChangeRef}/>
                         <span class="checkmark"></span>
                       </label>
                       <label class="checkbox-inline" id="quar"> <span id="checktext">Spring</span>
-                        <input type="checkbox"/>
+                        <input type="checkbox" onChange={this.springChangeRef}/>
                         <span class="checkmark"></span>
                       </label>
                       <label class="checkbox-inline" id="quar"> <span id="checktext">Summer I</span>
-                        <input type="checkbox"/>
+                        <input type="checkbox" onChange={this.ss1ChangeRef}/>
                         <span class="checkmark"></span>
                       </label>
                       <label class="checkbox-inline" id="quar"> <span id="checktext">Summer II</span>
-                        <input type="checkbox"/>
+                        <input type="checkbox" onChange={this.ss2ChangeRef}/>
                         <span class="checkmark"></span>
                       </label>
                       </div>
                     </div>
                     <div id="quarter" class="col-sm-3 other2">
                       <Dropdown>
-                        <Dropdown.Toggle variant="success" id="dropdown-basic">Year
+                        <Dropdown.Toggle variant="success" id="dropdown-basic" onChange={this.yearChangeRef}>Year
                         </Dropdown.Toggle>
 
                         <Dropdown.Menu>
-                          <Dropdown.Item href="#/action-1">Action</Dropdown.Item>
-                          <Dropdown.Item href="#/action-2">Another action</Dropdown.Item>
-                          <Dropdown.Item href="#/action-3">Something else</Dropdown.Item>
+                          <Dropdown.Item >2016</Dropdown.Item>
+                          <Dropdown.Item >2017</Dropdown.Item>
+                          <Dropdown.Item >2018</Dropdown.Item>
+                          <Dropdown.Item >2019</Dropdown.Item>
+                          <Dropdown.Item >2020</Dropdown.Item>
                         </Dropdown.Menu>
                       </Dropdown>
                     </div>
