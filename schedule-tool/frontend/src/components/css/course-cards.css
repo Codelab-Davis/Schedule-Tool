@@ -14,9 +14,9 @@ pr
     width: auto;
     border: none;
     margin-left: 8%;
-    /*padding-bottom: 10px;*/
+    padding-bottom: 20px;
 }
- 
+
 .left_side{
     width: 100%;
     height: auto;
@@ -61,6 +61,11 @@ pr
     width: auto; 
 }
 
+h5{
+    font-weight: lighter;
+    
+}
+
 .footer{
     width: 100%;
     height: 125px;
@@ -84,5 +89,3 @@ pr
 .footerEnrollment{
     padding-right: 20rem;
 }
-
-

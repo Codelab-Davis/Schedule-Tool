@@ -93,6 +93,8 @@ router.route('/').get((req, res) => {
   //   date = "fall" + req.query.year;
   // }
 
+  // console.log("hit req query", req.query);
+
   if("start" in req.query && "limit" in req.query){
     options.skip = parseInt(req.query.start);
     options.limit = parseInt(req.query.limit);
@@ -122,9 +124,34 @@ router.route('/').get((req, res) => {
     filter.units = {"$regex": req.query.units, "$options": "i"};
   }
 
-  if(("year" in req.query) && (req.query.year.length > 0)) {
+    // filter.quarter = {'quarters': []};
+
+    // if(("fall" in req.query) && (req.query.fall.length > 0)) {
+    //   req.query.quarter = req.query.fall + req.query.year;
+    //   filter.quarter.quarters.push({ $or: {"$regex": req.query.quarter, "$options": "i"}});
+    // }
+    // if(("winter" in req.query) && (req.query.winter.length > 0)) {
+    //   req.query.quarter = req.query.winter + req.query.year
+    //   filter.quarter.quarters.push({ $or: {"$regex": req.query.quarter, "$options": "i"}});
+
+    // }
+    // if(("spring" in req.query) && (req.query.spring.length > 0)) {
+    //   req.query.quarter = req.query.spring + req.query.year
+    //   filter.quarter.quarters.push({ $or: {"$regex": req.query.quarter, "$options": "i"}});
+
+    // }
+    // if(("ss1" in req.query) && (req.query.ss1.length > 0)) {
+    //   req.query.quarter = req.query.ss1 + req.query.year
+    //   filter.quarter.quarters.push({ $or: {"$regex": req.query.quarter, "$options": "i"}});
+
+    // }
+    // if(("ss2" in req.query) && (req.query.ss2.length > 0)) {
+    //   req.query.quarter = req.query.ss2 + req.query.year
+    //   filter.quarter.quarters.push({ $or: {"$regex": req.query.quarter, "$options": "i"}});
+    // }
+
     if(("fall" in req.query) && (req.query.fall.length > 0)) {
-      req.query.quarter = req.query.fall + req.query.year
+      req.query.quarter = req.query.fall + req.query.year;
       filter.quarter = {"$regex": req.query.quarter, "$options": "i"};
     }
     if(("winter" in req.query) && (req.query.winter.length > 0)) {
@@ -143,7 +170,13 @@ router.route('/').get((req, res) => {
       req.query.quarter = req.query.ss2 + req.query.year
       filter.quarter = {"$regex": req.query.quarter, "$options": "i"};
     }
-  }
+
+    console.log("hit quarter", req.query.quarter, req.query.year)
+
+    if (!req.query.quarter && "year" in req.query && req.query.year != "No Year" && req.query.year != "") {
+      req.query.quarter = req.query.year;
+      filter.quarter = {"$regex": req.query.quarter, "$options": "i"};
+    }
 
   // filter.quarter = {"$regex": date, "$options": "i"}
 

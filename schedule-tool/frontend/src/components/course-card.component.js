@@ -7,7 +7,9 @@ import {courseFilterQuery} from './../queries.js';
 import filterIcon from "./images/filter-control-adjustment-icon.jpg"
 import catalog_cow from "./images/catalog_cow.png";
 import './css/course-card.css'; 
-import { Button,  ButtonGroup, DropdownButton, MenuItem, Dropdown } from 'react-bootstrap';
+// import { Button,  ButtonGroup, DropdownButton, MenuItem, Dropdown } from 'react-bootstrap';
+import { Button,  ButtonGroup, DropdownButton, MenuItem } from 'react-bootstrap';
+import Dropdown from "react-dropdown";
 
 // const getCourseQuery = gql`
 //   {
@@ -224,27 +226,47 @@ class CourseCard extends Component{
     }
 
     fallChangeRefHandler(e) {
-      this.fall = "FQ";
+      if (this.fall == "FQ") {
+        this.fall = "";
+      } else {
+        this.fall = "FQ";
+      }
     }
 
     winterChangeRefHandler(e) {
-      this.winter = "WQ";
+      if (this.winter == "WQ") {
+        this.winter = "";
+      } else {
+        this.winter = "WQ";
+      }
     }
 
     springChangeRefHandler(e) {
-      this.fall = "SQ";
+      if (this.spring == "SQ") {
+        this.spring = "";
+      } else {
+        this.spring = "SQ";
+      }
     }
 
     ss1ChangeRefHandler(e) {
-      this.ss1 = "SS1";
+      if (this.ss1 == "SS1") {
+        this.ss1 = "";
+      } else {
+        this.ss1 = "SS1";
+      }
     }
 
     ss2ChangeRefHandler(e){
-      this.ss2 = "SS2";
+      if (this.ss2 == "SS2") {
+        this.ss2 = "";
+      } else {
+        this.ss2 = "SS2";
+      }
     }
 
     yearChangeRefHandler(e){
-      this.year = e;
+      this.year = e.value;
     }
 
     useFilter() {
@@ -288,12 +310,12 @@ class CourseCard extends Component{
         "subj": this.subj,
         "code": this.code,
         "units": this.units,
-        "quarter": this.quarter
-        // "fall": this.fall,
-        // "winter": this.winter,
-        // "spring": this.spring,
-        // "ss1": this.ss1,
-        // "ss2": this.ss2
+        "fall": this.fall,
+        "winter": this.winter,
+        "spring": this.spring,
+        "ss1": this.ss1,
+        "ss2": this.ss2,
+        "year": this.year,
       });
 
       let instructorFilter = this.instructor;
@@ -336,6 +358,7 @@ class CourseCard extends Component{
       this.refreshDB();
     }
     
+
     
     // creating unordered list and using map for card component
     render(){
@@ -343,18 +366,22 @@ class CourseCard extends Component{
         // all course HTML info array
         var course_info = [];
     
-        var border_style = "none";
+        var border_style = "Year";
+        var dropDownOptions = ['No Year', '2016', '2017', '2018', '2019', '2020'];
+        var defaultOption = dropDownOptions[0];
     
         for(var index = 0; index < this.state.detail.length; index++) {
           // this course HTML info
           var this_course = (
-            <tr className="row" style={{marginLeft:"0px", marginRight:"0px"}}>
-                <td className="col-8" style={{border:border_style}}>
-                  <h4><strong>{this.state.detail[index].course_id}</strong></h4>
-                  <h4>{this.state.detail[index].name}</h4>
+            <tr className="row" style={{marginLeft:"0px", marginRight:"0px" }}>
+                <td className="col-8" style={{border:"0", marginTop: "1rem"}}>
+                  <h4 id="classid"><strong>{this.state.detail[index].course_id}</strong></h4>
+                  <h4 id="classname">{this.state.detail[index].name}</h4>
+                  <h4 id="classinstructor"> {this.state.detail[index].instructor} {this.state.detail[index].quarter} </h4>
                 </td>
-                <td className="col-4" style={{border:border_style, textAlign:"center", marginTop:"1rem"}}>
-                  <h4>{this.state.detail[index].units} Units</h4>
+                <td className="col-4" style={{border:"0", textAlign:"center", marginTop:"1rem"}}>
+                <h4>{this.state.detail[index].units} Units</h4>
+                <h4>  </h4>
                 </td>
             </tr>
           );
@@ -366,21 +393,21 @@ class CourseCard extends Component{
           <div class="page">
            <div class="row">
             <div id="splitleft" class="col-md-3">
-              <table className="table table-hover">
+              <table className="table table-hover" >
                 <thead>
                   <tr className="row" style={{marginLeft:"0px", marginRight:"0px"}}>
-                    <th className="col-10" style={{border:border_style}}>
-                      <div className="form_group mb-3">
-                        <input type="text" class="form-control" placeholder="search for classes" onChange={this.filterChageRef}/>
+                    <th className="col-10" style={{border:"0"}}>
+                      <div className="form_group mb-3" >
+                        <input type="text" class="form-control" placeholder="Search for classes here!" onChange={this.filterChageRef}/>
                       </div>
                     </th>
-                    <th className="col-1" style={{border:border_style}}> 
+                    <th className="col-1" style={{border:"0"}}> 
                       <button id = "filterbutton" onClick={hide_show} ><img src={filterIcon} style={{height:"3rem", marginBottom:"0.7rem"}} ></img></button>
                     </th>
-                    <th className="col-1" style={{border:border_style}}></th>
+                    <th className="col-1" style={{border:"0"}}></th>
                   </tr>
                 </thead>
-              <tbody style={{display:"block", height:"70vh", overflowY:"scroll"}}>
+              <tbody style={{display:"block", height:"70vh", overflowY:"scroll", border:"0"}}>
                 {course_info}
               </tbody>
 
@@ -453,7 +480,7 @@ class CourseCard extends Component{
                       </div>
                     </div>
                     <div id="quarter" class="col-sm-3 other2">
-                      <Dropdown>
+                      {/* <Dropdown>
                         <Dropdown.Toggle variant="success" id="dropdown-basic" onChange={this.yearChangeRef}>Year
                         </Dropdown.Toggle>
 
@@ -464,7 +491,13 @@ class CourseCard extends Component{
                           <Dropdown.Item >2019</Dropdown.Item>
                           <Dropdown.Item >2020</Dropdown.Item>
                         </Dropdown.Menu>
-                      </Dropdown>
+                      </Dropdown> */}
+                      <div id="dropdown-thing">
+                        <div id="second-thing">
+                        <Dropdown variant="success" id="dropdown" options={dropDownOptions} onChange={this.yearChangeRef}  placeholder="Year">
+                        </Dropdown>
+                      </div>
+                      </div>
                     </div>
                     <div id="placeholder" class="col-md-1 other"></div>
                   </div>
@@ -587,7 +620,7 @@ class CourseCard extends Component{
                     <div id="placeholder" class="col-md-1 other"></div>
                     <div id="gobuttons" class="col-md-5 other">
                       {/* <button id="GoButton" onClick={this.useFilterRef}>Go!</button> */}
-                      <button id="GoButton" onClick={this.filterChageRef}>Go!</button>
+                      <button id="GoButton" onClick={this.filterChageRef}>Apply Filters</button>
                     </div>  
                     <div id="placeholder" class="col-md-1 other"></div>
                   </div>
