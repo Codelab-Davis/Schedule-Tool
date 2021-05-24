@@ -393,25 +393,27 @@ class CourseCard extends Component{
           <div class="page">
            <div class="row">
             <div id="splitleft" class="col-md-3">
+              <div id="classtablethang">
               <table className="table table-hover" >
                 <thead>
                   <tr className="row" style={{marginLeft:"0px", marginRight:"0px"}}>
                     <th className="col-10" style={{border:"0"}}>
                       <div className="form_group mb-3" >
-                        <input type="text" class="form-control" placeholder="Search for classes here!" onChange={this.filterChageRef}/>
+                        <input type="text" class="form-control" placeholder="Search for classes here!" onChange={this.filterChageRef} id="searchclassbar"/>
                       </div>
                     </th>
                     <th className="col-1" style={{border:"0"}}> 
-                      <button id = "filterbutton" onClick={hide_show} ><img src={filterIcon} style={{height:"3rem", marginBottom:"0.7rem"}} ></img></button>
+                      <button id = "filterbutton" onClick={hide_show} ><img src={filterIcon} style={{height:"3rem"}} ></img></button>
                     </th>
                     <th className="col-1" style={{border:"0"}}></th>
                   </tr>
                 </thead>
-              <tbody style={{display:"block", height:"70vh", overflowY:"scroll", border:"0"}}>
+              <tbody id="classtablethang2"style={{display:"block", height:"70vh", overflowY:"scroll", border:"0"}}>
                 {course_info}
               </tbody>
 
             </table>
+            </div>
 
             <div className="row" style={{marginTop:"30px", marginLeft:"20px"}}>
               <button type="button" className="btn btn-primary btn-sm col-2" style={{height:"30px", marginRight:"20px"}} onClick={this.onClickPrevRef}>Prev</button>
