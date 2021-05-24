@@ -1,5 +1,5 @@
 import React, { Component, PureComponent } from "react";
-import Select, { createFilter } from "react-select";
+import Select, { createFilter, NonceProvider } from "react-select";
 import axios from "axios";
 import WindowedSelect from "react-windowed-select";
 import {Area,Line,BarChart,LineChart,Bar,Cell,XAxis,YAxis,CartesianGrid,Tooltip,Legend,ResponsiveContainer} from "recharts";
@@ -49,7 +49,6 @@ export default class GradePage extends Component {
       //get all the course id's from the database query
       
       this.get_enrollmentData();
-      this.updateCourseList();
       
   }
     async get_enrollmentData()
@@ -89,36 +88,82 @@ export default class GradePage extends Component {
         var tempLegend = [];
         var each_point = {};
         var data = [];
-        for (var i = 0; i < this.state.selected_courses_aggreage[0].seats.length; i++)
+        for (var i = 0; i < this.state.selected_courses_aggreage[this.state.selected_courses_aggreage.length-1].seats.length; i++)
         {
+          var each_point = {};
             each_point["name"] = i;
             for (var j = 0; j < this.state.selected_courses_aggreage.length; j++)
             {
-                each_point[[this.state.selected_courses_aggreage[j].course_id,
-                            this.state.selected_courses_aggreage[j]._id]] =
-                    this.state.selected_courses_aggreage.seats[i];
+                each_point[this.state.selected_courses_aggreage[j].course_id] =
+                    this.state.selected_courses_aggreage[j].seats[i];
             }
             data.push(each_point);
         }
-        for (var i = 0; i < data.length; i++)
+        for (var i = 0; i < this.state.selected_courses_aggreage.length; i++)
         {
             tempLegend.push(
-                <Line dataKey={data[i]["name"]} stroke = {this.COURSE_DETAIL_COLOR[i]} />
+                <Line name = {"Course " + i} dataKey={this.state.selected_courses_aggreage[i].course_id} stroke = {this.COURSE_DETAIL_COLOR[i]} />
             )
         }
+        console.log("after formatting");
+        console.log(data)
         this.setState({ formatted_data_for_graph: data, chartLegend: tempLegend});
     }
     addCourse(event)
     {
+      var temp = [];
+      temp.push(
+        this.state.courses.filter((each_course) =>
+          each_course.course_id == this.state.selected_course_id &&
+          each_course.instructor == this.state.selected_course_id_quarter_instructor &&
+          each_course.quarter == this.state.selected_course_id_quarter
+        )
+      );
+      var single_course = {
+        course_id: null,
+        instructor: null,
+        max_seats: null,
+        name: null,
+        quarter: null,
+        seats: [],
+        _id: null
+      };
+      console.log("after filtering in addcousrse");
+      console.log(temp);
+      if (temp.length > 0)
+      {
+        single_course.name = temp[0][0].name;
+        single_course.instructor = temp[0][0].instructor;
+        single_course.max_seats = temp[0][0].max_seats;
+        single_course.quarter = temp[0][0].quarter;
+        single_course.course_id = temp[0][0].course_id;
+        for (var i = 0; i  < temp[0][0].seats.length; i++)
+        {
+          var sum = 0;
+          for (var j = 0; j < temp[0].length; j++)
+          {
+            let stuff = Object.values(temp[0][j].seats[i])
+            sum += stuff[0]
+          }
+          single_course.seats.push(sum)
+        }
+      }
+      this.state.selected_courses_aggreage.push(single_course);
+      
+      console.log("after adding course");
+      console.log(this.state.selected_courses_aggreage);
         this.setState({
             enableAddCourse: false,
             quarter_drop_down_menu_options : [],
             instructor_drop_down_menu_options : [],
+            selected_course_id : null,
+            selected_course_id_quarter : null,
+            selected_course_id_quarter_instructor : null
         });
-
         this.courseListRef.current.setState({ value: null });
         this.quarterListRef.current.setState({ value: null });
         this.instructorListRef.current.setState({ value: null });
+        this.format_data();
     }
     handleInstructureChange(event) {
 
@@ -132,6 +177,8 @@ export default class GradePage extends Component {
     handleQuarterChange(event) {
 
         // set the selected quarter
+        console.log("before");
+        console.log(event);
         this.state.selected_course_id_quarter = event.value;
     
         // clear the selected instructor
@@ -144,17 +191,20 @@ export default class GradePage extends Component {
         console.log("here in the filteredIDInfo");
         console.log(filteredIDInfo);
         // filter further to get only the courses that match our selected quarter
-        var filteredQuarterInfo = filteredIDInfo[0].courses.filter(
+        var filteredQuarterInfo = filteredIDInfo.filter(
           (course) => course.quarter == this.state.selected_course_id_quarter
         );
         
         // create a new set of instructors
         // we have a set so that we only display unique instructors, not repeated
+        console.log("after filttering");
+        console.log(filteredQuarterInfo)
         var instructorSet = new Set();
         filteredQuarterInfo.forEach((quarter) => {
           instructorSet.add(quarter.instructor);
         });
-    
+        console.log("here");
+        console.log(instructorSet)
         // create instructor list
         var instructorList = [];
         instructorSet.forEach((instructor) => {
@@ -187,9 +237,10 @@ export default class GradePage extends Component {
       }
 
       handleCourseChange(event) {
+        console.log(event);
 
         // get the selected course and filter course detail info for desired course ID
-        this.state.selected_course_id = event.value;
+        this.state.selected_course_id = event.course_id;
         // if new course is selected, reset the previous selected quarter and instructor
         this.state.selected_course_id_quarter = null;
         this.state.selected_course_id_quarter_instructor = null;
@@ -204,7 +255,7 @@ export default class GradePage extends Component {
         console.log(filteredInfo);
         // create a set of quarters so that we don't display any repeated quarters
         var quarterSet = new Set();
-        filteredInfo[0].courses.forEach((course) => {
+        filteredInfo.forEach((course) => {
           quarterSet.add(course.quarter);
         });
     
@@ -230,6 +281,7 @@ export default class GradePage extends Component {
         var borderStyle = "none";
         var courseLegend = [<div></div>,<div></div>,<div></div>,<div></div>];
         var index = 0;
+        
         for (var i = 0; i < this.state.selected_courses_aggreage.length; i++)
         {
             courseLegend[i] = (
@@ -252,7 +304,7 @@ export default class GradePage extends Component {
                                 marginTop: "6px"}}></span>
                         <h3>{this.state.selected_courses_aggreage[i].course_id}</h3>
                         <button
-                            data-index={index}
+                            data-index={i}
                             type="button"
                             className="btn float-right"
                             style={{ borderStyle: "none"}}
@@ -365,19 +417,20 @@ export default class GradePage extends Component {
                     border: borderStyle,
                   }}
                 >
+                  {console.log(this.state.formatted_data_for_graph)}
                   <ResponsiveContainer>
                     <LineChart
                       width="99.8%"
                       height="99.8%"
                       data={this.state.formatted_data_for_graph}
                       margin={{ top: 20, right: 20, bottom: 20, left: 20}}
-                      grid
                     >
                       <CartesianGrid stroke="#f5f5f5" />
                       <XAxis dataKey="name" tick={{fontSize: "15px"}} tickLine={false}/>
-                      <YAxis tick={{fontSize: "15px"}} tickLine={false} unit="%"/>
+                      <YAxis/>
                       <Tooltip />
                       <Legend content={<div></div>} />
+                      {console.log(this.state.chartLegend)}
                       {this.state.chartLegend}
                     </LineChart>
                   </ResponsiveContainer>

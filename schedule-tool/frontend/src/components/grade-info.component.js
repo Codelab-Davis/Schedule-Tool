@@ -665,9 +665,11 @@ export default class GradePage extends Component {
             }}
           >
             <ResponsiveContainer>
+            
               <BarChart
                 width="99.8%"
                 height="99.8%"
+                
                 data={this.state.formattedData}
                 margin={{ top: 20, right: 20, bottom: 20, left: 20}}
                 grid
