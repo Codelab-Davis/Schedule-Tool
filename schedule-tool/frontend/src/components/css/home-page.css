@@ -115,6 +115,11 @@ a#homebutton{
     width: 100%;
     height: 400px;
 }
+
+#mission2{
+    display: none;
+}
+
 #missionleft{
     font-family: "ProximaNova-Bold", "Helvetica Neue";
     font-size: 4.5rem;
@@ -147,6 +152,10 @@ a#homebutton{
     height: 800px;
 }
 
+.features2{
+    display: none;
+}
+
 .featurestitle
 {
     font-family: "ProximaNova-Bold", "Helvetica Neue";
@@ -163,10 +172,11 @@ a#homebutton{
     padding-left: 60px;
 }
 
-.card{
-    width: 50rem;
+.cards{
+    width: 48rem;
     height: 50rem;
     border-radius: 1rem;
+    background-color: white;
 }
 
 #featuresright{
@@ -243,6 +253,11 @@ a#homebutton{
     text-align: center;
     padding-top: 55px;
 }
+
+.footer2{
+    display: none;
+}
+
 .footertext{
     color: #4F7094;
 }
@@ -259,4 +274,268 @@ a#homebutton{
 }
 
 .footerAbout{
+}
+
+@media screen and (max-width: 375px) {
+    .intro{
+        font-family: "ProximaNova", "Helvetica Neue";
+        background-image: url('../images/HomeIllustration2.png');
+        /* height: 100%;  */
+        width: 100vw;
+        height: 100vh;
+        top: 0;
+        left: 0;
+    
+    
+        /* Center and scale the image nicely */
+        background-size: 100% 100%;
+        background-repeat: no-repeat;
+        background-size: cover;
+        position: relative;
+        display: block;
+        object-fit: cover;
+        margin: 0 auto;
+        margin-top: -20px;
+    }
+    
+    .introtext{
+        position: relative;
+        top: 50%;
+        text-align: center;
+        transform: translateY(-50%);
+    }
+    
+    .title {
+        margin: 10;   
+    }
+    
+    .Aggie{
+        font-family: "ProximaNova-Bold", "Helvetica Neue";
+        font-size: 4.2rem;
+        color: #162857;
+        margin: 0;
+        
+    }
+    .Explorer{
+        font-family: "ProximaNova-Bold", "Helvetica Neue";
+        font-size: 4.2rem;
+        color: #EAB517;
+        margin: 0;
+        
+    }
+    .Description{
+        font-family: "ProximaNova", "Helvetica Neue";
+        padding-top: 0.8rem;
+        font-size: 2rem;
+        color: #EAB517;
+        margin: 20;
+    }
+    .button{
+        padding: 2rem;
+        outline-color: #162857;
+    }
+    a#homebutton{
+        font-family: "ProximaNova", "Helvetica Neue";
+        background-color: #162857;
+        font-size: 1.5rem;
+        color: #FFFFFF;
+        outline-color: #162857;
+        padding-top: 1rem;
+        padding-bottom: 1rem;
+        padding-right: 3rem;
+        padding-left: 3rem;
+        border-radius: 1rem;
+    }
+    
+    .introarrow{
+        position: absolute;
+        width: 100%;
+        bottom: 60px;
+        text-align: center;
+    }
+    .whatwedo {
+        /*margin-top: 60rem;*/
+        font-family: "ProximaNova", "Helvetica Neue";
+        font-size: 1.5rem;
+        color: #162857;
+        text-align: center;
+        margin: 0;
+    }
+    
+    .arrow{
+        display: inline-block;
+        color: #162857;
+        width: 1rem;
+        height: 1rem;
+        border: 2.5px solid transparent;
+        border-right-color: #162857;
+        border-bottom-color: #162857;
+        transform: rotate(45deg);
+    }
+    .mission{
+        width: 100%;
+        height: 300px;
+        
+    }
+    #missionleft{
+        display: none;
+    }
+    
+    #missionright{
+        display: none;
+    }
+
+    #mission2{
+        display: block;
+        position: relative;
+        padding-top: 2rem;
+        top: 50%;
+        text-align: center;
+        transform: translateY(-50%);
+    }
+
+    #missionleft2{
+        font-family: "ProximaNova-Bold", "Helvetica Neue";
+        font-size: 5rem;
+        color: #162857;
+    }
+
+    #missionright2{
+        font-family: "ProximaNova", "Helvetica Neue";
+        font-size: 2.2rem;
+        color: #5A5A5A;
+        margin-left: 2.5rem;
+        margin-right: 2.5rem;
+        padding-top: 2rem;
+    }
+
+    .features{
+        display: none;
+    }
+
+    .features2{
+        display: block;
+        background-color: #162857;
+        width: 100%;
+        height: 1225px;
+        text-align: center;
+    }
+    
+    .featurestitle2
+    {
+        font-family: "ProximaNova-Bold", "Helvetica Neue";
+        font-size: 5rem;
+        color: #FFFFFF;
+        background-color: #162857;
+        width: 100%;
+        padding-top: 9rem;
+    }
+    
+    #featuresleft2{
+        padding-top: 60px;
+        padding-left: 37px;
+    }
+    
+    .cards2{
+        width: 30rem;
+        height: 40rem;
+        border-radius: 1rem;
+        background-color: white;
+    }
+    
+    #featuresright2{
+        padding-top: 70px;
+        padding-left: 37px;
+    }
+    
+    #gradecardimage2{
+        text-align: center;
+        padding-top: 35px;
+        padding-bottom: 20px;
+        padding-left: 6px;
+    }
+    
+    #gradeimage2{
+        width: 260px;
+        height: auto;
+        
+    }
+    
+    #gradecardtitle2{
+        font-family: "ProximaNova", "Helvetica Neue";
+        font-size: 2rem;
+        color: #5A5A5A;
+    }
+    
+    #gradecarddescription2{
+        font-family: "ProximaNova", "Helvetica Neue";
+        font-size: 1.6rem;
+        color: #5A5A5A;
+        padding-top: .7rem;
+        padding-left: 3rem;
+        padding-right: 3rem;
+        line-height: 2.6rem;
+    }
+    
+    #enrollmentcardimage2{
+        text-align: center;
+        padding-top: 35px;
+        padding-bottom: 20px;
+        padding-left: 6px;
+    }
+    
+    #enrollmentimage2{
+        width: 262px;
+        height: auto;
+    }
+    
+    #enrollmentcardtitle2{
+        font-family: "ProximaNova", "Helvetica Neue";
+        font-size: 2rem;
+        color: #5A5A5A;
+    }
+    
+    #enrollmentcarddescription2{
+        font-family: "ProximaNova", "Helvetica Neue";
+        font-size: 1.6rem;
+        color: #5A5A5A;
+        padding-top: .8rem;
+        padding-left: 3rem;
+        padding-right: 3rem;
+        line-height: 2.6rem;
+    }
+
+    .footer{
+        display: none;
+    }
+
+    .footer2{
+        display: block;
+        width: 100%;
+        height: 125px;
+        font-family: "ProximaNova", "Helvetica Neue";
+        font-size: 1.5rem;
+        color: #4F7094;
+        text-align: center;
+        padding-top: 50px;
+    }
+
+    .footertext2{
+        color: #4F7094;
+    }
+    
+    .footerCatalog2{
+        padding-right: 4rem;
+    }
+    
+    .footerGrades2{
+        padding-right: 4rem;
+    }
+    
+    .footerEnrollment2{
+        padding-right: 4rem;
+    }
+    
+    .footerAbout2{
+    }
 }
