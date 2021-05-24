@@ -3,7 +3,13 @@ let Enrollment = require('../models/enrollment.model');
 
 router.route('/').get(function(req,res){
   console.log("received a get request for all the enrollment data");
-  Enrollment.find()
+  Enrollment.find({},{name: 1,
+          course_id: 1,
+          instructor: 1,
+          seats: 1,
+            max_seats: 1,
+            quarter: 1
+          })
   .then(function(data){
     res.send({data})
   })
