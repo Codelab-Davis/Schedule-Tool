@@ -806,29 +806,24 @@ class CourseCard extends Component{
           </div>
         
           <div id="splitright2" >
-            <button type="button" class="btn btn-primary" href="#" data-toggle="modal" data-target="#basicExampleModal">
-                Launch demo modal
-            </button>
+          <Button variant="primary" onClick={() => this.handleModalShowHide()}>
+                    Launch demo modal
+                </Button>
 
-            <div class="modal fade" id="basicExampleModal"  role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-              <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                  <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                      <span aria-hidden="true">&times;</span>
-                    </button>
-                  </div>
-                  <div class="modal-body">
-                    ...
-                  </div>
-                  <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
-                  </div>
-                </div>
-              </div>
-            </div>
+                <Modal show={this.state.showHide}>
+                    <Modal.Header closeButton onClick={() => this.handleModalShowHide()}>
+                    <Modal.Title>Modal heading</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>Woohoo, you're reading this text in a modal!</Modal.Body>
+                    <Modal.Footer>
+                    <Button variant="secondary" onClick={() => this.handleModalShowHide()}>
+                        Close
+                    </Button>
+                    <Button variant="primary" onClick={() => this.handleModalShowHide()}>
+                        Save Changes
+                    </Button>
+                    </Modal.Footer>
+                </Modal>
           </div>
 
 
