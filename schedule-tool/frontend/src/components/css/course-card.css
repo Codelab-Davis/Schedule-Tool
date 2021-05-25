@@ -10,6 +10,10 @@ html{
     font-size: 10px;
 }
 
+#smallscreen{
+    display: none;
+}
+
 #classid{
     font-family: "ProximaNova-Bold", "Helvetica Neue";
     font-size: 1.8rem;
@@ -312,4 +316,55 @@ h4
 
 .footerEnrollment{
     padding-right: 20rem;
+}
+
+@media screen and (max-width: 375px) {
+    #normalscreen{
+        display: none;
+    }
+
+    #smallscreen{
+        display: inline-block;
+        width: 360px;
+        height: 1000px;
+    }
+
+    #splitleft2{
+        padding-left: 1.5rem;
+        padding-right: -1rem;
+    }
+
+    #classtablethang3{
+        width: 360px;
+        margin-left: 2rem;
+    }
+
+    #searchclassbar2{
+        height: 3rem;
+        border-radius: 0.5rem;
+    }
+    
+    #classchangebutton{
+        margin-top: 30px;
+        margin-left: 140px;
+        margin-bottom: 2rem;
+        text-align: center;
+    }
+
+    #prevbutton{
+        width: 40px;
+        height: 40px;
+        margin-right: 2rem;
+        font-family: "ProximaNova", "Helvetica Neue";
+        font-size: 1rem;
+        color: white;
+    }
+    #nextbutton{
+        height: 40px;
+        width: 40px;
+        margin-right: 2rem;
+        font-family: "ProximaNova", "Helvetica Neue";
+        font-size: 1rem;
+        color: white;
+    }
 }

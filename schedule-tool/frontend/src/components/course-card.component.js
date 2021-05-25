@@ -512,7 +512,7 @@ class CourseCard extends Component{
         return(
           <html>
           <body>
-          <div class="page">
+          <div class="page" id="normalscreen">
            <div class="row">
             <div id="splitleft" class="col-md-3">
               <div id="classtablethang">
@@ -752,6 +752,68 @@ class CourseCard extends Component{
                 </div>
               </div>
             </div>
+        </div>
+
+        <div class="page" id="smallscreen">
+          <div class="row">
+            <div id="splitleft2">
+              <div id="classtablethang3">
+              <table className="table table-hover" >
+                <thead >
+                  <tr className="row" style={{marginLeft:"0px", marginRight:"0px"}}>
+                    <th className="col-10" style={{border:"0"}}>
+                      <div className="form_group mb-3" >
+                        <input type="text" class="form-control" placeholder="Search for classes here!" onChange={this.filterChageRef} id="searchclassbar2"/>
+                      </div>
+                    </th>
+                    <th className="col-1" style={{border:"0"}}> 
+                      <button id = "filterbutton" onClick={hide_show} ><img src={filterIcon} style={{height:"3rem"}} ></img></button>
+                    </th>
+                    <th className="col-1" style={{border:"0"}}></th>
+                  </tr>
+                </thead>
+                <tbody id="classtablethang4"style={{display:"block", height:"70vh", overflowY:"scroll", border:"0"}}>
+                  {course_info}
+                </tbody>
+              </table>
+            </div>
+
+            <div className="row" id = "classchangebutton" >
+              <button type="button" className="btn btn-primary btn-sm col-2" onClick={this.onClickPrevRef} id="prevbutton">Prev</button>
+              <button type="button" className="btn btn-primary btn-sm col-2" onClick={this.onClickNextRef} id="nextbutton">Next</button>
+            </div>
+
+          </div>
+        
+          <div id="splitright2" >
+            <button type="button" class="btn btn-primary" href="#" data-toggle="modal" data-target="#basicExampleModal">
+                Launch demo modal
+            </button>
+
+            <div class="modal fade" id="basicExampleModal"  role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+              <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body">
+                    ...
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+          
+        </div>
         </div>
         </body>
         </html>
