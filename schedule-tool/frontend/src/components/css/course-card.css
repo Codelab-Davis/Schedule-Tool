@@ -323,7 +323,12 @@ h4
 
     #classtablethang3{
         width: 360px;
-        margin-left: 2rem;
+        margin-left: 2.5rem;
+    }
+
+    #classtablethang4{
+        margin-left: 0.5rem;
+        margin-right: 0.5rem;
     }
 
     #searchclassbar2{
@@ -362,6 +367,13 @@ h4
         width: 350px;
     }
 
+    #filtertitle2{
+        font-family: "ProximaNova-Bold", "Helvetica Neue";
+        font-size: 2rem;
+        padding-left: 1rem;
+        padding-top: 1rem;
+    }
+
     .modal-dialog{
         overflow-y: initial !important
     }
@@ -369,6 +381,8 @@ h4
     .modal-body{
         height: 500px;
         overflow-y: auto;
+        margin-left: 12px;
+        margin-right: 12px;
     }
 
     #quartertitle2{
@@ -377,9 +391,21 @@ h4
         padding-top: 1.5rem;
         padding-bottom: 0.5rem;
     }
+
+    #quarterinbox{
+        border: 1px solid #dddcdc;
+        padding: 1rem;
+        margin-bottom: 2rem;
+    }
     
     #quarterboxes2{
         padding-top: 1rem;
+        padding-left: 4.5rem;
+    }
+
+    #quarterboxes3{
+        padding-top: 0.7rem;
+        padding-left: 5.7rem;
     }
     
     #quar2{
@@ -392,6 +418,10 @@ h4
         padding-right: 0.8rem;
     }
 
+    #dropdown-thing2{
+        margin-bottom: 1.5rem;
+    }
+
     #second-thing2{
         background-color: #FFFFFF;
         border-style: solid;
@@ -399,12 +429,13 @@ h4
         border-color: #dddcdc;
         font-family: "ProximaNova", "Helvetica Neue";
         color: #162857;
-        padding-left: 4rem;
-        padding-right: 4rem;
-        padding-top: 0.5rem;
-        padding-bottom: 0.5rem;
+        padding-left: 3.8rem;
+        padding-right: 3.8rem;
+        padding-top: 0.4rem;
+        padding-bottom: 0.4rem;
         font-size: 1.2rem;
         text-align: center;
+        border-radius: 0.2rem;
     }
 
     #searchbar2{
@@ -423,7 +454,7 @@ h4
     }
 
     #corebox2{
-        border: 1px solid #BEBEBE;
+        border: 1px solid #dddcdc;
         padding: 2rem;
         margin-bottom: 0.5rem;
     }
@@ -439,7 +470,7 @@ h4
     }
     
     #gebox2{
-        border: 1px solid #BEBEBE;
+        border: 1px solid #dddcdc;
         padding: 2rem;
         margin-bottom: 0.5rem;
     }
@@ -462,7 +493,7 @@ h4
         color: #162857;
         font-size: 1.6rem;
         margin-left: -0.5rem;
-        margin-bottom: 4rem;
+        margin-bottom: 3rem;
         display: inline;
     }
 
@@ -475,6 +506,6 @@ h4
         color: #162857;
         font-size: 1.6rem;
         margin-left: -0.5rem;
-        margin-bottom: 4rem;
+        margin-bottom: 3rem;
     }
 }
