@@ -179,6 +179,24 @@ class CourseCard extends Component{
       this.ss2 = "";
       this.year = "";
 
+      // Core Literacies
+      this.acgh = '';
+      this.dd = '';
+      this.ol = '';
+      this.ql = '';
+      this.sl = '';
+      this.vl = '';
+      this.wc = '';
+      this.we = '';
+
+      // GE Options
+      this.ah = '';
+      this.se = '';
+      this.ss = '';
+
+
+
+
   
       // TODO: Create reference for prev and next button click and bind them. Add to HTML
       this.onClickPrevRef = this.clickPreviousHandler.bind(this);
@@ -197,6 +215,19 @@ class CourseCard extends Component{
       this.ss1ChangeRef = this.ss1ChangeRefHandler.bind(this);
       this.ss2ChangeRef = this.ss2ChangeRefHandler.bind(this);
       this.yearChangeRef = this.yearChangeRefHandler.bind(this);
+
+      this.acghChangeRef = this.acghChangeRefHandler.bind(this);
+      this.ddChangeRef = this.ddChangeRefHandler.bind(this);
+      this.olChangeRef = this.olChangeRefHandler.bind(this);
+      this.qlChangeRef = this.qlChangeRefHandler.bind(this);
+      this.slChangeRef = this.slChangeRefHandler.bind(this);
+      this.vlChangeRef = this.vlChangeRefHandler.bind(this);
+      this.wcChangeRef = this.wcChangeRefHandler.bind(this);
+      this.weChangeRef = this.weChangeRefHandler.bind(this);
+
+      this.ahChangeRef = this.ahChangeRefHandler.bind(this);
+      this.seChangeRef = this.seChangeRefHandler.bind(this);
+      this.ssChangeRef = this.ssChangeRefHandler.bind(this);
 
       this.useFilterRef = this.useFilter.bind(this);
     }
@@ -269,6 +300,86 @@ class CourseCard extends Component{
       this.year = e.value;
     }
 
+
+
+    acghChangeRefHandler(e) {  
+      if (this.acgh == "yes") {
+        this.acgh = '';
+      } else {
+        this.acgh = "yes"
+      }
+    }
+    ddChangeRefHandler(e) {
+      if (this.dd == "yes") {
+        this.dd = '';
+      } else {
+        this.dd = "yes"
+      }
+    }
+    olChangeRefHandler(e) {
+      if (this.ol == "yes") {
+        this.ol = '';
+      } else {
+        this.ol = "yes"
+      }
+    }
+    qlChangeRefHandler(e) {
+      if (this.ql == "yes") {
+        this.ql = '';
+      } else {
+        this.ql = "yes"
+      }
+    }
+    slChangeRefHandler(e) {
+      if (this.sl == "yes") {
+        this.sl = '';
+      } else {
+        this.sl = "yes"
+      }
+    }
+    vlChangeRefHandler(e) {
+      if (this.vl == "yes") {
+        this.vl = '';
+      } else {
+        this.vl = "yes"
+      }
+    }
+    wcChangeRefHandler(e) {
+      if (this.wc == "yes") {
+        this.wc = '';
+      } else {
+        this.wc = "yes"
+      }
+    }
+    weChangeRefHandler(e) {
+      if (this.we == "yes") {
+        this.we = '';
+      } else {
+        this.we = "yes"
+      }
+    }
+    ahChangeRefHandler(e) {
+      if (this.ah == "yes") {
+        this.ah = '';
+      } else {
+        this.ah = "yes"
+      }
+    }
+    seChangeRefHandler(e) {
+      if (this.se == "yes") {
+        this.se = '';
+      } else {
+        this.se = "yes"
+      }
+    }
+    ssChangeRefHandler(e) {
+      if (this.ss == "yes") {
+        this.ss = '';
+      } else {
+        this.ss = "yes"
+      }
+    }
+
     useFilter() {
 
       // axios
@@ -316,6 +427,17 @@ class CourseCard extends Component{
         "ss1": this.ss1,
         "ss2": this.ss2,
         "year": this.year,
+        "acgh": this.acgh,
+        "dd": this.dd,
+        "ol": this.ol,
+        "ql": this.ql,
+        "sl": this.sl,
+        "vl": this.vl,
+        "wc": this.wc,
+        "we": this.we,
+        "ah": this.ah,
+        "se": this.se,
+        "ss": this.ss,
       });
 
       let instructorFilter = this.instructor;
@@ -562,35 +684,35 @@ class CourseCard extends Component{
                       <p class="coretitle">Core Literacies</p>
                       <div id="corebox">
                         <label class="container" id="core">
-                          <input type="checkbox" /><span id="coretext">ACGH (Amer Cultr, Gov, Hist)</span>
+                          <input type="checkbox" onChange={this.acghChangeRef} /><span id="coretext">ACGH (Amer Cultr, Gov, Hist)</span>
                           <span class="checkmark"></span>
                         </label>
                         <label class="container" id="core">
-                          <input type="checkbox"/><span id="coretext">DD (Domestic Diversity)</span>
+                          <input type="checkbox" onChange={this.ddChangeRef}/><span id="coretext">DD (Domestic Diversity)</span>
                           <span class="checkmark"></span>
                         </label>
                         <label class="container" id="core">
-                          <input type="checkbox"/><span id="coretext">OL (Oral Lit)</span>
+                          <input type="checkbox" onChange={this.olChangeRef}/><span id="coretext">OL (Oral Lit)</span>
                           <span class="checkmark"></span>
                         </label>
                         <label class="container" id="core">
-                          <input type="checkbox"/><span id="coretext">QL (Qualitative Lit)</span>
+                          <input type="checkbox" onChange={this.qlChangeRef}/><span id="coretext">QL (Qualitative Lit)</span>
                           <span class="checkmark"></span>
                         </label>
                         <label class="container" id="core">
-                          <input type="checkbox"/><span id="coretext">SL (Scientific Lit)</span>
+                          <input type="checkbox" onChange={this.slChangeRef}/><span id="coretext">SL (Scientific Lit)</span>
                           <span class="checkmark"></span>
                         </label>
                         <label class="container" id="core">
-                          <input type="checkbox"/><span id="coretext">VL (Visual Lit)</span>
+                          <input type="checkbox" onChange={this.vlChangeRef}/><span id="coretext">VL (Visual Lit)</span>
                           <span class="checkmark"></span>
                         </label>
                         <label class="container" id="core">
-                          <input type="checkbox"/><span id="coretext">WC (World Cultr)</span>
+                          <input type="checkbox" onChange={this.wcChangeRef}/><span id="coretext">WC (World Cultr)</span>
                           <span class="checkmark"></span>
                         </label>
                         <label class="container" id="core">
-                          <input type="checkbox"/><span id="coretext">WE (Writing Exp)</span>
+                          <input type="checkbox" onChange={this.weChangeRef}/><span id="coretext">WE (Writing Exp)</span>
                           <span class="checkmark"></span>
                         </label>
                       </div>
@@ -600,15 +722,15 @@ class CourseCard extends Component{
                       <p class="getitle">GE Options</p>
                       <div id="gebox">
                         <label class="container" id="ge">
-                          <input type="checkbox" /><span id="getext">AH (Arts & Hum)</span>
+                          <input type="checkbox" onChange={this.ahChangeRef} /><span id="getext">AH (Arts & Hum)</span>
                           <span class="checkmark"></span>
                         </label>
                         <label class="container" id="ge">
-                          <input type="checkbox"/><span id="getext">SE (Sci & Eng)</span>
+                          <input type="checkbox" onChange={this.seChangeRef}/><span id="getext">SE (Sci & Eng)</span>
                           <span class="checkmark"></span>
                         </label>
                         <label class="container" id="ge">
-                          <input type="checkbox"/><span id="getext">SS (Social Sci)</span>
+                          <input type="checkbox" onChange={this.ssChangeRef}/><span id="getext">SS (Social Sci)</span>
                           <span class="checkmark"></span>
                         </label>
                       </div>

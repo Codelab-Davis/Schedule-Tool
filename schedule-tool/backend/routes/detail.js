@@ -216,11 +216,111 @@ router.route('/').get((req, res) => {
       filter.$or = [({quarter: {"$regex": req.query.quarter, "$options": "i"}})];
     }
 
+    // now dealing with GE's
+
+    if (req.query.acgh == "yes") {
+      if (filter.$and) {
+        filter.$and.push({ge_list: 'ACGH'});
+      } else {
+        filter.$and = [];
+        filter.$and.push({ge_list: 'ACGH'});
+      }
+    }
+
+    if (req.query.dd == "yes") {
+      if (filter.$and) {
+        filter.$and.push({ge_list: 'DD'});
+      } else {
+        filter.$and = [];
+        filter.$and.push({ge_list: 'DD'});
+      }
+    }
+    
+    if (req.query.ol == "yes") {
+      if (filter.$and) {
+        filter.$and.push({ge_list: 'OL'});
+      } else {
+        filter.$and = [];
+        filter.$and.push({ge_list: 'OL'});
+      }
+    }
+
+    if (req.query.ql == "yes") {
+      if (filter.$and) {
+        filter.$and.push({ge_list: 'QL'});
+      } else {
+        filter.$and = [];
+        filter.$and.push({ge_list: 'QL'});
+      }
+    }
+
+    if (req.query.sl == "yes") {
+      if (filter.$and) {
+        filter.$and.push({ge_list: 'SL'});
+      } else {
+        filter.$and = [];
+        filter.$and.push({ge_list: 'SL'});
+      }
+    }
+
+    if (req.query.vl == "yes") {
+      if (filter.$and) {
+        filter.$and.push({ge_list: 'VL'});
+      } else {
+        filter.$and = [];
+        filter.$and.push({ge_list: 'VL'});
+      }
+    }
+
+    if (req.query.wc == "yes") {
+      if (filter.$and) {
+        filter.$and.push({ge_list: 'WC'});
+      } else {
+        filter.$and = [];
+        filter.$and.push({ge_list: 'WC'});
+      }
+    }
+
+    if (req.query.we == "yes") {
+      if (filter.$and) {
+        filter.$and.push({ge_list: 'WE'});
+      } else {
+        filter.$and = [];
+        filter.$and.push({ge_list: 'WE'});
+      }
+    }
+
+    if (req.query.ah == "yes") {
+      if (filter.$and) {
+        filter.$and.push({ge_list: 'AH'});
+      } else {
+        filter.$and = [];
+        filter.$and.push({ge_list: 'AH'});
+      }
+    }
+
+    if (req.query.se == "yes") {
+      if (filter.$and) {
+        filter.$and.push({ge_list: 'SE'});
+      } else {
+        filter.$and = [];
+        filter.$and.push({ge_list: 'SE'});
+      }
+    }
+
+    if (req.query.ss == "yes") {
+      if (filter.$and) {
+        filter.$and.push({ge_list: 'SS'});
+      } else {
+        filter.$and = [];
+        filter.$and.push({ge_list: 'SS'});
+      }
+    }
+
     // filter.quarter = { $or: [{"$regex": 'FQ', "$options": "i"}, {"$regex": 'SQ', "$options": "i"}]}
     // filter = {$or: [ {quarter: {"$regex": 'WQ', "$options": "i"}}, {quarter: {"$regex": 'SQ', "$options": "i"}}]}
-
-
-  console.log("filter", filter.$or);
+  
+  console.log("filter", filter);
 
   Detail.find(filter, projections, options)
     .then(detail => res.json(detail))
