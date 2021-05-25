@@ -8,7 +8,7 @@ import filterIcon from "./images/filter-control-adjustment-icon.jpg"
 import catalog_cow from "./images/catalog_cow.png";
 import './css/course-card.css'; 
 // import { Button,  ButtonGroup, DropdownButton, MenuItem, Dropdown } from 'react-bootstrap';
-import { Button,  ButtonGroup, DropdownButton, MenuItem } from 'react-bootstrap';
+import { Modal, Button,  ButtonGroup, DropdownButton, MenuItem } from 'react-bootstrap';
 import Dropdown from "react-dropdown";
 
 // const getCourseQuery = gql`
@@ -47,6 +47,7 @@ function hide_show() {
 }
 
 
+
 // function changeText() {
 //   var element = document.getElementById('AdvancedText');
 //   if(element.innerHTML == 'Show Advanced Options'){
@@ -67,15 +68,6 @@ const Detail = props => (
 var items;
 
 class CourseCard extends Component{
-    // constructor(props) {
-    //     super(props);
-
-    //     this.state = {
-    //         name: '',
-    //         course_id: '',
-    //     }
-
-    // }
 
 
     // constructor(props) {
@@ -194,9 +186,11 @@ class CourseCard extends Component{
       this.se = '';
       this.ss = '';
 
+      this.showcase = {
+        showHide : false
+      }
 
-
-
+      
   
       // TODO: Create reference for prev and next button click and bind them. Add to HTML
       this.onClickPrevRef = this.clickPreviousHandler.bind(this);
@@ -380,6 +374,10 @@ class CourseCard extends Component{
       }
     }
 
+    handleModalShowHide() {
+      this.setState({ showHide: !this.state.showHide })
+    }
+
     useFilter() {
 
       // axios
@@ -480,7 +478,7 @@ class CourseCard extends Component{
       this.refreshDB();
     }
     
-
+    
     
     // creating unordered list and using map for card component
     render(){
@@ -678,6 +676,28 @@ class CourseCard extends Component{
                         </Dropdown> */}
                     </div>
                     <div id="placeholder" class="col-md-1 other"></div>
+                  </div>
+                  <div>
+                    <div>
+                    <Button variant="primary" onClick={() => this.handleModalShowHide()}>
+                    Launch demo modal
+                </Button>
+
+                <Modal show={this.state.showHide}>
+                    <Modal.Header closeButton onClick={() => this.handleModalShowHide()}>
+                    <Modal.Title>Modal heading</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>Woohoo, you're reading this text in a modal!</Modal.Body>
+                    <Modal.Footer>
+                    <Button variant="secondary" onClick={() => this.handleModalShowHide()}>
+                        Close
+                    </Button>
+                    <Button variant="primary" onClick={() => this.handleModalShowHide()}>
+                        Save Changes
+                    </Button>
+                    </Modal.Footer>
+                </Modal>
+                    </div>
                   </div>
                   <div class="row" id="extrafeatures">
                     <div id="coreliteracies" class="col-md-5">
