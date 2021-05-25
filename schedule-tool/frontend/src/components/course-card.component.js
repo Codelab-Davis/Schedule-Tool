@@ -393,6 +393,11 @@ class CourseCard extends Component{
       this.setState({ showHide: !this.state.showHide })
     }
 
+    handleModalShowHide2() {
+      this.setState({ showHide: !this.state.showHide });
+      this.refreshDB();
+    }
+
     useFilter() {
 
       // axios
@@ -824,11 +829,12 @@ class CourseCard extends Component{
 
                 <Modal id="modelgeneral" show={this.state.showHide}>
                     <Modal.Header closeButton onClick={() => this.handleModalShowHide()}>
-                    <Modal.Title>Filters</Modal.Title>
+                    <Modal.Title><h1 id="filtertitle2">Filters</h1></Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
-                    <div id="quarter2" class="col-md-8 other">
-                      <div id="quartertitle2">Quarter</div>
+                    <div id="quarter2">
+                      <div id="title2">Quarter</div>
+                      <div id="quarterinbox">
                       <div id="quarterboxes2">
                       <label class="checkbox-inline" id="quar2"><span id="checktext2">Fall</span>
                         <input type="checkbox" onChange={this.fallChangeRef}/>
@@ -842,6 +848,8 @@ class CourseCard extends Component{
                         <input type="checkbox" onChange={this.springChangeRef}/>
                         <span class="checkmark"></span>
                       </label>
+                      </div>
+                      <div id="quarterboxes3">
                       <label class="checkbox-inline" id="quar2"> <span id="checktext2">Summer I</span>
                         <input type="checkbox" onChange={this.ss1ChangeRef}/>
                         <span class="checkmark"></span>
@@ -850,6 +858,7 @@ class CourseCard extends Component{
                         <input type="checkbox" onChange={this.ss2ChangeRef}/>
                         <span class="checkmark"></span>
                       </label>
+                      </div>
                       </div>
 
                       <div id="quarter2" >
@@ -967,10 +976,10 @@ class CourseCard extends Component{
                     </div>
                     </Modal.Body>
                     <Modal.Footer>
-                    <Button variant="secondary" onClick={() => this.handleModalShowHide()}>
+                    <Button variant="secondary" onClick={() => this.handleModalShowHide()} id="closemodalbutton">
                         Close
                     </Button>
-                    <Button variant="primary" onClick={() => this.handleModalShowHide(), this.filterChageRef}>
+                    <Button variant="primary" onClick={() => this.handleModalShowHide2()}>
                         Apply Filters
                     </Button>
                     </Modal.Footer>
