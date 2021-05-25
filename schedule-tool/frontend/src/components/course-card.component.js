@@ -33,6 +33,21 @@ function myFunction() {
   }
 }
 
+function mysecondFunction() {
+  var x = document.getElementById("extrafeatures2");
+  var y = document.getElementById("AdvancedButton3");
+  var z = document.getElementById("AdvancedButton4");
+  if (x.style.display == "none") {
+    x.style.display = "block";
+    y.style.display = "none";
+    z.style.display = "inline";
+  } else {
+    x.style.display = "none";
+    y.style.display = "inline";
+    z.style.display = "none";
+  }
+}
+
 
 function hide_show() {
   var x = document.getElementById("filter_right");
@@ -679,7 +694,7 @@ class CourseCard extends Component{
                   </div>
                   <div>
                     <div>
-                    <Button variant="primary" onClick={() => this.handleModalShowHide()}>
+                    {/* <Button variant="primary" onClick={() => this.handleModalShowHide()}>
                     Launch demo modal
                 </Button>
 
@@ -696,7 +711,7 @@ class CourseCard extends Component{
                         Save Changes
                     </Button>
                     </Modal.Footer>
-                </Modal>
+                </Modal> */}
                     </div>
                   </div>
                   <div class="row" id="extrafeatures">
@@ -787,7 +802,7 @@ class CourseCard extends Component{
                       </div>
                     </th>
                     <th className="col-1" style={{border:"0"}}> 
-                      <button id = "filterbutton" onClick={hide_show} ><img src={filterIcon} style={{height:"3rem"}} ></img></button>
+                      <button id = "filterbutton" onClick={() => this.handleModalShowHide()} ><img src={filterIcon} style={{height:"3rem"}} ></img></button>
                     </th>
                     <th className="col-1" style={{border:"0"}}></th>
                   </tr>
@@ -806,21 +821,157 @@ class CourseCard extends Component{
           </div>
         
           <div id="splitright2" >
-          <Button variant="primary" onClick={() => this.handleModalShowHide()}>
-                    Launch demo modal
-                </Button>
 
-                <Modal show={this.state.showHide}>
+                <Modal id="modelgeneral" show={this.state.showHide}>
                     <Modal.Header closeButton onClick={() => this.handleModalShowHide()}>
-                    <Modal.Title>Modal heading</Modal.Title>
+                    <Modal.Title>Filters</Modal.Title>
                     </Modal.Header>
-                    <Modal.Body>Woohoo, you're reading this text in a modal!</Modal.Body>
+                    <Modal.Body>
+                    <div id="quarter2" class="col-md-8 other">
+                      <div id="quartertitle2">Quarter</div>
+                      <div id="quarterboxes2">
+                      <label class="checkbox-inline" id="quar2"><span id="checktext2">Fall</span>
+                        <input type="checkbox" onChange={this.fallChangeRef}/>
+                        <span class="checkmark"></span>
+                      </label>
+                      <label class="checkbox-inline" id="quar2"> <span id="checktext">Winter</span>
+                        <input type="checkbox" onChange={this.winterChangeRef}/>
+                        <span class="checkmark"></span>
+                      </label>
+                      <label class="checkbox-inline" id="quar2"> <span id="checktext2">Spring</span>
+                        <input type="checkbox" onChange={this.springChangeRef}/>
+                        <span class="checkmark"></span>
+                      </label>
+                      <label class="checkbox-inline" id="quar2"> <span id="checktext2">Summer I</span>
+                        <input type="checkbox" onChange={this.ss1ChangeRef}/>
+                        <span class="checkmark"></span>
+                      </label>
+                      <label class="checkbox-inline" id="quar2"> <span id="checktext2">Summer II</span>
+                        <input type="checkbox" onChange={this.ss2ChangeRef}/>
+                        <span class="checkmark"></span>
+                      </label>
+                      </div>
+
+                      <div id="quarter2" >
+                        <div id="dropdown-thing2">
+                          <div id="second-thing2">
+                            <Dropdown variant="success" id="dropdown" options={dropDownOptions} onChange={this.yearChangeRef}  placeholder="Year">
+                            </Dropdown>
+                          </div>
+                        </div>
+                      </div>
+                    <div id="CRN2" >
+                      <div id="title2">CRN</div>
+                      <div class="input-group mb-4">
+                            <input type="search" onChange={this.crnChangeRef} placeholder="CRN" aria-describedby="button-addon5" class="form-control" id="searchbar2"/>
+                        </div>
+                    </div>
+
+                    <div id="course-level">
+                      <div id="title2">Course Level</div>
+                      <div class="input-group mb-4">
+                          <input type="search" onChange={this.codeChangeRef} placeholder="Course Level" aria-describedby="button-addon5" class="form-control" id="searchbar2"/>
+                      </div>
+                    </div>
+
+                    <div id="Subject">
+                      <div id="title2">Subject</div>
+                      <div class="input-group mb-4">
+                        <input type="search" onChange={this.subjChangeRef} placeholder="Subject" aria-describedby="button-addon5" class="form-control" id="searchbar2"/>
+                      </div>
+                    </div>
+
+                    <div id="instructor">
+                      <div id="title2">Instructor</div>
+                      <div class="input-group mb-4">
+                        <input type="search" onChange={this.instructorChangeRef} placeholder="instructor" aria-describedby="button-addon5" class="form-control" id="searchbar2"/>
+                      </div>
+                    </div>
+
+                    <div id="units" >
+                      <div id="title2">Units</div>
+                      <div class="input-group mb-4">
+                          <input type="search" onChange={this.unitsChangeRef} placeholder="Units" aria-describedby="button-addon5" class="form-control" id="searchbar2"/>
+                      </div>
+                    </div>
+
+                    <div id="instructor">
+                      <div id="title2">Instructor</div>
+                      <div class="input-group mb-4">
+                        <input type="search" onChange={this.instructorChangeRef} placeholder="instructor" aria-describedby="button-addon5" class="form-control" id="searchbar2"/>
+                      </div>
+                    </div>
+                  <div id="extrafeatures2">
+                    <div id="coreliteracies" >
+                      <p id="title2">Core Literacies</p>
+                      <div id="corebox2">
+                        <label class="container" id="core2">
+                          <input type="checkbox" onChange={this.acghChangeRef} /><span id="coretext2">ACGH (Amer Cultr, Gov, Hist)</span>
+                          <span class="checkmark"></span>
+                        </label>
+                        <label class="container" id="core2">
+                          <input type="checkbox" onChange={this.ddChangeRef}/><span id="coretext2">DD (Domestic Diversity)</span>
+                          <span class="checkmark"></span>
+                        </label>
+                        <label class="container" id="core2">
+                          <input type="checkbox" onChange={this.olChangeRef}/><span id="coretext2">OL (Oral Lit)</span>
+                          <span class="checkmark"></span>
+                        </label>
+                        <label class="container" id="core2">
+                          <input type="checkbox" onChange={this.qlChangeRef}/><span id="coretext2">QL (Qualitative Lit)</span>
+                          <span class="checkmark"></span>
+                        </label>
+                        <label class="container" id="core2">
+                          <input type="checkbox" onChange={this.slChangeRef}/><span id="coretext2">SL (Scientific Lit)</span>
+                          <span class="checkmark"></span>
+                        </label>
+                        <label class="container" id="core2">
+                          <input type="checkbox" onChange={this.vlChangeRef}/><span id="coretext2">VL (Visual Lit)</span>
+                          <span class="checkmark"></span>
+                        </label>
+                        <label class="container" id="core2">
+                          <input type="checkbox" onChange={this.wcChangeRef}/><span id="coretext2">WC (World Cultr)</span>
+                          <span class="checkmark"></span>
+                        </label>
+                        <label class="container" id="core2">
+                          <input type="checkbox" onChange={this.weChangeRef}/><span id="coretext2">WE (Writing Exp)</span>
+                          <span class="checkmark"></span>
+                        </label>
+                      </div>
+                    </div>
+
+                    <div id="GEs">
+                      <p id="title2">GE Options</p>
+                      <div id="gebox2">
+                        <label class="container" id="ge2">
+                          <input type="checkbox" onChange={this.ahChangeRef} /><span id="getext2">AH (Arts & Hum)</span>
+                          <span class="checkmark"></span>
+                        </label>
+                        <label class="container" id="ge2">
+                          <input type="checkbox" onChange={this.seChangeRef}/><span id="getext2">SE (Sci & Eng)</span>
+                          <span class="checkmark"></span>
+                        </label>
+                        <label class="container" id="ge2">
+                          <input type="checkbox" onChange={this.ssChangeRef}/><span id="getext2">SS (Social Sci)</span>
+                          <span class="checkmark"></span>
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+
+                    <div id="advancedbuttons">
+                      <button id="AdvancedButton3" onClick={mysecondFunction}>Show Advanced Options</button>
+                      <button id="AdvancedButton4" onClick={mysecondFunction}>Hide Advanced Options</button>
+                    </div>  
+                     
+                    </div>
+                    </Modal.Body>
                     <Modal.Footer>
                     <Button variant="secondary" onClick={() => this.handleModalShowHide()}>
                         Close
                     </Button>
-                    <Button variant="primary" onClick={() => this.handleModalShowHide()}>
-                        Save Changes
+                    <Button variant="primary" onClick={() => this.handleModalShowHide(), this.filterChageRef}>
+                        Apply Filters
                     </Button>
                     </Modal.Footer>
                 </Modal>
