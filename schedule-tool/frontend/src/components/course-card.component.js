@@ -479,7 +479,7 @@ class CourseCard extends Component{
                     <th className="col-1" style={{border:"0"}}> 
                       <button id = "filterbutton" onClick={hide_show} ><img src={filterIcon} style={{height:"3rem"}} ></img></button>
                     </th>
-                    <th className="col-1" style={{border:"0"}}></th>
+                    {/* <th className="col-1" style={{border:"0"}}></th> */}
                   </tr>
                 </thead>
               <tbody id="classtablethang2"style={{display:"block", height:"70vh", overflowY:"scroll", border:"0"}}>
