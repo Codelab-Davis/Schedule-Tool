@@ -48,6 +48,10 @@
     line-height: 3.5rem;
 }
 
+.imageClick {
+    cursor: pointer;
+}
+
 .members{
     background-color: #162857;
     width: 100%;

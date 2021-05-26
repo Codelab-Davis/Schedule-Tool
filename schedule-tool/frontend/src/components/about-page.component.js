@@ -54,27 +54,27 @@ export default class AboutPage extends Component {
                     <div class="container px-5 py-5">
                         <div class="row">
                             <div class="col pr-3 pl-3">
-                                <img src={minhtuimage} id="minhtu"/>
+                                <img src={minhtuimage} id="minhtu" class="imageClick" onClick={() => window.open("https://www.linkedin.com/in/minhtumnguyen/")}/>
                                 <div class="name"><b>Minh-Tu Nguyen</b></div>
                                 <div class="position">Project Manager</div>
                             </div>
                             <div class="col pr-3 pl-3">
-                                <img src={keimage} id="ke"/>
+                                <img src={keimage} id="ke" class="imageClick" onClick={() => window.open("https://www.linkedin.com/in/keylinn/")}/>
                                 <div class="name"><b>Ke Lin</b></div>
                                 <div class="position">Designer</div>
                             </div>
                             <div class="col pr-3 pl-3">
-                                <div class="kiran"><img src={kiranimage} id="kiran"/></div>
+                                <div class="kiran"><img src={kiranimage} id="kiran" class="imageClick" onClick={() => window.open("https://www.linkedin.com/in/kiran-poonia-9705a3159/")}/></div>
                                 <div class="name"><b>Kiran Poonia</b></div>
                                 <div class="position">Designer</div>
                             </div>
                             <div class="col pr-3 pl-3">
-                                <img src={johnimage} id="john"/>
+                                <img src={johnimage} id="john" class="imageClick" onClick={() => window.open("https://www.linkedin.com/in/johnhyukjung/")}/>
                                 <div class="name"><b>John Jung</b></div>
                                 <div class="position">Software Developer</div>
                             </div>
                             <div class="col pr-3 pl-3">
-                                <img src={salmaimage} id="salma"/>
+                                <img src={salmaimage} id="salma" class="imageClick" onClick={() => window.open("https://www.linkedin.com/in/salmahassen/")}/>
                                 <div class="name"><b>Salma Hassen</b></div>
                                 <div class="position">Software Developer</div>
                             </div>
@@ -88,22 +88,22 @@ export default class AboutPage extends Component {
                             <div class="position">Software Developer</div>
                         </div>
                         <div class="col pr-3 pl-3">
-                            <img src={prabhdeepimage} id="prabhdeep"/>
+                            <img src={prabhdeepimage} id="prabhdeep" class="imageClick" onClick={() => window.open("https://www.linkedin.com/in/prabhdeep-kainth/")}/>
                             <div class="name"><b>Prabhdeep Kainth</b></div>
                             <div class="position">Software Developer</div>
                         </div>
                         <div class="col pr-3 pl-3">
-                            <img src={jamesimage} id="james"/>
-                            <div class="name"><b>James Juinadi</b></div>
+                            <img src={jamesimage} id="james" class="imageClick" onClick={() => window.open("https://www.linkedin.com/in/jamesjunaidi/")}/>
+                            <div class="name"><b>James Junaidi</b></div>
                             <div class="position">VP and Project Mentor</div>
                         </div>
                         <div class="col pr-3 pl-3">
-                            <img src={omidimage} id="omid"/>
+                            <img src={omidimage} id="omid" class="imageClick" onClick={() => window.open("https://www.linkedin.com/in/omidmogasemi/")}/>
                             <div class="name"><b>Omid Mogasemi</b></div>
                             <div class="position">VP and Mentor</div>
                         </div>
                         <div class="col pr-3 pl-3">
-                            <img src={genniferimage} id="gennifer"/>
+                            <img src={genniferimage} id="gennifer" class="imageClick" onClick={() => window.open("https://www.linkedin.com/in/gennifer-hom/")}/>
                             <div class="name"><b>Gennifer Hom</b></div>
                             <div class="position">VP of Design</div>
                         </div>
