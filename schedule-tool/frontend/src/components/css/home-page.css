@@ -811,6 +811,18 @@ a, a:hover, a:focus, a:active {
     }
 }
 
+@media screen and (max-width: 500px) {
+    .Description{
+        font-family: "ProximaNova", "Helvetica Neue";
+        padding-top: 0.8rem;
+        font-size: 2.15rem;
+        color: #EAB517;
+        margin: 20;
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+}
+
 @media screen and (max-width: 375px) {
     #featuresleft2{
         padding-top: 60px;
