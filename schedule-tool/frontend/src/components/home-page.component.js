@@ -42,13 +42,8 @@ export default class HomePage extends Component {
                     <div class="container">
                         <div class="row">
                             <div id="featuresleft" class="col-md-5 d-flex justify-content-center">
-<<<<<<< HEAD
                                 <a href="/grades"> 
-                                    <div id="gradecard" class="card">
-=======
-                                <a href="grades"> 
                                     <div id="gradecard" class="cards">
->>>>>>> 956f846813f9e73ec02e446844c2cc4570746ebc
                                         <div class="card-body">
                                             <div id="gradecardimage"><img src={gradeimage} id="gradeimage"/></div>
                                             <div id="gradecardtitle"><b>Grade Distribution</b></div>
@@ -59,13 +54,8 @@ export default class HomePage extends Component {
                             </div>
                             <div class="col-md-1 justify-content-center"></div>
                             <div id="featuresright" class="col-md-5 justify-content-center">
-<<<<<<< HEAD
                                 <a href="/enrollment">
-                                    <div id="enrollmentcard" class="card">
-=======
-                                <a href="search">
                                     <div id="enrollmentcard" class="cards">
->>>>>>> 956f846813f9e73ec02e446844c2cc4570746ebc
                                         <div id="enrollmentcardimage"><img src={enrollmentimage} id="enrollmentimage"/></div>
                                         <div id="enrollmentcardtitle"><b>Enrollment Probability</b></div>
                                         <div id="enrollmentcarddescription">We provide information on how many students are enrolling for courses within each day of the scheduling period.</div>
