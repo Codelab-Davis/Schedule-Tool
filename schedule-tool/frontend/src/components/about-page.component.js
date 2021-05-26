@@ -14,7 +14,6 @@ import johnimage from "./TeamImages/john.jpg";
 import groupimage from "./TeamImages/group.png";
 
 
-
 export default class AboutPage extends Component {
     render(){
         return(
