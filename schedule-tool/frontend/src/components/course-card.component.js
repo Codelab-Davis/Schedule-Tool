@@ -447,7 +447,7 @@ class CourseCard extends Component{
         for(var index = 0; index < this.state.detail.length; index++) {
           // this course HTML info
           var this_course = (
-            <tr className="row" style={{marginLeft:"0px", marginRight:"0px" }}>
+            <tr className="row" style={{marginLeft:"0px", marginRight:"0px", cursor: "pointer"}}>
                 <td className="col-8" style={{border:"0", marginTop: "1rem"}}>
                   <h4 id="classid"><strong>{this.state.detail[index].course_id}</strong></h4>
                   <h4 id="classname">{this.state.detail[index].name}</h4>

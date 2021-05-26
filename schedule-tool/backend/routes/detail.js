@@ -73,7 +73,7 @@ router.route('/grades').get((req, res) => {
     .catch(err => {
       console.log(err);
       res.status(400).json('Error: ' + err);
-  });
+  });s
 });
 
 router.route('/').get((req, res) => {

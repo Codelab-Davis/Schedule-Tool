@@ -9,7 +9,7 @@ export default class HomePage extends Component {
     render(){
         return(
             // background-image: url("localhost:3000(/img/Home%20Illustration.png");
-            <div class="maindiv">
+            <div>
             {/* // <div styles={{ backgroundImage:`url(${background})`}} > */}
                 <div id="intro" class="introspace">
                     <div class="intro">
@@ -18,7 +18,7 @@ export default class HomePage extends Component {
                             <h1 class="title"><span class="Aggie"><b>Aggie</b></span><span class="Explorer"><b>Explorer</b></span></h1>
                             <h6 class="Description">Grade distribution and enrollment probability tool</h6>
                             <p class="button">
-                                <a id="homebutton" class="btn btn-large btn-info" href="list">Browse Courses</a>
+                                <a id="homebutton" class="btn btn-large btn-info" href="course">Browse Courses</a>
                             </p> 
                         </div>
                         <div class="introarrow">
