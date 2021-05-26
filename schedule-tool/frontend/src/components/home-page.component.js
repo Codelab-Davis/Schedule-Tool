@@ -42,7 +42,7 @@ export default class HomePage extends Component {
                     <div class="container">
                         <div class="row">
                             <div id="featuresleft" class="col-md-5 d-flex justify-content-center">
-                                <a href="grades"> 
+                                <a href="/grades"> 
                                     <div id="gradecard" class="cards">
                                         <div class="card-body">
                                             <div id="gradecardimage"><img src={gradeimage} id="gradeimage"/></div>
@@ -54,7 +54,7 @@ export default class HomePage extends Component {
                             </div>
                             <div class="col-md-1 justify-content-center"></div>
                             <div id="featuresright" class="col-md-5 justify-content-center">
-                                <a href="search">
+                                <a href="/enrollment">
                                     <div id="enrollmentcard" class="cards">
                                         <div id="enrollmentcardimage"><img src={enrollmentimage} id="enrollmentimage"/></div>
                                         <div id="enrollmentcardtitle"><b>Enrollment Probability</b></div>
