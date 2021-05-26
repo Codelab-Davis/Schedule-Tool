@@ -22,10 +22,12 @@ connection.once('open', () => {
 
 const courseRouter = require('./routes/course')
 const detailRouter = require('./routes/detail')
+const enrollmentRouter = require('./routes/enrollment')
 
 // routers in use
 app.use('/course', courseRouter);
 app.use('/detail', detailRouter);
+app.use('/enrollment', enrollmentRouter);
 
 // bind express with graphql
 app.use('/graphql', graphqlHTTP({

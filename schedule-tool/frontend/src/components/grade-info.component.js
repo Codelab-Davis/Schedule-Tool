@@ -247,7 +247,7 @@ export default class GradePage extends Component {
 
         // converts data from database into format we can use
         var courseAccumulation = { info: {}, grades: {}, percentages: {} };
-
+        console.log("here in the axios thing");
         // basic course info
         courseAccumulation["info"]["courseID"] = fullCourse[0].course_id;
         courseAccumulation["info"]["name"] = fullCourse[0].name;
@@ -373,7 +373,8 @@ export default class GradePage extends Component {
     var filteredIDInfo = this.state.courseDetails.filter(
       (course) => course.course_id == this.state.selectedCourse
     );
-
+      console.log("here in the filteredIDInfo");
+      console.log(filteredIDInfo);
     // filter further to get only the courses that match our selected quarter
     var filteredQuarterInfo = filteredIDInfo[0].courses.filter(
       (course) => course.quarter == this.state.selectedQuarter
@@ -664,9 +665,11 @@ export default class GradePage extends Component {
             }}
           >
             <ResponsiveContainer>
+            
               <BarChart
                 width="99.8%"
                 height="99.8%"
+                
                 data={this.state.formattedData}
                 margin={{ top: 20, right: 20, bottom: 20, left: 20}}
                 grid

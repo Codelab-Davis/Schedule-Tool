@@ -31,6 +31,7 @@ const detailSchema = new Schema({ //components of a class/what are defined withi
   enrollment: { type: Array, required: true},
 }, {
   timestamps: true,
+  collection: "details",
 });
 
 const Detail = mongoose.model('Detail', detailSchema);
