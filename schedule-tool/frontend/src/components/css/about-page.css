@@ -8,6 +8,10 @@
     src: url("/src/fonts/Proxima_Nova_Bold.ttf") format("truetype");
   }
 
+.About2{
+    display: none;
+}
+
 #AboutOurTeam{
     width: 100%;
     height: 650px;
@@ -48,6 +52,9 @@
     background-color: #162857;
     width: 100%;
     height: 800px;
+}
+.members2{
+    display: none;
 }
 
 .memberstitle{
@@ -143,6 +150,11 @@
     text-align: center;
     padding-top: 55px;
 }
+
+.footer2{
+    display: none;
+}
+
 .footertext{
 }
 
@@ -158,4 +170,158 @@
 }
 
 .footerAbout{
+}
+
+@media screen and (max-width: 375px) {
+    .About{
+        display: none;
+    }
+
+    .About2{
+        display: block;
+    }
+
+    #AboutOurTeam2{
+        width: 100%;
+        height: 800px;
+        text-align: center;
+        padding-left: 28px;
+    }
+    
+    #group2{
+        width: 350px;
+        height: auto;
+    }
+    
+    #aboutimage2{
+        padding-top: 10rem;
+    }
+    
+    #aboutdescription2{
+        margin-top: -40px;
+    }
+    
+    #abouttitle2{
+        font-family: "ProximaNova-Bold", "Helvetica Neue";
+        font-size: 4rem;
+        color: #5A5A5A;
+    }
+    
+    #aboutdescrip2{
+        font-family: "ProximaNova", "Helvetica Neue";
+        font-size: 1.4rem;
+        color: #5A5A5A;
+        padding-top: 20px;
+        line-height: 3rem;
+        padding-left: 2rem;
+        padding-right: 2rem;
+    }
+
+    .members{
+        display: none;
+    }
+
+    .members2{
+        display: inline-block;
+        background-color: #162857;
+        width: 100%;
+        height: 1350px;
+        text-align: center;
+    }
+
+    .memberstitle2{
+        font-family: "ProximaNova-Bold", "Helvetica Neue";
+        font-size: 4rem;
+        color: #FFFFFF;
+        background-color: #162857;
+        width: 100%;
+        padding-top: 100px;
+        padding-bottom: 40px;
+    }
+
+    #image2{
+        width: 135px;
+        height: auto;
+        border-radius: .5rem;
+        margin-right: -1.7rem;
+    }
+
+    #image2r{
+        width: 135px;
+        height: auto;
+        border-radius: .5rem;
+        margin-left: -1.7rem;
+    }
+
+    .name2{
+        font-family: "ProximaNova-Bold", "Helvetica Neue";
+        font-size: 1.4rem;
+        color:  white;
+        padding-top: 8px;
+        text-align: left;
+        padding-left: 20px;
+    }
+    
+    .position2{
+        font-family: "ProximaNova", "Helvetica Neue";
+        font-size: 1.4rem;
+        color:  white;
+        padding-top: 1px;
+        padding-bottom: 30px;
+        text-align: left;
+        padding-left: 20px;
+    }
+
+    .name2r{
+        font-family: "ProximaNova-Bold", "Helvetica Neue";
+        font-size: 1.4rem;
+        color:  white;
+        padding-top: 8px;
+        text-align: left;
+        padding-left: 3px;
+    }
+    
+    .position2r{
+        font-family: "ProximaNova", "Helvetica Neue";
+        font-size: 1.4rem;
+        color:  white;
+        padding-top: 1px;
+        padding-bottom: 30px;
+        text-align: left;
+        padding-left: 3px;
+    }
+
+    .footer{
+        display: none;
+    }
+
+    .footer2{
+        display: block;
+        width: 100%;
+        height: 150px;
+        font-family: "ProximaNova", "Helvetica Neue";
+        font-size: 1.5rem;
+        color: #4F7094;
+        text-align: center;
+        padding-top: 50px;
+    }
+
+    .footertext2{
+        color: #4F7094;
+    }
+    
+    .footerCatalog2{
+        padding-right: 4rem;
+    }
+    
+    .footerGrades2{
+        padding-right: 4rem;
+    }
+    
+    .footerEnrollment2{
+        padding-right: 4rem;
+    }
+    
+    .footerAbout2{
+    }
 }
