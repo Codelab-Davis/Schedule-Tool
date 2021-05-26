@@ -7,16 +7,8 @@ import {courseFilterQuery} from './../queries.js';
 import filterIcon from "./images/filter-control-adjustment-icon.jpg"
 import catalog_cow from "./images/catalog_cow.png";
 import './css/course-card.css'; 
-// import { Button,  ButtonGroup, DropdownButton, MenuItem, Dropdown } from 'react-bootstrap';
 import { Modal, Button,  ButtonGroup, DropdownButton, MenuItem } from 'react-bootstrap';
 import Dropdown from "react-dropdown";
-
-// const getCourseQuery = gql`
-//   {
-//     courses{
-
-//     }
-//   }`
 
 function myFunction() {
   var x = document.getElementById("extrafeatures");
@@ -50,28 +42,21 @@ function mysecondFunction() {
 
 
 function hide_show() {
+  console.log("hit in hide show");
   var x = document.getElementById("filter_right");
   var y = document.getElementById("cow_right");
   if (x.style.display == "none") {
+    console.log("hit if")
     x.style.display = "block";
     y.style.display = "none";
+    document.getElementById("extrafeatures").style.display = 'none';
   } else {
+    console.log("hit else")
     x.style.display = "none";
     y.style.display = "block";
   }
 }
 
-
-
-// function changeText() {
-//   var element = document.getElementById('AdvancedText');
-//   if(element.innerHTML == 'Show Advanced Options'){
-//     element.innerHTML = 'Hide Advanced Options'
-//   }
-//   else{
-//     element.innerHTML = 'Show Advanced Options'
-//   }
-// }
 
 const Detail = props => (
     <tr>
@@ -84,35 +69,6 @@ var items;
 
 class CourseCard extends Component{
 
-
-    // constructor(props) {
-    //     super(props);
-
-    //     this.onChangeInstructor = this.onChangeInstructor.bind(this);
-    
-    //     this.deleteDetail = this.deleteDetail.bind(this)
-    
-    //     this.state = {
-    //       detail: [],
-    //       course_name: "",
-    //       instructor: "James",
-    //       units:"",
-    //     };
-    //}
-
-
-      // to refetch data using graphql query
-      // function fetchData() {
-      //   this.props.data.refetch({ 
-      //     course_name: nameState,
-      //     instructor_name: instructorState,
-      //     units_count: unitsState,
-      //    })
-      // }
-
-      // data located here:
-      // let data = this.props.data.course_id;
-    
       componentDidMount() {
         axios.get('http://localhost:5000/detail/')
           .then(response => {
@@ -125,6 +81,7 @@ class CourseCard extends Component{
           .catch((error) => {
             console.log(error);
           })
+
 
           console.log("my state", this.state);
       }
@@ -243,6 +200,8 @@ class CourseCard extends Component{
   
     componentDidMount() {
       this.refreshDB();
+      console.log("hit comp. did mount")
+      document.getElementById("filter_right").style.display = 'none';
     }
 
     crnChangeRefHandler(e) {
@@ -400,22 +359,6 @@ class CourseCard extends Component{
 
     useFilter() {
 
-      // axios
-      // .get("http://localhost:5000/detail/", {params:requestParams})
-      // .then((response) => {
-      //   var recievedCount = response.data.length;
-
-      //   if((recievedCount == 0) && (this.startCourseIndex != 0)) {
-      //     this.startCourseIndex = Math.max(0, this.startCourseIndex - this.numCourses);
-      //   } else {
-      //     this.setState({ detail: response.data });
-      //   }
-      // })
-      // .catch((error) => {
-      //   console.log(error);
-      // });
-
-
       // console.log("state in usefilter functions", this.state);
       console.log("in usefilter function", this.state);
       let newDetail = this.state.detail.filter(function (el) {
@@ -560,29 +503,7 @@ class CourseCard extends Component{
               <button type="button" className="btn btn-primary btn-sm col-2" style={{height:"30px", marginRight:"20px"}} onClick={this.onClickNextRef}>Next</button>
               <div className="col-8"></div>
             </div>
-            
-            {/* <button onClick={hide_show}>Filters</button>
-            <ul class="list-unstyled"> 
-                {this.state.detail.map(currentdetail => {
-                return(
-                  <li>
-                  <div class="card">
-                              <div class="card-body">
-                                <div class="media d-flex">
-                                  <div class="align-self-center">
-                                              <h3 class="primary"><b>{currentdetail.course_id}</b></h3>
-                                              <p>{currentdetail.name}</p>
-                                              <p> Enrollement Here </p>
-                                              <div class= "left_side">
-                                             <div class= "unit-right">{currentdetail.units} Units</div> </div>
-                                              <a href="courseinfo" class="stretched-link"></a>
-                                          </div>
-                                      </div>
-                                  </div>
-                              </div>
-                  </li>
-                  ); })}
-                  </ul> */}
+
             </div>
               <div id="splitright" class="col-sm-9 right-content">
                 <div id="cow_right">
@@ -622,18 +543,7 @@ class CourseCard extends Component{
                       </div>
                     </div>
                     <div id="quarter" class="col-sm-3 other2">
-                      {/* <Dropdown>
-                        <Dropdown.Toggle variant="success" id="dropdown-basic" onChange={this.yearChangeRef}>Year
-                        </Dropdown.Toggle>
 
-                        <Dropdown.Menu>
-                          <Dropdown.Item >2016</Dropdown.Item>
-                          <Dropdown.Item >2017</Dropdown.Item>
-                          <Dropdown.Item >2018</Dropdown.Item>
-                          <Dropdown.Item >2019</Dropdown.Item>
-                          <Dropdown.Item >2020</Dropdown.Item>
-                        </Dropdown.Menu>
-                      </Dropdown> */}
                       <div id="dropdown-thing">
                         <div id="second-thing">
                         <Dropdown variant="success" id="dropdown" options={dropDownOptions} onChange={this.yearChangeRef}  placeholder="Year">
@@ -684,39 +594,12 @@ class CourseCard extends Component{
                     </div>
                     <div id="placeholder" class="col-md-1 other"></div>
                     <div id="meeting-type" class="col-md-5 other">
-                        {/* <Dropdown class="MeetingDrop">
-                          <Dropdown.Toggle variant="success" id="dropdown-basic">
-                            Meeting Type
-                          </Dropdown.Toggle>
-                          <Dropdown.Menu>
-                            <Dropdown.Item href="#/action-1">Action</Dropdown.Item>
-                            <Dropdown.Item href="#/action-2">Another action</Dropdown.Item>
-                            <Dropdown.Item href="#/action-3">Something else</Dropdown.Item>
-                          </Dropdown.Menu>
-                        </Dropdown> */}
+ 
                     </div>
                     <div id="placeholder" class="col-md-1 other"></div>
                   </div>
                   <div>
                     <div>
-                    {/* <Button variant="primary" onClick={() => this.handleModalShowHide()}>
-                    Launch demo modal
-                </Button>
-
-                <Modal show={this.state.showHide}>
-                    <Modal.Header closeButton onClick={() => this.handleModalShowHide()}>
-                    <Modal.Title>Modal heading</Modal.Title>
-                    </Modal.Header>
-                    <Modal.Body>Woohoo, you're reading this text in a modal!</Modal.Body>
-                    <Modal.Footer>
-                    <Button variant="secondary" onClick={() => this.handleModalShowHide()}>
-                        Close
-                    </Button>
-                    <Button variant="primary" onClick={() => this.handleModalShowHide()}>
-                        Save Changes
-                    </Button>
-                    </Modal.Footer>
-                </Modal> */}
                     </div>
                   </div>
                   <div class="row" id="extrafeatures">
@@ -783,7 +666,6 @@ class CourseCard extends Component{
                     </div>  
                     <div id="placeholder" class="col-md-1 other"></div>
                     <div id="gobuttons" class="col-md-5 other">
-                      {/* <button id="GoButton" onClick={this.useFilterRef}>Go!</button> */}
                       <button id="GoButton" onClick={this.filterChageRef}>Apply Filters</button>
                     </div>  
                     <div id="placeholder" class="col-md-1 other"></div>
@@ -985,9 +867,6 @@ class CourseCard extends Component{
                     </Modal.Footer>
                 </Modal>
           </div>
-
-
-          
         </div>
         </div>
         </body>

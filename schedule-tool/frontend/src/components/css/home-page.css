@@ -15,6 +15,11 @@ a, a:hover, a:focus, a:active {
     color: inherit;
 }
 
+.maindiv {
+    width: auto;
+    white-space: nowrap;
+}
+
 .intro{
     font-family: "ProximaNova", "Helvetica Neue";
     background-image: url('../images/HomeIllustration2.png');
