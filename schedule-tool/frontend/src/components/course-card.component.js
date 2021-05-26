@@ -42,7 +42,6 @@ function mysecondFunction() {
 
 
 function hide_show() {
-  console.log("hit in hide show");
   var x = document.getElementById("filter_right");
   var y = document.getElementById("cow_right");
   if (x.style.display == "none") {
@@ -92,13 +91,6 @@ class CourseCard extends Component{
         })
         console.log("changed state", this.state);
       }
-
-      // function buttonclicked() {
-      //   fetchData(this.state.instructor, this.state.units, );
-      //   this,setState({
-      //     detail: this.props.data.course_id,
-      //   });
-      // }
     
       deleteDetail(id) {
         axios.delete('http://localhost:5000/detail/'+id)
@@ -200,7 +192,6 @@ class CourseCard extends Component{
   
     componentDidMount() {
       this.refreshDB();
-      console.log("hit comp. did mount")
       document.getElementById("filter_right").style.display = 'none';
     }
 

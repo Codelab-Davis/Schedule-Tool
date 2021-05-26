@@ -58,10 +58,6 @@ router.route('/grades').get((req, res) => {
       project["courses"] = "$courses";
     }
 
-    // console.log(groupIDmap);
-    // console.log(groupAddons);
-    // console.log(project);
-
     aggregateArray.push({$match: filter});
     aggregateArray.push({$group: {"_id" : groupIDmap, "courses" : {"$push" : groupAddons}}});
     aggregateArray.push({$project: project});
@@ -78,24 +74,12 @@ router.route('/grades').get((req, res) => {
       console.log(err);
       res.status(400).json('Error: ' + err);
   });
-
-
 });
 
 router.route('/').get((req, res) => {
   var filter = {};
   var projections = null;
   var options = {};
-
-  // req.query.quarter -> req.query.Year
-  // var date ="";
-  // if (req.query.quarter == "fall") {
-  //   date = "fall" + req.query.year;
-  // }
-
-  // console.log("hit req query", req.query);
-
-  
 
   if("start" in req.query && "limit" in req.query){
     options.skip = parseInt(req.query.start);
@@ -125,33 +109,6 @@ router.route('/').get((req, res) => {
   if(("units" in req.query) && (req.query.units.length > 0)) {
     filter.units = {"$regex": req.query.units, "$options": "i"};
   }
-
-    // filter.quarter = {'quarters': []};
-
-    // if(("fall" in req.query) && (req.query.fall.length > 0)) {
-    //   req.query.quarter = req.query.fall + req.query.year;
-    //   filter.quarter.quarters.push({ $or: {"$regex": req.query.quarter, "$options": "i"}});
-    // }
-    // if(("winter" in req.query) && (req.query.winter.length > 0)) {
-    //   req.query.quarter = req.query.winter + req.query.year
-    //   filter.quarter.quarters.push({ $or: {"$regex": req.query.quarter, "$options": "i"}});
-
-    // }
-    // if(("spring" in req.query) && (req.query.spring.length > 0)) {
-    //   req.query.quarter = req.query.spring + req.query.year
-    //   filter.quarter.quarters.push({ $or: {"$regex": req.query.quarter, "$options": "i"}});
-
-    // }
-    // if(("ss1" in req.query) && (req.query.ss1.length > 0)) {
-    //   req.query.quarter = req.query.ss1 + req.query.year
-    //   filter.quarter.quarters.push({ $or: {"$regex": req.query.quarter, "$options": "i"}});
-
-    // }
-    // if(("ss2" in req.query) && (req.query.ss2.length > 0)) {
-    //   req.query.quarter = req.query.ss2 + req.query.year
-    //   filter.quarter.quarters.push({ $or: {"$regex": req.query.quarter, "$options": "i"}});
-    // }
-
 
     if(("fall" in req.query) && (req.query.fall.length > 0)) {
       req.query.quarter = req.query.fall + req.query.year;
@@ -317,10 +274,7 @@ router.route('/').get((req, res) => {
       }
     }
 
-    // filter.quarter = { $or: [{"$regex": 'FQ', "$options": "i"}, {"$regex": 'SQ', "$options": "i"}]}
-    // filter = {$or: [ {quarter: {"$regex": 'WQ', "$options": "i"}}, {quarter: {"$regex": 'SQ', "$options": "i"}}]}
-  
-  console.log("filter", filter);
+  // console.log("filter", filter);
 
   Detail.find(filter, projections, options)
     .then(detail => res.json(detail))
