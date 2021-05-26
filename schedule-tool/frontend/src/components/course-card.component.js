@@ -29,7 +29,10 @@ function mysecondFunction() {
   var x = document.getElementById("extrafeatures2");
   var y = document.getElementById("AdvancedButton3");
   var z = document.getElementById("AdvancedButton4");
-  if (x.style.display == "none") {
+  if (x.style.display != "block") {
+    x.style.display = 'none';
+  }
+  if (x.style.display == "none" || x.style.display == null) {
     x.style.display = "block";
     y.style.display = "none";
     z.style.display = "inline";
@@ -38,6 +41,11 @@ function mysecondFunction() {
     y.style.display = "inline";
     z.style.display = "none";
   }
+}
+
+function setupAdvanedTwo() {
+  console.log("hit in here");
+  document.getElementById("extrafeatures2").style.display = 'none';
 }
 
 
@@ -341,6 +349,7 @@ class CourseCard extends Component{
 
     handleModalShowHide() {
       this.setState({ showHide: !this.state.showHide })
+      // document.getElementById("extrafeatures2").style.display = 'none';
     }
 
     handleModalShowHide2() {
@@ -681,7 +690,7 @@ class CourseCard extends Component{
                     <th className="col-1" style={{border:"0"}}> 
                       <button id = "filterbutton" onClick={() => this.handleModalShowHide()} ><img src={filterIcon} style={{height:"3rem"}} ></img></button>
                     </th>
-                    <th className="col-1" style={{border:"0"}}></th>
+                    {/* <th className="col-1" style={{border:"0"}}></th> */}
                   </tr>
                 </thead>
                 <tbody id="classtablethang4"style={{display:"block", height:"70vh", overflowY:"scroll", border:"0"}}>
