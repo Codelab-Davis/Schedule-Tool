@@ -209,6 +209,8 @@
     
     #aboutdescription2{
         margin-top: -40px;
+        padding-left: 60px;
+        padding-right: 60px;
     }
     
     #abouttitle2{
@@ -219,7 +221,7 @@
     
     #aboutdescrip2{
         font-family: "ProximaNova", "Helvetica Neue";
-        font-size: 1.4rem;
+        font-size: 1.8rem;
         color: #5A5A5A;
         padding-top: 20px;
         line-height: 3rem;
@@ -343,5 +345,19 @@
     }
     #aboutimage2{
         padding-top: 10rem;
+    }
+    #aboutdescription2{
+        margin-top: -40px;
+        padding-left: 0px;
+        padding-right: 0px;
+    }
+    #aboutdescrip2{
+        font-family: "ProximaNova", "Helvetica Neue";
+        font-size: 1.4rem;
+        color: #5A5A5A;
+        padding-top: 20px;
+        line-height: 3rem;
+        padding-left: 2rem;
+        padding-right: 2rem;
     }
 }
