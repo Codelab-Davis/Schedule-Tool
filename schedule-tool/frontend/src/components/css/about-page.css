@@ -176,7 +176,9 @@
 .footerAbout{
 }
 
-@media screen and (max-width: 375px) {
+
+
+@media screen and (max-width: 1200px) {
     .About{
         display: none;
     }
@@ -193,12 +195,16 @@
     }
     
     #group2{
-        width: 350px;
+        width: 600px;
         height: auto;
     }
     
     #aboutimage2{
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
         padding-top: 10rem;
+        width: 100%;
     }
     
     #aboutdescription2{
@@ -262,7 +268,7 @@
         font-size: 1.4rem;
         color:  white;
         padding-top: 8px;
-        text-align: left;
+        text-align: center;
         padding-left: 20px;
     }
     
@@ -272,7 +278,7 @@
         color:  white;
         padding-top: 1px;
         padding-bottom: 30px;
-        text-align: left;
+        text-align: center;
         padding-left: 20px;
     }
 
@@ -281,8 +287,8 @@
         font-size: 1.4rem;
         color:  white;
         padding-top: 8px;
-        text-align: left;
-        padding-left: 3px;
+        text-align: center;
+        padding-right: 8px;
     }
     
     .position2r{
@@ -291,8 +297,8 @@
         color:  white;
         padding-top: 1px;
         padding-bottom: 30px;
-        text-align: left;
-        padding-left: 3px;
+        text-align: center;
+        padding-right: 8px;
     }
 
     .footer{
@@ -327,5 +333,15 @@
     }
     
     .footerAbout2{
+    }
+}
+
+@media screen and (max-width: 675px) {
+    #group2{
+        width: 350px;
+        height: auto;
+    }
+    #aboutimage2{
+        padding-top: 10rem;
     }
 }

@@ -164,7 +164,7 @@ export default class AboutPage extends Component {
                             </div>
                             <div class="col-6">
                                 <img src={jamesimage} id="image2r"/>
-                                <div class="name2r"><b>James Juinadi</b></div>
+                                <div class="name2r"><b>James Junaidi</b></div>
                                 <div class="position2r">VP and Project Mentor</div>
                             </div>
                         </div>

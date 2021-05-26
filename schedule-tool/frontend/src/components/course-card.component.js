@@ -485,7 +485,6 @@ class CourseCard extends Component{
               <tbody id="classtablethang2"style={{display:"block", height:"70vh", overflowY:"scroll", border:"0"}}>
                 {course_info}
               </tbody>
-
             </table>
             </div>
 
