@@ -521,7 +521,7 @@ h4
     }
 }
 
-@media screen and (max-width: 768px) and (min-width: 376px){
+@media screen and (max-width: 768px) and (min-width: 650px){
     #normalscreen{
         display: none;
     }
@@ -537,8 +537,9 @@ h4
     }
 
     #classtablethang3{
-        width: 750px;
+        width: 600px;
         margin-left: 6rem;
+        justify-content: center;
     }
 
     #classtablethang4{
@@ -695,6 +696,1045 @@ h4
     #ge2{
         font-family: "ProximaNova", "Helvetica Neue";
         font-size: 1.4rem;
+        padding-right: 2.4rem;
+    }
+    
+    #getext2{
+        padding-left: 1.5rem;
+    }
+
+    #AdvancedButton3{
+        margin-top: 3rem;
+        background-color: transparent; /* Green */
+        border: none;
+        font-family: "ProximaNova-Bold", "Helvetica Neue";
+        color: #162857;
+        font-size: 1.6rem;
+        margin-left: -0.5rem;
+        margin-bottom: 3rem;
+        display: inline;
+    }
+
+    #AdvancedButton4{
+        display: none;
+        margin-top: 3rem;
+        background-color: transparent; /* Green */
+        border: none;
+        font-family: "ProximaNova-Bold", "Helvetica Neue";
+        color: #162857;
+        font-size: 1.6rem;
+        margin-left: -0.5rem;
+        margin-bottom: 3rem;
+    }
+}
+
+@media screen and (max-width: 650px) and (min-width: 560px){
+    #normalscreen{
+        display: none;
+    }
+
+    #smallscreen{
+        display: inline-block;
+        width: auto;
+        height: 1500px;
+    }
+
+    #splitleft2{
+
+    }
+
+    #classtablethang3{
+        width: 500px;
+        margin-left: 6rem;
+        justify-content: center;
+    }
+
+    #classtablethang4{
+        margin-left: 0.5rem;
+        margin-right: 0.5rem;
+    }
+
+    #searchclassbar2{
+        margin-top:0.6rem;
+        margin-bottom: 2rem;
+        height: 4rem;
+        border-radius: 0.5rem;
+    }
+    
+    #classchangebutton{
+        margin-top: 30px;
+        margin-left: 140px;
+        margin-bottom: 2rem;
+        text-align: center;
+    }
+
+    #prevbutton{
+        width: 40px;
+        height: 40px;
+        margin-left: 10rem;
+        margin-right: 6rem;
+        font-family: "ProximaNova", "Helvetica Neue";
+        font-size: 1.6rem;
+        color: white;
+    }
+
+    #nextbutton{
+        height: 40px;
+        width: 40px;
+        margin-right: 2rem;
+        font-family: "ProximaNova", "Helvetica Neue";
+        font-size: 1.6rem;
+        color: white;
+    }
+
+    #modelgeneral{
+        margin-top: 100px;
+        width: 500px;
+    }
+
+    #filtertitle2{
+        font-family: "ProximaNova-Bold", "Helvetica Neue";
+        font-size: 2rem;
+        padding-left: 1rem;
+        padding-top: 1rem;
+    }
+
+    .modal-dialog{
+        overflow-y: initial !important;
+    }
+
+    .modal-body{
+        height: 400px;
+        overflow-y: auto;
+        margin-left: 12px;
+        margin-right: 12px;
+    }
+
+    #quartertitle2{
+        font-family: "ProximaNova", "Helvetica Neue";
+        font-size: 2rem;
+        padding-top: 1.5rem;
+        padding-bottom: 0.5rem;
+    }
+
+    #quarterinbox{
+        border: 1px solid #dddcdc;
+        padding: 1rem;
+        margin-bottom: 2rem;
+    }
+    
+    #quarterboxes2{
+        padding-top: 1rem;
+        padding-left: 9rem;
+    }
+
+    #quarterboxes3{
+        padding-top: 0.7rem;
+        padding-left: 10rem;
+    }
+    
+    #quar2{
+        font-family: "ProximaNova", "Helvetica Neue";
+        font-size: 1.4rem;
+        padding-right: 4rem;
+    }
+
+    #checktext2{
+        padding-right: 0.8rem;
+    }
+
+    #dropdown-thing2{
+        margin-bottom: 1.5rem;
+    }
+
+    #second-thing2{
+        background-color: #FFFFFF;
+        border-style: solid;
+        border-width: 1px;
+        border-color: #dddcdc;
+        font-family: "ProximaNova", "Helvetica Neue";
+        color: #162857;
+        padding-left: 4rem;
+        padding-right: 4rem;
+        padding-top: 0.6rem;
+        padding-bottom: 0.6rem;
+        font-size: 1.4rem;
+        text-align: center;
+        border-radius: 0.2rem;
+    }
+
+    #searchbar2{
+        height: 3.5rem;
+    }
+    
+    #title2{
+        font-family: "ProximaNova", "Helvetica Neue";
+        font-size: 2rem;
+        padding-top: 1.5rem;
+        padding-bottom: 0.7rem;
+    }
+
+    #extrafeatures2{
+        display: none;
+    }
+
+    #corebox2{
+        border: 1px solid #dddcdc;
+        padding: 2rem;
+        margin-bottom: 0.5rem;
+    }
+    
+    #core2{
+        font-family: "ProximaNova", "Helvetica Neue";
+        font-size: 1.4rem;
+        padding-right: 2.4rem;
+    }
+    
+    #coretext2{
+        padding-left: 1.5rem;
+    }
+    
+    #gebox2{
+        border: 1px solid #dddcdc;
+        padding: 2rem;
+        margin-bottom: 0.5rem;
+    }
+    
+    #ge2{
+        font-family: "ProximaNova", "Helvetica Neue";
+        font-size: 1.4rem;
+        padding-right: 2.4rem;
+    }
+    
+    #getext2{
+        padding-left: 1.5rem;
+    }
+
+    #AdvancedButton3{
+        margin-top: 3rem;
+        background-color: transparent; /* Green */
+        border: none;
+        font-family: "ProximaNova-Bold", "Helvetica Neue";
+        color: #162857;
+        font-size: 1.6rem;
+        margin-left: -0.5rem;
+        margin-bottom: 3rem;
+        display: inline;
+    }
+
+    #AdvancedButton4{
+        display: none;
+        margin-top: 3rem;
+        background-color: transparent; /* Green */
+        border: none;
+        font-family: "ProximaNova-Bold", "Helvetica Neue";
+        color: #162857;
+        font-size: 1.6rem;
+        margin-left: -0.5rem;
+        margin-bottom: 3rem;
+    }
+}
+
+@media screen and (max-width: 560px) and (min-width: 411px){
+    #normalscreen{
+        display: none;
+    }
+
+    #smallscreen{
+        display: inline-block;
+        width: auto;
+        height: 1500px;
+    }
+
+    #splitleft2{
+
+    }
+
+    #classtablethang3{
+        width: 370px;
+        margin-left: 6rem;
+        justify-content: center;
+    }
+
+    #classtablethang4{
+        margin-left: 0.5rem;
+        margin-right: 0.5rem;
+    }
+
+    #searchclassbar2{
+        margin-top:0.6rem;
+        margin-bottom: 2rem;
+        height: 3.5rem;
+        border-radius: 0.5rem;
+    }
+    
+    #classchangebutton{
+        margin-top: 30px;
+        margin-left: 140px;
+        margin-bottom: 2rem;
+        text-align: center;
+    }
+
+    #prevbutton{
+        width: 40px;
+        height: 40px;
+        margin-left: 10rem;
+        margin-right: 6rem;
+        font-family: "ProximaNova", "Helvetica Neue";
+        font-size: 1.6rem;
+        color: white;
+    }
+
+    #nextbutton{
+        height: 40px;
+        width: 40px;
+        margin-right: 2rem;
+        font-family: "ProximaNova", "Helvetica Neue";
+        font-size: 1.6rem;
+        color: white;
+    }
+
+    #modelgeneral{
+        margin-top: 80px;
+        width: 370px;
+        margin-left: 25px;
+    }
+
+    #filtertitle2{
+        font-family: "ProximaNova-Bold", "Helvetica Neue";
+        font-size: 2rem;
+        padding-left: 1rem;
+        padding-top: 1rem;
+    }
+
+    .modal-dialog{
+        overflow-y: initial !important;
+    }
+
+    .modal-body{
+        height: 350px;
+        overflow-y: auto;
+        margin-left: 12px;
+        margin-right: 12px;
+    }
+
+    #quartertitle2{
+        font-family: "ProximaNova", "Helvetica Neue";
+        font-size: 2rem;
+        padding-top: 1.5rem;
+        padding-bottom: 0.5rem;
+    }
+
+    #quarterinbox{
+        border: 1px solid #dddcdc;
+        padding: 1rem;
+        margin-bottom: 2rem;
+    }
+    
+    #quarterboxes2{
+        padding-top: 1rem;
+        padding-left: 4rem;
+    }
+
+    #quarterboxes3{
+        padding-top: 0.7rem;
+        padding-left: 5.5rem;
+    }
+    
+    #quar2{
+        font-family: "ProximaNova", "Helvetica Neue";
+        font-size: 1.4rem;
+        padding-right: 3rem;
+    }
+
+    #checktext2{
+        padding-right: 0.8rem;
+    }
+
+    #dropdown-thing2{
+        margin-bottom: 1.5rem;
+    }
+
+    #second-thing2{
+        background-color: #FFFFFF;
+        border-style: solid;
+        border-width: 1px;
+        border-color: #dddcdc;
+        font-family: "ProximaNova", "Helvetica Neue";
+        color: #162857;
+        padding-left: 4rem;
+        padding-right: 4rem;
+        padding-top: 0.6rem;
+        padding-bottom: 0.6rem;
+        font-size: 1.4rem;
+        text-align: center;
+        border-radius: 0.2rem;
+    }
+
+    #searchbar2{
+        height: 3.5rem;
+    }
+    
+    #title2{
+        font-family: "ProximaNova", "Helvetica Neue";
+        font-size: 2rem;
+        padding-top: 1.5rem;
+        padding-bottom: 0.7rem;
+    }
+
+    #extrafeatures2{
+        display: none;
+    }
+
+    #corebox2{
+        border: 1px solid #dddcdc;
+        padding: 2rem;
+        margin-bottom: 0.5rem;
+    }
+    
+    #core2{
+        font-family: "ProximaNova", "Helvetica Neue";
+        font-size: 1.4rem;
+        padding-right: 2.4rem;
+    }
+    
+    #coretext2{
+        padding-left: 1.5rem;
+    }
+    
+    #gebox2{
+        border: 1px solid #dddcdc;
+        padding: 2rem;
+        margin-bottom: 0.5rem;
+    }
+    
+    #ge2{
+        font-family: "ProximaNova", "Helvetica Neue";
+        font-size: 1.4rem;
+        padding-right: 2.4rem;
+    }
+    
+    #getext2{
+        padding-left: 1.5rem;
+    }
+
+    #AdvancedButton3{
+        margin-top: 3rem;
+        background-color: transparent; /* Green */
+        border: none;
+        font-family: "ProximaNova-Bold", "Helvetica Neue";
+        color: #162857;
+        font-size: 1.6rem;
+        margin-left: -0.5rem;
+        margin-bottom: 3rem;
+        display: inline;
+    }
+
+    #AdvancedButton4{
+        display: none;
+        margin-top: 3rem;
+        background-color: transparent; /* Green */
+        border: none;
+        font-family: "ProximaNova-Bold", "Helvetica Neue";
+        color: #162857;
+        font-size: 1.6rem;
+        margin-left: -0.5rem;
+        margin-bottom: 3rem;
+    }
+}
+
+@media screen and (max-width: 411px) and (min-width: 376px){
+    #normalscreen{
+        display: none;
+    }
+
+    #smallscreen{
+        display: inline-block;
+        width: auto;
+        height: 1500px;
+    }
+
+    #splitleft2{
+
+    }
+
+    #classtablethang3{
+        width: 360px;
+        margin-left: 3rem;
+        justify-content: center;
+    }
+
+    #classtablethang4{
+        margin-left: 0.5rem;
+        margin-right: 0.5rem;
+    }
+
+    #searchclassbar2{
+        margin-top:0.6rem;
+        margin-bottom: 2rem;
+        height: 3.5rem;
+        border-radius: 0.5rem;
+    }
+    
+    #classchangebutton{
+        margin-top: 30px;
+        margin-left: 140px;
+        margin-bottom: 2rem;
+        text-align: center;
+    }
+
+    #prevbutton{
+        width: 40px;
+        height: 40px;
+        margin-left: 10rem;
+        margin-right: 6rem;
+        font-family: "ProximaNova", "Helvetica Neue";
+        font-size: 1.6rem;
+        color: white;
+    }
+
+    #nextbutton{
+        height: 40px;
+        width: 40px;
+        margin-right: 2rem;
+        font-family: "ProximaNova", "Helvetica Neue";
+        font-size: 1.6rem;
+        color: white;
+    }
+
+    #modelgeneral{
+        margin-top: 80px;
+        width: 330px;
+        margin-left: 25px;
+    }
+
+    #filtertitle2{
+        font-family: "ProximaNova-Bold", "Helvetica Neue";
+        font-size: 2rem;
+        padding-left: 1rem;
+        padding-top: 1rem;
+    }
+
+    .modal-dialog{
+        overflow-y: initial !important;
+    }
+
+    .modal-body{
+        height: 350px;
+        overflow-y: auto;
+        margin-left: 12px;
+        margin-right: 12px;
+    }
+
+    #quartertitle2{
+        font-family: "ProximaNova", "Helvetica Neue";
+        font-size: 2rem;
+        padding-top: 1.5rem;
+        padding-bottom: 0.5rem;
+    }
+
+    #quarterinbox{
+        border: 1px solid #dddcdc;
+        padding: 1rem;
+        margin-bottom: 2rem;
+    }
+    
+    #quarterboxes2{
+        padding-top: 1rem;
+        padding-left: 3rem;
+    }
+
+    #quarterboxes3{
+        padding-top: 0.7rem;
+        padding-left: 3.8rem;
+    }
+    
+    #quar2{
+        font-family: "ProximaNova", "Helvetica Neue";
+        font-size: 1.4rem;
+        padding-right: 2rem;
+    }
+
+    #checktext2{
+        padding-right: 0.8rem;
+    }
+
+    #dropdown-thing2{
+        margin-bottom: 1.5rem;
+    }
+
+    #second-thing2{
+        background-color: #FFFFFF;
+        border-style: solid;
+        border-width: 1px;
+        border-color: #dddcdc;
+        font-family: "ProximaNova", "Helvetica Neue";
+        color: #162857;
+        padding-left: 4rem;
+        padding-right: 4rem;
+        padding-top: 0.6rem;
+        padding-bottom: 0.6rem;
+        font-size: 1.4rem;
+        text-align: center;
+        border-radius: 0.2rem;
+    }
+
+    #searchbar2{
+        height: 3.5rem;
+    }
+    
+    #title2{
+        font-family: "ProximaNova", "Helvetica Neue";
+        font-size: 2rem;
+        padding-top: 1.5rem;
+        padding-bottom: 0.7rem;
+    }
+
+    #extrafeatures2{
+        display: none;
+    }
+
+    #corebox2{
+        border: 1px solid #dddcdc;
+        padding: 2rem;
+        margin-bottom: 0.5rem;
+    }
+    
+    #core2{
+        font-family: "ProximaNova", "Helvetica Neue";
+        font-size: 1.4rem;
+        padding-right: 2.4rem;
+    }
+    
+    #coretext2{
+        padding-left: 1.5rem;
+    }
+    
+    #gebox2{
+        border: 1px solid #dddcdc;
+        padding: 2rem;
+        margin-bottom: 0.5rem;
+    }
+    
+    #ge2{
+        font-family: "ProximaNova", "Helvetica Neue";
+        font-size: 1.4rem;
+        padding-right: 2.4rem;
+    }
+    
+    #getext2{
+        padding-left: 1.5rem;
+    }
+
+    #AdvancedButton3{
+        margin-top: 3rem;
+        background-color: transparent; /* Green */
+        border: none;
+        font-family: "ProximaNova-Bold", "Helvetica Neue";
+        color: #162857;
+        font-size: 1.6rem;
+        margin-left: -0.5rem;
+        margin-bottom: 3rem;
+        display: inline;
+    }
+
+    #AdvancedButton4{
+        display: none;
+        margin-top: 3rem;
+        background-color: transparent; /* Green */
+        border: none;
+        font-family: "ProximaNova-Bold", "Helvetica Neue";
+        color: #162857;
+        font-size: 1.6rem;
+        margin-left: -0.5rem;
+        margin-bottom: 3rem;
+    }
+}
+
+@media screen and (max-width: 376px) {
+    #normalscreen{
+        display: none;
+    }
+
+    #mediumscreen{
+        display: none;
+    }
+
+    #smallscreen{
+        display: inline-block;
+        width: 360px;
+        height: 850px;
+    }
+
+    #splitleft2{
+
+    }
+
+    #classtablethang3{
+        width: 360px;
+        margin-left: 2.5rem;
+    }
+
+    #classtablethang4{
+        margin-left: 0.5rem;
+        margin-right: 0.5rem;
+    }
+
+    #searchclassbar2{
+        height: 3rem;
+        border-radius: 0.5rem;
+    }
+    
+    #classchangebutton{
+        margin-top: 30px;
+        margin-left: 140px;
+        margin-bottom: 2rem;
+        text-align: center;
+    }
+
+    #prevbutton{
+        width: 40px;
+        height: 40px;
+        margin-right: 2rem;
+        font-family: "ProximaNova", "Helvetica Neue";
+        font-size: 1rem;
+        color: white;
+    }
+    #nextbutton{
+        height: 40px;
+        width: 40px;
+        margin-right: 2rem;
+        font-family: "ProximaNova", "Helvetica Neue";
+        font-size: 1rem;
+        color: white;
+    }
+
+    #modelgeneral{
+        margin-top: 50px;
+        margin-left: 25px;
+        margin-right: 10px;
+        width: 320px;
+    }
+
+    #filtertitle2{
+        font-family: "ProximaNova-Bold", "Helvetica Neue";
+        font-size: 2rem;
+        padding-left: 1rem;
+        padding-top: 1rem;
+    }
+
+    .modal-dialog{
+        overflow-y: initial !important
+    }
+
+    .modal-body{
+        height: 400px;
+        overflow-y: auto;
+        margin-left: 12px;
+        margin-right: 12px;
+    }
+
+    #quartertitle2{
+        font-family: "ProximaNova", "Helvetica Neue";
+        font-size: 1.6rem;
+        padding-top: 1.5rem;
+        padding-bottom: 0.5rem;
+    }
+
+    #quarterinbox{
+        border: 1px solid #dddcdc;
+        padding: 1rem;
+        margin-bottom: 2rem;
+    }
+    
+    #quarterboxes2{
+        padding-top: 1rem;
+        padding-left: 4.5rem;
+    }
+
+    #quarterboxes3{
+        padding-top: 0.7rem;
+        padding-left: 5.7rem;
+    }
+    
+    #quar2{
+        font-family: "ProximaNova", "Helvetica Neue";
+        font-size: 1.2rem;
+        padding-right: 2rem;
+    }
+
+    #checktext2{
+        padding-right: 0.8rem;
+    }
+
+    #dropdown-thing2{
+        margin-bottom: 1.5rem;
+    }
+
+    #second-thing2{
+        background-color: #FFFFFF;
+        border-style: solid;
+        border-width: 1px;
+        border-color: #dddcdc;
+        font-family: "ProximaNova", "Helvetica Neue";
+        color: #162857;
+        padding-left: 3.8rem;
+        padding-right: 3.8rem;
+        padding-top: 0.4rem;
+        padding-bottom: 0.4rem;
+        font-size: 1.2rem;
+        text-align: center;
+        border-radius: 0.2rem;
+    }
+
+    #searchbar2{
+        height: 3rem;
+    }
+    
+    #title2{
+        font-family: "ProximaNova", "Helvetica Neue";
+        font-size: 1.6rem;
+        padding-top: 1.5rem;
+        padding-bottom: 0.5rem;
+    }
+
+    #extrafeatures2{
+        display: none;
+    }
+
+    #corebox2{
+        border: 1px solid #dddcdc;
+        padding: 2rem;
+        margin-bottom: 0.5rem;
+    }
+    
+    #core2{
+        font-family: "ProximaNova", "Helvetica Neue";
+        font-size: 1.2rem;
+        padding-right: 2.4rem;
+    }
+    
+    #coretext2{
+        padding-left: 1.5rem;
+    }
+    
+    #gebox2{
+        border: 1px solid #dddcdc;
+        padding: 2rem;
+        margin-bottom: 0.5rem;
+    }
+    
+    #ge2{
+        font-family: "ProximaNova", "Helvetica Neue";
+        font-size: 1.2rem;
+        padding-right: 2.4rem;
+    }
+    
+    #getext2{
+        padding-left: 1.5rem;
+    }
+
+    #AdvancedButton3{
+        margin-top: 3rem;
+        background-color: transparent; /* Green */
+        border: none;
+        font-family: "ProximaNova-Bold", "Helvetica Neue";
+        color: #162857;
+        font-size: 1.6rem;
+        margin-left: -0.5rem;
+        margin-bottom: 3rem;
+        display: inline;
+    }
+
+    #AdvancedButton4{
+        display: none;
+        margin-top: 3rem;
+        background-color: transparent; /* Green */
+        border: none;
+        font-family: "ProximaNova-Bold", "Helvetica Neue";
+        color: #162857;
+        font-size: 1.6rem;
+        margin-left: -0.5rem;
+        margin-bottom: 3rem;
+    }
+}
+
+@media screen and (max-width: 375px) and (min-width: 320px){
+    #normalscreen{
+        display: none;
+    }
+
+    #mediumscreen{
+        display: none;
+    }
+
+    #smallscreen{
+        display: inline-block;
+        width: 300px;
+        height: 600px;
+    }
+
+    #splitleft2{
+
+    }
+
+    #classtablethang3{
+        width: 300px;
+        margin-left: 2.5rem;
+    }
+
+    #classtablethang4{
+        margin-left: 0.5rem;
+        margin-right: 0.5rem;
+    }
+
+    #searchclassbar2{
+        height: 3rem;
+        border-radius: 0.5rem;
+    }
+    
+    #classchangebutton{
+        margin-top: 30px;
+        margin-left: 140px;
+        margin-bottom: 2rem;
+        text-align: center;
+    }
+
+    #prevbutton{
+        width: 40px;
+        height: 40px;
+        margin-right: 2rem;
+        font-family: "ProximaNova", "Helvetica Neue";
+        font-size: 1rem;
+        color: white;
+    }
+    #nextbutton{
+        height: 40px;
+        width: 40px;
+        margin-right: 2rem;
+        font-family: "ProximaNova", "Helvetica Neue";
+        font-size: 1rem;
+        color: white;
+    }
+
+    #modelgeneral{
+        margin-top: 50px;
+        margin-left: 16px;
+        margin-right: 10px;
+        width: 290px;
+    }
+
+    #filtertitle2{
+        font-family: "ProximaNova-Bold", "Helvetica Neue";
+        font-size: 2rem;
+        padding-left: 1rem;
+        padding-top: 1rem;
+    }
+
+    .modal-dialog{
+        overflow-y: initial !important
+    }
+
+    .modal-body{
+        height: 400px;
+        overflow-y: auto;
+        margin-left: 12px;
+        margin-right: 12px;
+    }
+
+    #quartertitle2{
+        font-family: "ProximaNova", "Helvetica Neue";
+        font-size: 1.6rem;
+        padding-top: 1.5rem;
+        padding-bottom: 0.5rem;
+    }
+
+    #quarterinbox{
+        border: 1px solid #dddcdc;
+        padding: 1rem;
+        margin-bottom: 2rem;
+    }
+    
+    #quarterboxes2{
+        padding-top: 1rem;
+        padding-left: 1.2rem;
+    }
+
+    #quarterboxes3{
+        padding-top: 0.7rem;
+        padding-left: 2.3rem;
+    }
+    
+    #quar2{
+        font-family: "ProximaNova", "Helvetica Neue";
+        font-size: 1.2rem;
+        padding-right: 2rem;
+    }
+
+    #checktext2{
+        padding-right: 0.8rem;
+    }
+
+    #dropdown-thing2{
+        margin-bottom: 1.5rem;
+    }
+
+    #second-thing2{
+        background-color: #FFFFFF;
+        border-style: solid;
+        border-width: 1px;
+        border-color: #dddcdc;
+        font-family: "ProximaNova", "Helvetica Neue";
+        color: #162857;
+        padding-left: 3.8rem;
+        padding-right: 3.8rem;
+        padding-top: 0.4rem;
+        padding-bottom: 0.4rem;
+        font-size: 1.2rem;
+        text-align: center;
+        border-radius: 0.2rem;
+    }
+
+    #searchbar2{
+        height: 3rem;
+    }
+    
+    #title2{
+        font-family: "ProximaNova", "Helvetica Neue";
+        font-size: 1.6rem;
+        padding-top: 1.5rem;
+        padding-bottom: 0.5rem;
+    }
+
+    #extrafeatures2{
+        display: none;
+    }
+
+    #corebox2{
+        border: 1px solid #dddcdc;
+        padding: 2rem;
+        margin-bottom: 0.5rem;
+    }
+    
+    #core2{
+        font-family: "ProximaNova", "Helvetica Neue";
+        font-size: 1.2rem;
+        padding-right: 2.4rem;
+    }
+    
+    #coretext2{
+        padding-left: 1.5rem;
+    }
+    
+    #gebox2{
+        border: 1px solid #dddcdc;
+        padding: 2rem;
+        margin-bottom: 0.5rem;
+    }
+    
+    #ge2{
+        font-family: "ProximaNova", "Helvetica Neue";
+        font-size: 1.2rem;
         padding-right: 2.4rem;
     }
     
