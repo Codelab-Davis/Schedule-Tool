@@ -65,7 +65,7 @@ export default class CreateCourse extends Component{
     
 
     // componentDidMount(){
-    //     axios.get('http://localhost:5000/detail/')
+    //     axios.get('https://backend.aggieexplorer.com/detail/')
     //         .then(response => {
     //             if (response.data.length > 0) {
     //                 this.setState({
@@ -246,7 +246,7 @@ export default class CreateCourse extends Component{
         
         console.log(course);
 
-        axios.post('http://localhost:5000/detail/add', course)
+        axios.post('https://backend.aggieexplorer.com/detail/add', course)
             .then(res => console.log(res.data))
 
         window.location = '/'; 

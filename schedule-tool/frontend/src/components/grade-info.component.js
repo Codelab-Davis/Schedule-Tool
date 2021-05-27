@@ -160,7 +160,7 @@ export default class GradePage extends Component {
 
     // Call server to get the information
     return axios
-      .get("http://localhost:5000/detail/grades", { params: reqParams })
+      .get("https://backend.aggieexplorer.com/detail/grades", { params: reqParams })
       .then((response) => {
 
         // save the response data into state variable
@@ -236,7 +236,7 @@ export default class GradePage extends Component {
 
     // send request to server
     return axios
-      .get("http://localhost:5000/detail/grades", { params: reqParams })
+      .get("https://backend.aggieexplorer.com/detail/grades", { params: reqParams })
       .then((response) => {
 
         // save the data (classes that match our query) into array

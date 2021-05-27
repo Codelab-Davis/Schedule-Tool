@@ -77,7 +77,7 @@ var items;
 class CourseCard extends Component{
 
       componentDidMount() {
-        axios.get('http://localhost:5000/detail/')
+        axios.get('https://backend.aggieexplorer.com/detail/')
           .then(response => {
             this.setState({ detail: response.data })
             // put items from get request into variable items 
@@ -101,7 +101,7 @@ class CourseCard extends Component{
       }
     
       deleteDetail(id) {
-        axios.delete('http://localhost:5000/detail/'+id)
+        axios.delete('https://backend.aggieexplorer.com/detail/'+id)
           .then(response => { console.log(response.data)});
     
         this.setState({
@@ -404,7 +404,7 @@ class CourseCard extends Component{
       let instructorFilter = this.instructor;
   
       axios
-        .get("http://localhost:5000/detail/", {params:requestParams})
+        .get("https://backend.aggieexplorer.com/detail/", {params:requestParams})
         .then((response) => {
           var recievedCount = response.data.length;
   
