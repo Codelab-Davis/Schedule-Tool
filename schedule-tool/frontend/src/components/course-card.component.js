@@ -159,7 +159,11 @@ class CourseCard extends Component{
       this.ss = '';
 
       this.showcase = {
-        showHide : false
+        showHide : false,
+      }
+
+      this.showcase2 = {
+        showSecondHide : false,
       }
 
       
@@ -355,6 +359,11 @@ class CourseCard extends Component{
     handleModalShowHide2() {
       this.setState({ showHide: !this.state.showHide });
       this.refreshDB();
+    }
+
+    handleModalShowHide3() {
+      this.setState({ showSecondHide: !this.state.showSecondHide })
+      // document.getElementById("extrafeatures2").style.display = 'none';
     }
 
     useFilter() {
@@ -785,12 +794,6 @@ class CourseCard extends Component{
                       </div>
                     </div>
 
-                    <div id="instructor">
-                      <div id="title2">Instructor</div>
-                      <div class="input-group mb-4">
-                        <input type="search" onChange={this.instructorChangeRef} placeholder="instructor" aria-describedby="button-addon5" class="form-control" id="searchbar2"/>
-                      </div>
-                    </div>
                   <div id="extrafeatures2">
                     <div id="coreliteracies" >
                       <p id="title2">Core Literacies</p>
@@ -868,6 +871,9 @@ class CourseCard extends Component{
           </div>
         </div>
         </div>
+
+
+        
         </body>
         </html>
         )
