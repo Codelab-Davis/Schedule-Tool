@@ -117,7 +117,7 @@ html{
 
 #dropdown-thing{
     z-index: 500;
-    position: fixed;
+    position: absolute;
 }
 
 #second-thing{
@@ -134,6 +134,9 @@ html{
     font-size: 1.5rem;
     float: right;
     margin-left: 5.4rem;
+    text-align: center;
+    white-space: nowrap;
+    overflow: hidden;
 }
 
 #corebox{
