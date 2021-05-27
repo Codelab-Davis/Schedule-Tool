@@ -19,6 +19,13 @@ import { ComposedChart } from "recharts";
 import { gql } from "apollo-boost";
 import { graphql } from "react-apollo";
 
+const displaymode = {
+  HORIZONTAL: 0,
+  VERTICAL: 1      
+}
+
+const DISPLAY_CHANGE_THRESHOLD = 750;
+
 // Default class to export
 // This component contains two main sections
 //    1. selection of course on top of page
@@ -30,7 +37,8 @@ export default class GradePage extends Component {
 
     // raw course details from the database
     this.state.courseDetails = [];
-    this.state.width = window.innerWidth;
+    this.state.windowMode = (window.innerWidth < DISPLAY_CHANGE_THRESHOLD) ? displaymode.VERTICAL : displaymode.HORIZONTAL;
+
     // ID of grades (to be converted to letter grades)
     // useful because these match the fields of the database
     this.gradeIds = [
@@ -120,7 +128,26 @@ export default class GradePage extends Component {
 
   // get course information from server backend. This is onetime action when webpage is loaded or reloaded
   componentDidMount() {
+    this.handleResizeRef = this.handleResize.bind(this);
+    window.addEventListener("resize", this.handleResizeRef);
     this.getCourseData();
+  }
+
+  // componentWillUnmount() {
+  //   window.removeEventListener("resize", this.handleResizeRef);
+  // }
+
+  handleResize() {
+    var newWidth = window.innerWidth;
+    if(newWidth < DISPLAY_CHANGE_THRESHOLD - 10 && this.state.windowMode == displaymode.HORIZONTAL) {
+      this.setState({
+        windowMode : displaymode.VERTICAL
+      })
+    } else if(newWidth > DISPLAY_CHANGE_THRESHOLD + 10 && this.state.windowMode == displaymode.VERTICAL) {
+      this.setState({
+        windowMode : displaymode.HORIZONTAL
+      })
+    }
   }
 
   // handles course deletion
@@ -592,7 +619,7 @@ export default class GradePage extends Component {
     );
 
     // return main component
-    if (this.state.width > 750) {
+    if (this.state.windowMode == displaymode.HORIZONTAL) {
       return (
         <div>
           <div
@@ -734,9 +761,8 @@ export default class GradePage extends Component {
     } else {
       return (
         <div>
-          <div className="row">
-            <div className="col-2"></div>
-            <div className="col-8">
+          <div className="row" style={{marginLeft:"10%", marginRight: "10%", marginTop: "20px"}}>
+            <div className="col">
               <WindowedSelect
                 ref={this.courseListRef}
                 onChange={this.handleCourseChangeRef}
@@ -744,11 +770,9 @@ export default class GradePage extends Component {
                 placeholder={classPlaceholder}
               />
             </div>
-            <div className="col-2"></div>
           </div>
-          <div className="row" style={{ marginTop: "20px" }}>
-            <div className="col-2"></div>
-            <div className="col-8">
+          <div className="row" style={{marginLeft:"10%", marginRight: "10%", marginTop: "20px"}}>
+            <div className="col">
               <WindowedSelect
                 ref={this.quarterListRef}
                 placeholder={quarterPlaceholder}
@@ -757,11 +781,9 @@ export default class GradePage extends Component {
                 onChange={this.handleQuarterChangeRef}
               />
             </div>
-            <div className="col-2"></div>
           </div>
-          <div className="row" style={{ marginTop: "20px" }}>
-            <div className="col-2"></div>
-            <div className="col-8">
+          <div className="row" style={{marginLeft:"10%", marginRight: "10%", marginTop: "20px"}}>
+            <div className="col">
               <WindowedSelect
                 ref={this.instructorListRef}
                 placeholder={instructorPlaceholder}
@@ -770,7 +792,6 @@ export default class GradePage extends Component {
                 onChange={this.handleInstructureChangeRef}
               />
             </div>
-            <div className="col-2" ></div>
           </div>
           <div className="row" style={{ marginTop: "20px", justifyContent: "center" }}>
             <button
