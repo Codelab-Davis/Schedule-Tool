@@ -27,3 +27,16 @@
     color: #FFFFFF;
     margin: 0;
 }
+
+@media screen and (max-width: 770px){
+    #navlinksspace{
+        padding-left: 0rem;
+        color: #FFFFFF;
+    }
+    #navlinks{
+        font-family: "ProximaNova", "Helvetica Neue";
+        padding-left: 2rem;
+        color: #FFFFFF;
+        margin: 0;
+    }
+}
