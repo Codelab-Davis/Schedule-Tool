@@ -368,8 +368,6 @@ export default class GradePage extends Component {
       );
     });
 
-    console.log("hit temp", temp)
-
     // set the state to rerender the new classes
     this.setState({ formattedData: temp, chartLegend: tempLegend });
   }
@@ -514,6 +512,7 @@ export default class GradePage extends Component {
     this.state.coursesGradesData.forEach((course) => {
       // calculate course average
       var gpaValues = [100, 97, 93, 90, 87, 83, 80, 77, 73, 70, 67, 63, 60];
+      // var gpaValues2 = [4.0, 4.0, 4.0, 3.7, 3.3, 3.0, 2.7, 2.3, 2.0, 1.7, 1.3, 1.0, 0.7]
 
       var average = 0;
 
@@ -538,7 +537,6 @@ export default class GradePage extends Component {
 
       average = average / (1 - nonGrade);
 
-      console.log("hit average", average)
 
       // get the letter grade from the calculated average
       var averageIndex = 0;
