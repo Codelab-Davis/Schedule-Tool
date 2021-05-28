@@ -7,9 +7,10 @@ import {courseFilterQuery} from './../queries.js';
 import filterIcon from "./images/filter-control-adjustment-icon.jpg"
 import catalog_cow from "./images/catalog_cow.png";
 import './css/course-card.css'; 
-import { Modal, Button,  ButtonGroup, DropdownButton, MenuItem } from 'react-bootstrap';
+import { Modal, Button,  ButtonGroup, DropdownButton, MenuItem, ResponsiveEmbed } from 'react-bootstrap';
 import Dropdown from "react-dropdown";
 
+var prev = null;
 function myFunction() {
   var x = document.getElementById("extrafeatures");
   var y = document.getElementById("AdvancedButton");
@@ -48,11 +49,11 @@ function setupAdvanedTwo() {
   document.getElementById("extrafeatures2").style.display = 'none';
 }
 
-
 function hide_show() {
   var x = document.getElementById("filter_right");
   var y = document.getElementById("cow_right");
-  if (x.style.display == "none") {
+  var z = document.getElementById("details_right");
+  if (x.style.display == "none" && z.style.display == "none") {
     console.log("hit if")
     x.style.display = "block";
     y.style.display = "none";
@@ -63,7 +64,26 @@ function hide_show() {
     y.style.display = "block";
   }
 }
-
+function hide_show_details(index, prev){
+  console.log(prev);
+  if (prev == null)
+    prev = index;
+  var x = document.getElementById("details_right");
+  var y = document.getElementById("cow_right");
+  var z = document.getElementById("filter_right");
+  if (x.style.display == "none" && z.style.display == "none")
+  {
+    x.style.display = "block";
+    y.style.display = "none";
+  }
+  else if (index == prev)
+  {
+    x.style.display = "none";
+    y.style.display = "block";
+    z.style.display = "none";
+  }
+  
+}
 
 const Detail = props => (
     <tr>
@@ -77,7 +97,7 @@ var items;
 class CourseCard extends Component{
 
       componentDidMount() {
-        axios.get('http://localhost:5000/detail/')
+        axios.get('https://backend.aggieexplorer.com/detail/')
           .then(response => {
             this.setState({ detail: response.data })
             // put items from get request into variable items 
@@ -101,7 +121,7 @@ class CourseCard extends Component{
       }
     
       deleteDetail(id) {
-        axios.delete('http://localhost:5000/detail/'+id)
+        axios.delete('https://backend.aggieexplorer.com/detail/'+id)
           .then(response => { console.log(response.data)});
     
         this.setState({
@@ -157,7 +177,7 @@ class CourseCard extends Component{
       this.ah = '';
       this.se = '';
       this.ss = '';
-
+      this.state.show_details = false;
       this.showcase = {
         showHide : false,
       }
@@ -200,6 +220,22 @@ class CourseCard extends Component{
       this.ssChangeRef = this.ssChangeRefHandler.bind(this);
 
       this.useFilterRef = this.useFilter.bind(this);
+      this.show_details_ref = this.show_details.bind(this);
+
+      //for the details page elements
+      this.state.selected_course_id = null;
+      this.state.selected_course_name = null;
+      this.state.selected_course_units = null;
+      this.state.selected_course_enrolled = null;
+      this.state.selected_course_average_grade = null;
+      this.state.selected_course_max_seats = null;
+      this.state.selected_course_description = null;
+      this.state.selected_course_prerequisites = null;
+      this.state.selected_course_ge = [];
+      this.state.selected_course_final_exam = null;
+      this.state.selected_course_prereq = null;
+      this.state.selected_course_sections_table = null;
+      this.state.prev_index = null;
     }
   
     componentDidMount() {
@@ -350,7 +386,6 @@ class CourseCard extends Component{
         this.ss = "yes"
       }
     }
-
     handleModalShowHide() {
       this.setState({ showHide: !this.state.showHide })
       // document.getElementById("extrafeatures2").style.display = 'none';
@@ -413,7 +448,7 @@ class CourseCard extends Component{
       let instructorFilter = this.instructor;
   
       axios
-        .get("http://localhost:5000/detail/", {params:requestParams})
+        .get("https://backend.aggieexplorer.com/detail/", {params:requestParams})
         .then((response) => {
           var recievedCount = response.data.length;
   
@@ -450,6 +485,85 @@ class CourseCard extends Component{
       this.refreshDB();
     }
     
+    /*
+    function hide_show() {
+  var x = document.getElementById("filter_right");
+  var y = document.getElementById("cow_right");
+  if (x.style.display == "none") {
+    console.log("hit if")
+    x.style.display = "block";
+    y.style.display = "none";
+    document.getElementById("extrafeatures").style.display = 'none';
+  } else {
+    console.log("hit else")
+    x.style.display = "none";
+    y.style.display = "block";
+  }
+}*/
+    
+    /*
+    refresh_details_page()
+    {
+      this.setState({
+        selected_course_id: this.state.
+      }) 
+    }*/
+    show_details(event)
+      {
+        console.log(event.target);
+        let class_index = parseInt(
+          event.target.getAttribute("data-index")
+          );
+        console.log(class_index);
+        let sections = null;
+        let curr_class = this.state.detail[class_index];
+        if (curr_class.max_seats == "")
+          curr_class.max_seats = "N/A";
+        console.log(curr_class.course_id);
+        let zeroFilled = ('000' + curr_class.code).substr(-3);
+        let paramconfig = new URLSearchParams({
+          
+          "course_id_alt": String(curr_class.subj) + String(zeroFilled),
+          "course_id": String(curr_class.course_id)
+        });
+        let temp = [];
+        var self = this;
+        axios.get("http://localhost:5000/enrollment/search_by_course_id", {params: paramconfig})
+        .then(response=>{
+          sections = response.data.data;
+            for (var i = 0; i < sections.length; i++)
+            {
+              temp.push((
+                <tr style={{borderBottom: "1px solid black", display: "flex", justifyContent: "space-between", marginLeft:"auto", marginRight: "auto", width: "95%"}}>
+                <td style={{  alignItems: "center", justifyContent: "center", fontFamily: "ProximaNova", fontSize: "1.8rem", padding: "10px"}}>{sections[i].crn}</td>
+                <td style={{ alignItems: "center", justifyContent: "center", fontFamily: "ProximaNova", fontSize: "1.8rem", padding: "10px"}}>{Object.values(sections[i].seats[sections[i].seats.length-1])}</td>
+                <td style={{ alignItems: "center", justifyContent: "center", fontFamily: "ProximaNova", fontSize: "1.8rem", padding: "10px"}}>{sections[i].instructor}</td>
+                </tr>));
+            }
+            this.setState({selected_course_sections_table: temp});
+        })
+        .catch(function(err){
+          console.log(err)
+        });
+        this.setState({
+          selected_course_id: curr_class.course_id,
+          selected_course_name: curr_class.name,
+          selected_course_units: curr_class.units,
+          selected_course_max_seats: curr_class.max_seats,
+          selected_course_description: curr_class.description,
+          selected_course_prerequisites: curr_class.prereq,
+          selected_course_ge: curr_class.ge_list,
+          selected_course_final_exam: curr_class.final_exam,
+          show_details: true
+        });
+        hide_show_details(class_index, this.state.prev_index);
+        this.setState({
+          prev_index: class_index
+        });
+      }
+
+
+    
     
     
     // creating unordered list and using map for card component
@@ -465,17 +579,19 @@ class CourseCard extends Component{
         for(var index = 0; index < this.state.detail.length; index++) {
           // this course HTML info
           var this_course = (
-            <tr className="row" style={{marginLeft:"0px", marginRight:"0px", cursor: "pointer"}}>
-                <td className="col-8" style={{border:"0", marginTop: "1rem"}}>
-                  <h4 id="classid"><strong>{this.state.detail[index].course_id}</strong></h4>
-                  <h4 id="classname">{this.state.detail[index].name}</h4>
-                  <h4 id="classinstructor"> {this.state.detail[index].instructor} {this.state.detail[index].quarter} </h4>
+            <div style={{cursor: "pointer"}} id="each_class_card" data-index={index} onClick={this.show_details_ref}>
+            <tr data-index={index} className="row" style={{marginLeft:"0px", marginRight:"0px"}}>
+                <td data-index={index} className="col-8" style={{border:"0", marginTop: "1rem"}}>
+                  <h4 data-index={index} id="classid"><strong data-index={index}>{this.state.detail[index].course_id}</strong></h4>
+                  <h4 data-index={index} id="classname">{this.state.detail[index].name}</h4>
+                  <h4 data-index={index} id="classinstructor"> {this.state.detail[index].instructor} {this.state.detail[index].quarter} </h4>
                 </td>
-                <td className="col-4" style={{border:"0", textAlign:"center", marginTop:"1rem"}}>
-                <h4>{this.state.detail[index].units} Units</h4>
-                <h4>  </h4>
+                <td data-index={index} className="col-4" style={{border:"0", textAlign:"center", marginTop:"1rem"}}>
+                <h4 data-index={index}>{this.state.detail[index].units} Units</h4>
+                <h4 data-index={index}>  </h4>
                 </td>
             </tr>
+            </div>
           );
           course_info.push(this_course);
         }
@@ -521,6 +637,49 @@ class CourseCard extends Component{
                       <p class="line-2">or filter for classes! </p>
                   </div>
                 </div>
+
+
+
+
+
+
+                <div id="details_right" style={{display: "none"}}>
+                  <div id="Course_title" style={{ size: "large", textAlign: "left", fontFamily:"ProximaNova-Bold", fontSize: "3rem", paddingBottom: "3rem"}}>{this.state.selected_course_id} - {this.state.selected_course_name}</div>
+                  <span id="detail-units" style={{fontFamily: "ProximaNova", fontSize: "1.8rem"}}>{this.state.selected_course_units} Units</span>
+                  <div id="description-group">
+                  <div id="Description-title"style={{fontFamily: "ProximaNova-Bold", fontSize: "1.8rem", marginTop: "10px"}}> Description: </div>
+                  <p id="Description-paragraph" style={{fontFmaily: "ProximaNova", fontSize: "1.8rem", marginTop: "5px", width: "95%"}}>
+                    {this.state.selected_course_description}
+                    </p>
+                  </div>
+                  <div id="Prereqs" >
+                    <span id="Prereq-title"style={{fontFamily:"ProximaNova-Bold", fontSize: "1.8rem"}}>
+                      Prerequisites:
+                    </span>
+                    <span id="Prereq-text" style={{fontFamily:"ProximaNova", fontSize: "1.8rem", marginLeft: "5px"}}>
+                      {this.state.selected_course_prerequisites}</span>
+                  </div>
+                  <table id="sections-table" style={{justifyContent: "center", marginTop: "20px", marginLeft:"auto", marginRight: "auto", alignItems: "center", width: "95%"}}>
+                    <tr style={{borderBottom: "1px solid black", display: "flex", justifyContent: "space-between", marginLeft:"auto", marginRight: "auto", width: "95%"}}>
+                      <th scope="col" style={{alignItems: "center", justifyContent: "center", fontFamily: "ProximaNova-Bold", fontSize: "1.8rem", padding: "10px"}}>CRN</th>
+                      <th scope="col" style={{alignItems: "center", justifyContent: "center", fontFamily: "ProximaNova-Bold", fontSize: "1.8rem", padding: "10px"}}>Open</th>
+                      <th scope="col" style={{alignItems: "center", justifyContent: "center", fontFamily: "ProximaNova-Bold", fontSize: "1.8rem", padding: "10px"}}>Instructor</th> 
+                    </tr>
+                    {this.state.selected_course_sections_table}
+                  </table>
+                </div>
+
+
+
+
+
+
+
+
+
+
+
+
                 <div id="filter_right">
                   <div id="addgap">
                   <h1 class="filtertitle">Filters</h1>

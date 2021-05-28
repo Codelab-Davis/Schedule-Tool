@@ -51,6 +51,12 @@ html{
     size: large;
     text-align: center;
 }
+
+#Course_title{
+    size: large;
+    text-align: center;
+}
+
 .page{
     width: 100%;
     height: auto;

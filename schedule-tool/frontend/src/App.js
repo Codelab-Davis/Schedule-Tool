@@ -12,7 +12,7 @@ import Navbar from "./components/navbar.component.js";
 import RouterPage from "./components/RouterPage.js";
 
 const client = new ApolloClient({
-  uri:'http://localhost:5000/graphql',
+  uri:'https://backend.aggieexplorer.com/graphql',
 })
 
 function App() {

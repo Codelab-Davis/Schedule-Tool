@@ -65,7 +65,7 @@ export default class EditCourse extends Component {
     }
 
   componentDidMount() {
-    axios.get('http://localhost:5000/details/'+this.props.match.params.id)
+    axios.get('https://backend.aggieexplorer.com/details/'+this.props.match.params.id)
       .then(response => {
         this.setState({
           Name: response.data.Name,
@@ -97,7 +97,7 @@ export default class EditCourse extends Component {
         console.log(error);
       })
 
-    axios.get('http://localhost:5000/details/')
+    axios.get('https://backend.aggieexplorer.com/details/')
       .then(response => {
         if (response.data.length > 0) {
           this.setState({
@@ -282,7 +282,7 @@ export default class EditCourse extends Component {
     console.log(courses);
     window.location = '/';  
 
-    axios.post('http://localhost:5000/details/update/' + this.props.match.params.id, courses)
+    axios.post('https://backend.aggieexplorer.com/details/update/' + this.props.match.params.id, courses)
       .then(res => console.log(res.data));
 
     window.location = '/';

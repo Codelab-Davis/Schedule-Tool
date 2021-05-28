@@ -18,6 +18,14 @@ import {
 import { ComposedChart } from "recharts";
 import { gql } from "apollo-boost";
 import { graphql } from "react-apollo";
+import _ from "lodash";
+
+const displaymode = {
+  HORIZONTAL: 0,
+  VERTICAL: 1      
+}
+
+const DISPLAY_CHANGE_THRESHOLD = 900;
 
 // Default class to export
 // This component contains two main sections
@@ -30,6 +38,7 @@ export default class GradePage extends Component {
 
     // raw course details from the database
     this.state.courseDetails = [];
+    this.state.windowMode = (window.innerWidth < DISPLAY_CHANGE_THRESHOLD) ? displaymode.VERTICAL : displaymode.HORIZONTAL;
 
     // ID of grades (to be converted to letter grades)
     // useful because these match the fields of the database
@@ -57,21 +66,20 @@ export default class GradePage extends Component {
     this.gradeNames = [];
     this.gradeIds.forEach((grade) =>
       this.gradeNames.push(
-
         // simply replacing the "plus" with a "+" and a "minus" with a "-" (all uppercase)
         grade.replace("plus", "+").replace("minus", "-").toUpperCase()
       )
     );
-    
+
     // extracted data from the database
     this.state.coursesGradesData = [];
 
-    // data in the format of the graph data input 
+    // data in the format of the graph data input
     this.state.formattedData = [];
 
     // class names for legend (chart requires this so that it knows which courses to display)
     this.state.chartLegend = [];
-    
+
     // must initialize our array of maps with the grades
     // grade is key and value is map (class name key, percentage of grade value)
     // e.g.
@@ -108,7 +116,7 @@ export default class GradePage extends Component {
     this.handleCourseChangeRef = this.handleCourseChange.bind(this);
     this.handleQuarterChangeRef = this.handleQuarterChange.bind(this);
     this.handleInstructureChangeRef = this.handleInstructureChange.bind(this);
-    
+
     // reference to function that handles course add / delete
     this.addCourseRef = this.addCourse.bind(this);
     this.handleCourseDeleteRef = this.handleCourseDelete.bind(this);
@@ -121,20 +129,40 @@ export default class GradePage extends Component {
 
   // get course information from server backend. This is onetime action when webpage is loaded or reloaded
   componentDidMount() {
+    this.handleResizeRef = this.handleResize.bind(this);
+    window.addEventListener("resize", this.handleResizeRef);
     this.getCourseData();
+  }
+
+  // componentWillUnmount() {
+  //   window.removeEventListener("resize", this.handleResizeRef);
+  // }
+
+  handleResize() {
+    var newWidth = window.innerWidth;
+    if(newWidth < DISPLAY_CHANGE_THRESHOLD - 10 && this.state.windowMode == displaymode.HORIZONTAL) {
+      this.setState({
+        windowMode : displaymode.VERTICAL
+      })
+    } else if(newWidth > DISPLAY_CHANGE_THRESHOLD + 10 && this.state.windowMode == displaymode.VERTICAL) {
+      this.setState({
+        windowMode : displaymode.HORIZONTAL
+      })
+    }
   }
 
   // handles course deletion
   handleCourseDelete(event) {
-
     // get the index of course to be deleted from the event
     // we have added index attribute to each course card so we know which one was deleted
     var deleteIndex = parseInt(event.target.getAttribute("data-index"));
 
     // push the color of the deleted course to the array of colors so that the next added course can take the color
     // important so that courses that were not deleted can stay the same color
-    this.COURSE_DETAIL_COLOR.push(this.state.coursesGradesData[deleteIndex]["info"]["color"]);
-    
+    this.COURSE_DETAIL_COLOR.push(
+      this.state.coursesGradesData[deleteIndex]["info"]["color"]
+    );
+
     // remove the course from the course grade data
     this.state.coursesGradesData.splice(deleteIndex, 1);
 
@@ -144,7 +172,6 @@ export default class GradePage extends Component {
 
   // call backend to fetch the course information
   async getCourseData() {
-
     // create query to pass with REST request
     var reqParams = new URLSearchParams({});
 
@@ -160,9 +187,8 @@ export default class GradePage extends Component {
 
     // Call server to get the information
     return axios
-      .get("http://localhost:5000/detail/grades", { params: reqParams })
+      .get("https://backend.aggieexplorer.com/detail/grades", { params: reqParams })
       .then((response) => {
-
         // save the response data into state variable
         this.state.courseDetails = response.data;
 
@@ -176,17 +202,20 @@ export default class GradePage extends Component {
 
   // populate course list from course detail information
   updateCourseList() {
-
     // empty course list
     var courseList = [];
 
     // add the all the courses we recieved from database into array
     this.state.courseDetails.forEach((course) => {
       courseList.push({
-        value: course.course_id,
+        value: course.course_id +" " + course.name,
 
         // as will appear in the dropdown menu
-        label: <h5 style={{marginTop: "5px"}}>{course.course_id} - {course.name}</h5>
+        label: (
+          <h5 style={{ marginTop: "5px" }}>
+            {course.course_id} - {course.name}
+          </h5>
+        ),
       });
     });
 
@@ -236,9 +265,8 @@ export default class GradePage extends Component {
 
     // send request to server
     return axios
-      .get("http://localhost:5000/detail/grades", { params: reqParams })
+      .get("https://backend.aggieexplorer.com/detail/grades", { params: reqParams })
       .then((response) => {
-
         // save the data (classes that match our query) into array
         var fullCourse = [];
         response.data[0].courses.forEach((details) => {
@@ -280,8 +308,12 @@ export default class GradePage extends Component {
           indexGrade++
         ) {
           var gradeName = this.gradeNames[indexGrade];
-          courseAccumulation["percentages"][gradeName] =
-            parseFloat(((courseAccumulation["grades"][gradeName] * 100) / totalGrades).toFixed(2));
+          courseAccumulation["percentages"][gradeName] = parseFloat(
+            (
+              (courseAccumulation["grades"][gradeName] * 100) /
+              totalGrades
+            ).toFixed(2)
+          );
         }
 
         // only finalize the class if we have space for it
@@ -300,7 +332,6 @@ export default class GradePage extends Component {
   }
 
   formatGrades() {
-
     // chart needs this to graph data
     var temp = [];
     var tempLegend = [];
@@ -322,7 +353,11 @@ export default class GradePage extends Component {
     this.state.coursesGradesData.forEach((course) => {
       var name = course.info.courseID;
       tempLegend.push(
-        <Bar dataKey={name} fill={course["info"]["color"]} radius={[7, 7, 7, 7]}/>
+        <Bar
+          dataKey={name}
+          fill={course["info"]["color"]}
+          radius={[7, 7, 7, 7]}
+        />
       );
     });
 
@@ -332,7 +367,6 @@ export default class GradePage extends Component {
 
   // handles adding a course
   addCourse(event) {
-
     // get the full course detail from the database
     this.getFullCourseDetail();
 
@@ -352,7 +386,6 @@ export default class GradePage extends Component {
 
   // handles when instructor has been selected
   handleInstructureChange(event) {
-
     // set the selected instructor
     this.state.selectedInstructor = event.value;
 
@@ -362,7 +395,6 @@ export default class GradePage extends Component {
 
   // handles quarter selection
   handleQuarterChange(event) {
-
     // set the selected quarter
     this.state.selectedQuarter = event.value;
 
@@ -379,7 +411,7 @@ export default class GradePage extends Component {
     var filteredQuarterInfo = filteredIDInfo[0].courses.filter(
       (course) => course.quarter == this.state.selectedQuarter
     );
-    
+
     // create a new set of instructors
     // we have a set so that we only display unique instructors, not repeated
     var instructorSet = new Set();
@@ -392,9 +424,9 @@ export default class GradePage extends Component {
     instructorSet.forEach((instructor) => {
       instructorList.push({
         value: instructor,
-        
+
         // as displayed on the dropdown menu
-        label: <h5 style={{marginTop: "5px"}}>{instructor}</h5>
+        label: <h5 style={{ marginTop: "5px" }}>{instructor}</h5>,
       });
     });
 
@@ -404,13 +436,13 @@ export default class GradePage extends Component {
         value: "All Instructors",
 
         // as displayed on the dropdown menu
-        label: <h5 style={{marginTop: "5px"}}>All Instructors</h5>
+        label: <h5 style={{ marginTop: "5px" }}>All Instructors</h5>,
       });
     }
 
     // reset the previous selected instructor
     this.instructorListRef.current.setState({ value: null });
-    
+
     // rerender the list of instructors
     this.setState({
       instructorOptions: instructorList,
@@ -420,9 +452,9 @@ export default class GradePage extends Component {
 
   // called when course is selected - populate qaurter list here
   handleCourseChange(event) {
-
+    console.log(event.value)
+    this.state.selectedCourse = event.value.split(" ")[0];
     // get the selected course and filter course detail info for desired course ID
-    this.state.selectedCourse = event.value;
 
     // if new course is selected, reset the previous selected quarter and instructor
     this.state.selectedQuarter = null;
@@ -435,7 +467,7 @@ export default class GradePage extends Component {
     var filteredInfo = this.state.courseDetails.filter(
       (course) => course.course_id == this.state.selectedCourse
     );
-    
+
     // create a set of quarters so that we don't display any repeated quarters
     var quarterSet = new Set();
     filteredInfo[0].courses.forEach((course) => {
@@ -449,7 +481,7 @@ export default class GradePage extends Component {
         value: quarter,
 
         // as seen on the display
-        label: <h5 style={{marginTop: "5px"}}>{quarter}</h5>,
+        label: <h5 style={{ marginTop: "5px" }}>{quarter}</h5>,
       });
     });
 
@@ -457,12 +489,10 @@ export default class GradePage extends Component {
     this.setState({ quarterOptions: quarterList, enableAddCourse: false });
     this.quarterListRef.current.setState({ value: null });
     this.instructorListRef.current.setState({ value: null });
-
   }
 
   // main render function
   render(props) {
-
     // border style macro
     var borderStyle = "none";
 
@@ -473,31 +503,36 @@ export default class GradePage extends Component {
     // iterate through all the selected courses
     var index = 0;
     this.state.coursesGradesData.forEach((course) => {
-      
       // calculate course average
       var gpaValues = [100, 97, 93, 90, 87, 83, 80, 77, 73, 70, 67, 63, 60];
 
       var average = 0;
 
       // weighted average
-      for(var i = 0; i < 13; i++) {
-        var gradeName = this.gradeIds[i].replace("plus", "+").replace("minus", "-").toUpperCase();
-        average += (gpaValues[i] * (course["percentages"][gradeName] / 100));
+      for (var i = 0; i < 13; i++) {
+        var gradeName = this.gradeIds[i]
+          .replace("plus", "+")
+          .replace("minus", "-")
+          .toUpperCase();
+        average += gpaValues[i] * (course["percentages"][gradeName] / 100);
       }
 
       // must normalize our average because a percentage of the class may have received a non-letter grade (P, NP, etc)
       var nonGrade = 0;
-      for(var i = 13; i < 17; i++) {
-        var gradeName = this.gradeIds[i].replace("plus", "+").replace("minus", "-").toUpperCase();
-        nonGrade += (course["percentages"][gradeName] / 100)
+      for (var i = 13; i < 17; i++) {
+        var gradeName = this.gradeIds[i]
+          .replace("plus", "+")
+          .replace("minus", "-")
+          .toUpperCase();
+        nonGrade += course["percentages"][gradeName] / 100;
       }
 
-      average = average / (1-nonGrade);
+      average = average / (1 - nonGrade);
 
       // get the letter grade from the calculated average
       var averageIndex = 0;
-      for(var i = 0; i < 13; i++) {
-        if(average >= gpaValues[i]) {
+      for (var i = 0; i < 13; i++) {
+        if (average >= gpaValues[i]) {
           averageIndex = i - 1;
           break;
         }
@@ -505,13 +540,16 @@ export default class GradePage extends Component {
 
       // if class somehow has all A+, then we only give them A+
       averageIndex = averageIndex < 0 ? 0 : averageIndex;
-      var averageGrade = this.gradeIds[averageIndex].replace("plus", "+").replace("minus", "-").toUpperCase();
+      var averageGrade = this.gradeIds[averageIndex]
+        .replace("plus", "+")
+        .replace("minus", "-")
+        .toUpperCase();
 
       // if class is P/NP, then average will be 0
       // in this case, average grade is not available
-      if(!average) {
+      if (!average) {
         averageGrade = "N/A";
-      } 
+      }
 
       // create the html of the course legend
       courseLegend[index] = (
@@ -521,10 +559,9 @@ export default class GradePage extends Component {
             borderRadius: "10px",
             padding: "10px",
             whiteSpace: "nowrap",
-            
           }}
         >
-          <div style={{display: "flex", flexDirection:"row"}}>
+          <div style={{ display: "flex", flexDirection: "row" }}>
             <span
               className="dot"
               style={{
@@ -534,7 +571,7 @@ export default class GradePage extends Component {
                 height: "12px",
                 width: "12px",
                 marginRight: "10px",
-                marginTop: "6px"
+                marginTop: "6px",
               }}
             ></span>
             <h3>{course["info"]["courseID"]}</h3>
@@ -542,19 +579,17 @@ export default class GradePage extends Component {
               data-index={index}
               type="button"
               className="btn float-right"
-              style={{ borderStyle: "none"}}
+              style={{ borderStyle: "none" }}
               onClick={this.handleCourseDeleteRef}
               style={{
                 marginLeft: "auto",
                 color: "red",
                 fontSize: "20px",
-                marginTop: "-10px"
+                marginTop: "-10px",
               }}
-              
             >
               x
             </button>
-
           </div>
 
           <h5 style={{ color: "#BEBEBE" }}>{course["info"]["name"]}</h5>
@@ -562,66 +597,206 @@ export default class GradePage extends Component {
             {" "}
             {course["info"]["quarter"]} - {course["info"]["instructor"]}{" "}
           </h5>
-          <h4 style={{fontWeight: "bold"}}> 
-              Course average
-          </h4>
-          <h4 style={{marginLeft: "10px"}}> 
-              {averageGrade}
-          </h4>
+          <h4 style={{ fontWeight: "bold" }}>Course average</h4>
+          <h4 style={{ marginLeft: "10px" }}>{averageGrade}</h4>
 
-          <h4>
-
-          </h4>
+          <h4></h4>
         </div>
       );
 
       index++;
     });
-    
+
     // create the html of the placeholderd of the dropdown menu
-    var classPlaceholder = <h5 style={{marginTop: "5px", color: "#BEBEBE"}}> Search for a class </h5>;
-    var quarterPlaceholder = <h5 style={{marginTop: "5px", color: "#BEBEBE"}}> Quarter </h5>;
-    var instructorPlaceholder = <h5 style={{marginTop: "5px", color: "#BEBEBE"}}> Instructor </h5>;
-  
+    var classPlaceholder = (
+      <h5 style={{ marginTop: "5px", color: "#BEBEBE" }}>
+        {" "}
+        Search for a class{" "}
+      </h5>
+    );
+    var quarterPlaceholder = (
+      <h5 style={{ marginTop: "5px", color: "#BEBEBE" }}> Quarter </h5>
+    );
+    var instructorPlaceholder = (
+      <h5 style={{ marginTop: "5px", color: "#BEBEBE" }}> Instructor </h5>
+    );
+
     // return main component
-    return (
-      <div>
-        <div
-          className="row"
-          style={{
-            border: borderStyle,
-            marginTop: "3rem",
-            marginBottom: "7rem",
-          }}
-        >
-          <div className="col-1" style={{ border: borderStyle }} />
-          <div className="col-3" style={{ border: borderStyle }}>
-            <WindowedSelect
-              ref={this.courseListRef}
-              onChange={this.handleCourseChangeRef}
-              options={this.state.courseOptions}
-              placeholder={classPlaceholder}
+    if (this.state.windowMode == displaymode.HORIZONTAL) {
+      return (
+        <div>
+          <div
+            className="row"
+            style={{
+              border: borderStyle,
+              marginTop: "3rem",
+              marginBottom: "7rem",
+            }}
+          >
+            <div className="col-1" style={{ border: borderStyle }} />
+            <div className="col-3" style={{ border: borderStyle }}>
+              <WindowedSelect
+                ref={this.courseListRef}
+                onChange={this.handleCourseChangeRef}
+                options={this.state.courseOptions}
+                placeholder={classPlaceholder}
               />
+            </div>
+            <div className="col-3" style={{ border: borderStyle }}>
+              <WindowedSelect
+                ref={this.quarterListRef}
+                placeholder={quarterPlaceholder}
+                isDisabled={this.state.quarterOptions.length == 0}
+                options={this.state.quarterOptions}
+                onChange={this.handleQuarterChangeRef}
+              />
+            </div>
+            <div className="col-3" style={{ border: borderStyle }}>
+              <WindowedSelect
+                ref={this.instructorListRef}
+                placeholder={instructorPlaceholder}
+                isDisabled={this.state.instructorOptions.length == 0}
+                options={this.state.instructorOptions}
+                onChange={this.handleInstructureChangeRef}
+              />
+            </div>
+            <div className="col-1" style={{ border: borderStyle }}>
+              <button
+                type="button"
+                className="btn btn-primary"
+                disabled={!this.state.enableAddCourse}
+                onClick={this.addCourseRef}
+                style={{
+                  fontSize: "15px",
+                  borderRadius: "5px",
+                  width: "125px",
+                  height: "40px",
+                  backgroundColor: "#162857",
+                }}
+              >
+                Add Class
+              </button>
+            </div>
+            <div className="col-1" style={{ border: borderStyle }} />
           </div>
-          <div className="col-3" style={{ border: borderStyle }}>
-            <WindowedSelect
-              ref={this.quarterListRef}
-              placeholder={quarterPlaceholder}
-              isDisabled={this.state.quarterOptions.length == 0}
-              options={this.state.quarterOptions}
-              onChange={this.handleQuarterChangeRef}
-            />
+
+          {/* graph and legend row*/}
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "row",
+
+              border: borderStyle,
+              margin: "4%",
+              width: "92vw  ",
+              height: "70vh",
+              alignItems: "stretch",
+              justifyContent: "center",
+            }}
+          >
+            <div
+              style={{
+                flexGrow: 1,
+                flexShrink: 1,
+                width: "65%",
+                border: borderStyle,
+              }}
+            >
+              <ResponsiveContainer>
+                <BarChart
+                  width="99.8%"
+                  height="99.8%"
+                  data={this.state.formattedData}
+                  margin={{ top: 20, right: 20, bottom: 20, left: 20 }}
+                  grid
+                >
+                  <CartesianGrid stroke="#f5f5f5" />
+                  <XAxis
+                    dataKey="name"
+                    tick={{ fontSize: "15px" }}
+                    tickLine={false}
+                  />
+                  <YAxis
+                    tick={{ fontSize: "15px" }}
+                    tickLine={false}
+                    unit="%"
+                  />
+                  <Tooltip />
+                  <Legend content={<div></div>} />
+                  {this.state.chartLegend}
+                </BarChart>
+              </ResponsiveContainer>
+            </div>
+
+            <div
+              style={{
+                display: "flex",
+                width: "35%",
+                height: "auto",
+                border: borderStyle,
+                alignSelf: "center",
+                justifyContent: "center",
+              }}
+            >
+              <div
+                className="table table-borderless"
+                style={{
+                  borderCollapse: "separate",
+                  borderSpacing: "10px",
+                  width: "auto",
+                }}
+              >
+                <tbody>
+                  <tr>
+                    <td>{courseLegend[0]}</td>
+                    <td>{courseLegend[1]}</td>
+                  </tr>
+                  <tr>
+                    <td>{courseLegend[2]}</td>
+                    <td>{courseLegend[3]}</td>
+                  </tr>
+                </tbody>
+              </div>
+            </div>
           </div>
-          <div className="col-3" style={{ border: borderStyle }}>
-            <WindowedSelect
-              ref={this.instructorListRef}
-              placeholder={instructorPlaceholder}
-              isDisabled={this.state.instructorOptions.length == 0}
-              options={this.state.instructorOptions}
-              onChange={this.handleInstructureChangeRef}
-            />
+        </div>
+      );
+    } else {
+      return (
+        <div>
+          <div className="row" style={{marginLeft:"10%", marginRight: "10%", marginTop: "20px"}}>
+            <div className="col">
+              <WindowedSelect
+                ref={this.courseListRef}
+                onChange={this.handleCourseChangeRef}
+                options={this.state.courseOptions}
+                placeholder={classPlaceholder}
+              />
+            </div>
           </div>
-          <div className="col-1" style={{ border: borderStyle }}>
+          <div className="row" style={{marginLeft:"10%", marginRight: "10%", marginTop: "20px"}}>
+            <div className="col">
+              <WindowedSelect
+                ref={this.quarterListRef}
+                placeholder={quarterPlaceholder}
+                isDisabled={this.state.quarterOptions.length == 0}
+                options={this.state.quarterOptions}
+                onChange={this.handleQuarterChangeRef}
+              />
+            </div>
+          </div>
+          <div className="row" style={{marginLeft:"10%", marginRight: "10%", marginTop: "20px"}}>
+            <div className="col">
+              <WindowedSelect
+                ref={this.instructorListRef}
+                placeholder={instructorPlaceholder}
+                isDisabled={this.state.instructorOptions.length == 0}
+                options={this.state.instructorOptions}
+                onChange={this.handleInstructureChangeRef}
+              />
+            </div>
+          </div>
+          <div className="row" style={{ marginTop: "20px", justifyContent: "center" }}>
             <button
               type="button"
               className="btn btn-primary"
@@ -632,90 +807,93 @@ export default class GradePage extends Component {
                 borderRadius: "5px",
                 width: "125px",
                 height: "40px",
-                backgroundColor: "#162857"
+                backgroundColor: "#162857",
               }}
-              
             >
               Add Class
             </button>
           </div>
-          <div className="col-1" style={{ border: borderStyle }} />
-        </div>
-
-        {/* graph and legend row*/}
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "row",
-
-            border: borderStyle,
-            margin: "4%",
-            width: "92vw  ",
-            height: "70vh",
-            alignItems: "stretch",
-            justifyContent: "center",
-          }}
-        >
-          <div
-            style={{
-              flexGrow: 1,
-              flexShrink: 1,
-              width: "65%",
-              border: borderStyle,
-            }}
-          >
-            <ResponsiveContainer>
-            
-              <BarChart
-                width="99.8%"
-                height="99.8%"
-                
-                data={this.state.formattedData}
-                margin={{ top: 20, right: 20, bottom: 20, left: 20}}
-                grid
-              >
-                <CartesianGrid stroke="#f5f5f5" />
-                <XAxis dataKey="name" tick={{fontSize: "15px"}} tickLine={false}/>
-                <YAxis tick={{fontSize: "15px"}} tickLine={false} unit="%"/>
-                <Tooltip />
-                <Legend content={<div></div>} />
-                {this.state.chartLegend}
-              </BarChart>
-            </ResponsiveContainer>
-          </div>
-
           <div
             style={{
               display: "flex",
-              width: "35%",
-              height: "auto",
+              flexDirection: "column",
+
               border: borderStyle,
-              alignSelf: "center",
+              margin: "3%",
+              width: "92vw  ",
+              height: "100vh",
+              alignItems: "stretch",
               justifyContent: "center",
             }}
           >
             <div
-              className="table table-borderless"
               style={{
-                borderCollapse: "separate",
-                borderSpacing: "10px",
-                width: "auto",
+                flexGrow: 1,
+                flexShrink: 1,
+                height: "65%",
+                border: borderStyle,
               }}
             >
-              <tbody>
-                <tr>
-                  <td>{courseLegend[0]}</td>
-                  <td>{courseLegend[1]}</td>
-                </tr>
-                <tr>
-                  <td>{courseLegend[2]}</td>
-                  <td>{courseLegend[3]}</td>
-                </tr>
-              </tbody>
+              <ResponsiveContainer>
+                <BarChart
+                  width="99.8%"
+                  height="99.8%"
+                  data={this.state.formattedData}
+                  margin={{ top: 15, bottom: 10}}
+                  grid
+                >
+                  <CartesianGrid stroke="#f5f5f5" />
+                  <XAxis
+                    dataKey="name"
+                    tick={{ fontSize: "15px" }}
+                    tickLine={false}
+                  />
+                  <YAxis
+                    tick={{ fontSize: "15px" }}
+                    tickLine={false}
+                    unit="%"
+                  />
+                  <Tooltip />
+                  <Legend content={<div></div>} />
+                  {this.state.chartLegend}
+                </BarChart>
+              </ResponsiveContainer>
+            </div>
+
+            <div
+              style={{
+                display: "flex",
+                height: "35%",
+                width: "auto",
+                border: borderStyle,
+                alignSelf: "center",
+                justifyContent: "center",
+              }}
+            >
+              <div
+                className="table table-borderless"
+                style={{
+                  borderCollapse: "separate",
+                  borderSpacing: "10px",
+                  width: "auto",
+                }}
+              >
+                <tbody>
+                  <tr>
+                    <td>{courseLegend[0]}</td>
+                    <td>{courseLegend[1]}</td>
+                  </tr>
+                  <tr>
+                    <td>{courseLegend[2]}</td>
+                    <td>{courseLegend[3]}</td>
+                  </tr>
+                </tbody>
+              </div>
             </div>
           </div>
+
         </div>
-      </div>
-    );
+      );
+    }
   }
 }
