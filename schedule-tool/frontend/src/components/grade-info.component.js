@@ -263,6 +263,8 @@ export default class GradePage extends Component {
     // request full detail of grouped and matched courses
     reqParams.append("fulldetail", true);
 
+    console.log("hit reqParams", reqParams);
+
     // send request to server
     return axios
       .get("https://backend.aggieexplorer.com/detail/grades", { params: reqParams })
@@ -277,6 +279,7 @@ export default class GradePage extends Component {
         var courseAccumulation = { info: {}, grades: {}, percentages: {} };
         console.log("here in the axios thing");
         // basic course info
+        courseAccumulation["info"]["graphID"] = fullCourse[0].course_id + " (" + fullCourse[0].quarter + ", " + this.state.selectedInstructor + ")";
         courseAccumulation["info"]["courseID"] = fullCourse[0].course_id;
         courseAccumulation["info"]["name"] = fullCourse[0].name;
         courseAccumulation["info"]["quarter"] = fullCourse[0].quarter;
@@ -319,6 +322,7 @@ export default class GradePage extends Component {
         // only finalize the class if we have space for it
         if (this.state.coursesGradesData.length < this.MAX_COURSE_DETAIL) {
           this.state.coursesGradesData.push(courseAccumulation);
+          console.log("hit coursesGrades", this.state.coursesGradesData)
 
           // reformat the data to refresh the display
           this.formatGrades();
@@ -341,7 +345,8 @@ export default class GradePage extends Component {
       var name = gradeData["name"];
       var gradeMap = { name: name };
       this.state.coursesGradesData.forEach((course) => {
-        var id = course.info.courseID;
+        // var id = course.info.courseID;
+        var id = course.info.graphID;
         var grade = course.percentages[name];
         gradeMap[id] = grade;
       });
@@ -351,7 +356,8 @@ export default class GradePage extends Component {
 
     // format the legend so the chart knows which data to display
     this.state.coursesGradesData.forEach((course) => {
-      var name = course.info.courseID;
+      // var name = course.info.courseID;
+      var name = course.info.graphID;
       tempLegend.push(
         <Bar
           dataKey={name}
