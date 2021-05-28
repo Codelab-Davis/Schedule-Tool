@@ -354,6 +354,7 @@ export default class GradePage extends Component {
       temp.push(gradeMap);
     });
 
+
     // format the legend so the chart knows which data to display
     this.state.coursesGradesData.forEach((course) => {
       // var name = course.info.courseID;
@@ -366,6 +367,8 @@ export default class GradePage extends Component {
         />
       );
     });
+
+    console.log("hit temp", temp)
 
     // set the state to rerender the new classes
     this.setState({ formattedData: temp, chartLegend: tempLegend });
@@ -558,7 +561,7 @@ export default class GradePage extends Component {
       if (!average) {
         averageGrade = "N/A";
       } else {
-        averageGrade = averageGrade + " (" + Math.round(average * 100)/100 + ")";
+        averageGrade = averageGrade + " (" + Math.round(average * 100)/100 + "%)";
       }
 
       // create the html of the course legend
