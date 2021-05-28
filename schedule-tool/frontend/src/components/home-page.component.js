@@ -103,7 +103,7 @@ export default class HomePage extends Component {
                         <a href="grades">
                             <span class="footerGrades">Grades</span>
                         </a>
-                        <a href="list">
+                        <a href="enrollment">
                             <span class="footerEnrollment">Enrollment</span>
                         </a>
                         <a href="about">
@@ -120,7 +120,7 @@ export default class HomePage extends Component {
                         <a href="grades">
                             <span class="footerGrades2">Grades</span>
                         </a>
-                        <a href="list">
+                        <a href="enrollment">
                             <span class="footerEnrollment2">Enrollment</span>
                         </a>
                         <a href="about">
