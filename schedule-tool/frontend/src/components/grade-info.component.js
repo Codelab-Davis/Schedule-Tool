@@ -535,6 +535,8 @@ export default class GradePage extends Component {
 
       average = average / (1 - nonGrade);
 
+      console.log("hit average", average)
+
       // get the letter grade from the calculated average
       var averageIndex = 0;
       for (var i = 0; i < 13; i++) {
@@ -555,6 +557,8 @@ export default class GradePage extends Component {
       // in this case, average grade is not available
       if (!average) {
         averageGrade = "N/A";
+      } else {
+        averageGrade = averageGrade + " (" + Math.round(average * 100)/100 + ")";
       }
 
       // create the html of the course legend
