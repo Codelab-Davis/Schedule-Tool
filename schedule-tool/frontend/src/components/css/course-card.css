@@ -599,6 +599,11 @@ h4
         color: white;
     }
 
+    #modaldetail{
+        margin-top: 100px;
+        width: 700px;
+    }
+
     #modelgeneral{
         margin-top: 100px;
         width: 700px;

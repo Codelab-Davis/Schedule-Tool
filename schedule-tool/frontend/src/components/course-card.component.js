@@ -874,7 +874,7 @@ class CourseCard extends Component{
                     {/* <th className="col-1" style={{border:"0"}}></th> */}
                   </tr>
                 </thead>
-                <tbody id="classtablethang4"style={{display:"block", height:"70vh", overflowY:"scroll", border:"0"}} onClick={() => this.handleModalShowHide3()}>
+                <tbody id="classtablethang4"style={{display:"block", height:"70vh", overflowY:"scroll", border:"0"}} >
                   {course_info}
                 </tbody>
               </table>
@@ -1042,8 +1042,8 @@ class CourseCard extends Component{
                 </Modal>
           </div>
 
-          <Modal show={this.state.showSecondHide}>
-            <Modal.header>
+          {/* <Modal id = "modaldetail" show={this.state.showSecondHide}>
+            <Modal.header closeButton onClick={() => this.handleModalShowHide3()}>
               <Modal.body>
               <div id="details_right" style={{display: "none"}}>
                   <div id="Course_title" style={{ size: "large", textAlign: "left", fontFamily:"ProximaNova-Bold", fontSize: "3rem", paddingBottom: "3rem"}}>{this.state.selected_course_id} - {this.state.selected_course_name}</div>
@@ -1079,7 +1079,7 @@ class CourseCard extends Component{
               </Modal.Footer>
             </Modal.header>
 
-          </Modal>
+          </Modal> */}
 
 
         </div>
