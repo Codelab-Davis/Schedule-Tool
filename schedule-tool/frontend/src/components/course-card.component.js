@@ -506,9 +506,9 @@ class CourseCard extends Component{
             </table>
             </div>
 
-            <div className="row" style={{marginTop:"30px", marginLeft:"20px"}}>
-              <button type="button" className="btn btn-primary btn-sm col-2" style={{height:"30px", marginRight:"20px"}} onClick={this.onClickPrevRef}>Prev</button>
-              <button type="button" className="btn btn-primary btn-sm col-2" style={{height:"30px", marginRight:"20px"}} onClick={this.onClickNextRef}>Next</button>
+            <div className="row" id="buttonrow" style={{marginTop:"30px", marginLeft:"20px", justifyContent: "center"}}>
+              <button type="button" className="btn btn-primary btn-sm col-2" style={{height:"30px", marginRight:"20px", backgroundColor: "#162857"}} onClick={this.onClickPrevRef}>Prev</button>
+              <button type="button" className="btn btn-primary btn-sm col-2" style={{height:"30px", marginRight:"20px", backgroundColor: "#162857"}} onClick={this.onClickNextRef}>Next</button>
               <div className="col-8"></div>
             </div>
 
