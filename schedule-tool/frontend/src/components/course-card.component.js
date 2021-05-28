@@ -541,7 +541,7 @@ class CourseCard extends Component{
         });
         let temp = [];
         var self = this;
-        axios.get("http://localhost:5000/enrollment/search_by_course_id", {params: paramconfig})
+        axios.get("https://backend.aggieexplorer.com/enrollment/search_by_course_id", {params: paramconfig})
         .then(response=>{
           sections = response.data.data;
             for (var i = 0; i < sections.length; i++)
@@ -1042,7 +1042,7 @@ class CourseCard extends Component{
                 </Modal>
           </div>
 
-          <Modal>
+          <Modal show={this.state.showSecondHide}>
             <Modal.header>
               <Modal.body>
               <div id="details_right" style={{display: "none"}}>
@@ -1072,7 +1072,11 @@ class CourseCard extends Component{
                 </div>
 
               </Modal.body>
-
+              <Modal.Footer>
+                    <Button variant="secondary" onClick={() => this.handleModalShowHide3()} id="closemodalbutton">
+                        Close
+                    </Button>
+              </Modal.Footer>
             </Modal.header>
 
           </Modal>
