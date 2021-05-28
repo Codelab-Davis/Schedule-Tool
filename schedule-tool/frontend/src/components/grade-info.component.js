@@ -183,7 +183,7 @@ export default class GradePage extends Component {
     // add the all the courses we recieved from database into array
     this.state.courseDetails.forEach((course) => {
       courseList.push({
-        value: course.course_id,
+        value: course.course_id + course.name,
 
         // as will appear in the dropdown menu
         label: <h5 style={{marginTop: "5px"}}>{course.course_id} - {course.name}</h5>

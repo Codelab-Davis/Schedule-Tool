@@ -48,12 +48,23 @@ router.route('/add').post((req,res) =>{
     .then(() => res.json("new Enrollment info added"))
     .catch(() => res.status(400).json('Error: ' + err));
 
-})
+});
 
 //609878b3ba0a4ccb47411878
 //search for courses by if
+router.route("/search_by_course_id/").get((req,res) =>{
+  console.log("course id request");
+  console.log(req.query);
+  Enrollment.find({$or: [{course_id: String(req.query.course_id)}, {course_id: req.query.course_id_alt}]})
+    .then(function(data){
+      console.log({data})
+      res.send({data})
+    })
+    .catch(err => res.status(400).json("Error: " + err));
+});
+
 router.route("/:id").get((req,res) => {
-    Enrollment.findById(req.params.id)
+    Enrollment.findById(req.params.course_id)
         .then(function(data){
           console.log(data);
           res.send({data})

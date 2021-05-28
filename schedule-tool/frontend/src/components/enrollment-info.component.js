@@ -1,11 +1,7 @@
-import React, { Component, PureComponent } from "react";
-import Select, { createFilter, NonceProvider } from "react-select";
+import React, { Component} from "react";
 import axios from "axios";
 import WindowedSelect from "react-windowed-select";
-import {Area,Line,BarChart,LineChart,Bar,Cell,XAxis,YAxis,CartesianGrid,Tooltip,Legend,ResponsiveContainer} from "recharts";
-import { ComposedChart } from "recharts";
-import { gql } from "apollo-boost";
-import { graphql } from "react-apollo";
+import {Line,LineChart,XAxis,YAxis,CartesianGrid,Tooltip,Legend,ResponsiveContainer} from "recharts";
 
 // Default class to export
 // This component contains two main sections
@@ -67,7 +63,6 @@ export default class GradePage extends Component {
     handleCourseDelete(event)
     {
         var deleteIndex = parseInt(event.target.getAttribute("data-index"));
-        this.COURSE_DETAIL_COLOR.push(this.state.selected_courses_aggreage[deleteIndex]["info"]["color"]);
         this.state.selected_courses_aggreage.splice(deleteIndex, 1);
         this.format_data();
     }
@@ -76,7 +71,7 @@ export default class GradePage extends Component {
         var courseList = [];
         for (var i = 0; i < this.state.courses.length; i++)
         {
-            courseList.push({course_id: this.state.courses[i].course_id, 
+            courseList.push({value: this.state.courses[i].course_id + this.state.courses[i].name,
                             label: <h5 style={{marginTop: "5px"}}>{this.state.courses[i].course_id} - {this.state.courses[i].name}</h5>
                             });
         }
@@ -88,6 +83,8 @@ export default class GradePage extends Component {
         var tempLegend = [];
         var each_point = {};
         var data = [];
+        if (this.state.selected_courses_aggreage.length == 0)
+          return;
         for (var i = 0; i < this.state.selected_courses_aggreage[this.state.selected_courses_aggreage.length-1].seats.length; i++)
         {
           var each_point = {};
@@ -102,7 +99,7 @@ export default class GradePage extends Component {
         for (var i = 0; i < this.state.selected_courses_aggreage.length; i++)
         {
             tempLegend.push(
-                <Line name = {"Course " + i} dataKey={this.state.selected_courses_aggreage[i].course_id} stroke = {this.COURSE_DETAIL_COLOR[i]} />
+                <Line name = {this.state.selected_courses_aggreage[i].course_id} dataKey={this.state.selected_courses_aggreage[i].course_id} stroke = {this.COURSE_DETAIL_COLOR[i]} strokeWidth = {5} type={"basis"} r={0}/>
             )
         }
         console.log("after formatting");
@@ -147,6 +144,11 @@ export default class GradePage extends Component {
           }
           single_course.seats.push(sum)
         }
+      }
+      if (this.state.selected_courses_aggreage.length > 4)
+      {
+        alert("Max number of courses reached. Please remove a course before adding another one");
+        return;
       }
       this.state.selected_courses_aggreage.push(single_course);
       
@@ -215,7 +217,7 @@ export default class GradePage extends Component {
             label: <h5 style={{marginTop: "5px"}}>{instructor}</h5>
           });
         });
-    
+    /*
         // if we have more than 1 instructor, then give the option for All instructors
         if (instructorList.length > 1) {
           instructorList.push({
@@ -225,7 +227,7 @@ export default class GradePage extends Component {
             label: <h5 style={{marginTop: "5px"}}>All Instructors</h5>
           });
         }
-    
+    */
         // reset the previous selected instructor
         this.instructorListRef.current.setState({ value: null });
         
@@ -425,7 +427,7 @@ export default class GradePage extends Component {
                       data={this.state.formatted_data_for_graph}
                       margin={{ top: 20, right: 20, bottom: 20, left: 20}}
                     >
-                      <CartesianGrid stroke="#f5f5f5" />
+                      <CartesianGrid stroke="#f5f5f5" strokeDasharray="3 3"/>
                       <XAxis dataKey="name" tick={{fontSize: "15px"}} tickLine={false}/>
                       <YAxis/>
                       <Tooltip />
@@ -471,4 +473,3 @@ export default class GradePage extends Component {
           );
     }
 }
-
