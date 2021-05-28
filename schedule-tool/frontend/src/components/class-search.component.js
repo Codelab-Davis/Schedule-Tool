@@ -52,7 +52,7 @@ export default class DetailsList extends Component {
   }
 
   componentDidMount() {
-    axios.get('http://localhost:5000/detail/')
+    axios.get('https://backend.aggieexplorer.com/detail/')
       .then(response => {
         this.setState({ detail: response.data })
         // put items from get request into variable items 
@@ -66,7 +66,7 @@ export default class DetailsList extends Component {
   }
 
   deleteDetail(id) {
-    axios.delete('http://localhost:5000/detail/'+id)
+    axios.delete('https://backend.aggieexplorer.com/detail/'+id)
       .then(response => { console.log(response.data)});
 
     this.setState({

@@ -97,7 +97,7 @@ var items;
 class CourseCard extends Component{
 
       componentDidMount() {
-        axios.get('http://localhost:5000/detail/')
+        axios.get('https://backend.aggieexplorer.com/detail/')
           .then(response => {
             this.setState({ detail: response.data })
             // put items from get request into variable items 
@@ -121,7 +121,7 @@ class CourseCard extends Component{
       }
     
       deleteDetail(id) {
-        axios.delete('http://localhost:5000/detail/'+id)
+        axios.delete('https://backend.aggieexplorer.com/detail/'+id)
           .then(response => { console.log(response.data)});
     
         this.setState({
@@ -179,7 +179,11 @@ class CourseCard extends Component{
       this.ss = '';
       this.state.show_details = false;
       this.showcase = {
-        showHide : false
+        showHide : false,
+      }
+
+      this.showcase2 = {
+        showSecondHide : false,
       }
 
       
@@ -392,6 +396,11 @@ class CourseCard extends Component{
       this.refreshDB();
     }
 
+    handleModalShowHide3() {
+      this.setState({ showSecondHide: !this.state.showSecondHide })
+      // document.getElementById("extrafeatures2").style.display = 'none';
+    }
+
     useFilter() {
 
       // console.log("state in usefilter functions", this.state);
@@ -439,7 +448,7 @@ class CourseCard extends Component{
       let instructorFilter = this.instructor;
   
       axios
-        .get("http://localhost:5000/detail/", {params:requestParams})
+        .get("https://backend.aggieexplorer.com/detail/", {params:requestParams})
         .then((response) => {
           var recievedCount = response.data.length;
   
@@ -944,12 +953,6 @@ class CourseCard extends Component{
                       </div>
                     </div>
 
-                    <div id="instructor">
-                      <div id="title2">Instructor</div>
-                      <div class="input-group mb-4">
-                        <input type="search" onChange={this.instructorChangeRef} placeholder="instructor" aria-describedby="button-addon5" class="form-control" id="searchbar2"/>
-                      </div>
-                    </div>
                   <div id="extrafeatures2">
                     <div id="coreliteracies" >
                       <p id="title2">Core Literacies</p>
@@ -1027,6 +1030,9 @@ class CourseCard extends Component{
           </div>
         </div>
         </div>
+
+
+        
         </body>
         </html>
         )

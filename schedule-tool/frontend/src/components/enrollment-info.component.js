@@ -49,7 +49,7 @@ export default class GradePage extends Component {
   }
     async get_enrollmentData()
         {
-           axios.get("http://localhost:5000/enrollment",{})
+           axios.get("https://backend.aggieexplorer.com/enrollment",{})
             .then(data => {
               console.log(data.data.data);
               this.setState({courses: data.data.data});
