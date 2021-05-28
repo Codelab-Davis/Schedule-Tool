@@ -18,6 +18,7 @@ import {
 import { ComposedChart } from "recharts";
 import { gql } from "apollo-boost";
 import { graphql } from "react-apollo";
+import _ from "lodash";
 
 const displaymode = {
   HORIZONTAL: 0,
@@ -207,7 +208,7 @@ export default class GradePage extends Component {
     // add the all the courses we recieved from database into array
     this.state.courseDetails.forEach((course) => {
       courseList.push({
-        value: course.course_id + course.name,
+        value: course.course_id +" " + course.name,
 
         // as will appear in the dropdown menu
         label: (
@@ -451,8 +452,9 @@ export default class GradePage extends Component {
 
   // called when course is selected - populate qaurter list here
   handleCourseChange(event) {
+    console.log(event.value)
+    this.state.selectedCourse = event.value.split(" ")[0];
     // get the selected course and filter course detail info for desired course ID
-    this.state.selectedCourse = event.value;
 
     // if new course is selected, reset the previous selected quarter and instructor
     this.state.selectedQuarter = null;

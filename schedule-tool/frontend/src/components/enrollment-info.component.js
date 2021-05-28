@@ -71,7 +71,7 @@ export default class GradePage extends Component {
         var courseList = [];
         for (var i = 0; i < this.state.courses.length; i++)
         {
-            courseList.push({value: this.state.courses[i].course_id + this.state.courses[i].name,
+            courseList.push({value: this.state.courses[i].course_id + " " + this.state.courses[i].name,
                             label: <h5 style={{marginTop: "5px"}}>{this.state.courses[i].course_id} - {this.state.courses[i].name}</h5>
                             });
         }
@@ -242,7 +242,7 @@ export default class GradePage extends Component {
         console.log(event);
 
         // get the selected course and filter course detail info for desired course ID
-        this.state.selected_course_id = event.course_id;
+        this.state.selected_course_id = event.value.split(" ")[0];
         // if new course is selected, reset the previous selected quarter and instructor
         this.state.selected_course_id_quarter = null;
         this.state.selected_course_id_quarter_instructor = null;
