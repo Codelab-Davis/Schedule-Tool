@@ -55,18 +55,18 @@ function hide_show() {
   var y = document.getElementById("cow_right");
   var z = document.getElementById("details_right");
   if (x.style.display == "none" && z.style.display == "none") {
-    // console.log("hit if")
+    console.log("hit if")
     x.style.display = "block";
     y.style.display = "none";
     document.getElementById("extrafeatures").style.display = 'none';
   } else if (z.style.display == "block") {
-    // console.log("hit else if");
+    console.log("hit else if");
     z.style.display = 'none';
     x.style.display = "block";
     y.style.display = "none";
     document.getElementById("extrafeatures").style.display = 'none';
   } else {
-    // console.log("hit else")
+    console.log("hit else")
     x.style.display = "none";
     y.style.display = "block";
   }
@@ -81,11 +81,16 @@ function hide_show_details(index, prev){
   var z = document.getElementById("filter_right");
   if (x.style.display == "none" && z.style.display == "none")
   {
+    console.log("hit if2")
     x.style.display = "block";
     y.style.display = "none";
-  }
-  else if (index == prev)
+  } else if (z.style.display == 'block') {
+    console.log("elseifcorrect");
+    z.style.display = 'none'
+    x.style.display = 'block';
+  }  else if (index == prev)
   {
+    console.log("hit elseif2")
     x.style.display = "none";
     y.style.display = "block";
     z.style.display = "none";
@@ -869,7 +874,7 @@ class CourseCard extends Component{
                     {/* <th className="col-1" style={{border:"0"}}></th> */}
                   </tr>
                 </thead>
-                <tbody id="classtablethang4"style={{display:"block", height:"70vh", overflowY:"scroll", border:"0"}}>
+                <tbody id="classtablethang4"style={{display:"block", height:"70vh", overflowY:"scroll", border:"0"}} onClick={() => this.handleModalShowHide3()}>
                   {course_info}
                 </tbody>
               </table>
@@ -1036,6 +1041,43 @@ class CourseCard extends Component{
                     </Modal.Footer>
                 </Modal>
           </div>
+
+          <Modal>
+            <Modal.header>
+              <Modal.body>
+              <div id="details_right" style={{display: "none"}}>
+                  <div id="Course_title" style={{ size: "large", textAlign: "left", fontFamily:"ProximaNova-Bold", fontSize: "3rem", paddingBottom: "3rem"}}>{this.state.selected_course_id} - {this.state.selected_course_name}</div>
+                  <span id="detail-units" style={{fontFamily: "ProximaNova", fontSize: "1.8rem"}}>{this.state.selected_course_units} Units</span>
+                  <div id="description-group">
+                  <div id="Description-title"style={{fontFamily: "ProximaNova-Bold", fontSize: "1.8rem", marginTop: "10px"}}> Description: </div>
+                  <p id="Description-paragraph" style={{fontFmaily: "ProximaNova", fontSize: "1.8rem", marginTop: "5px", width: "95%"}}>
+                    {this.state.selected_course_description}
+                    </p>
+                  </div>
+                  <div id="Prereqs" >
+                    <span id="Prereq-title"style={{fontFamily:"ProximaNova-Bold", fontSize: "1.8rem"}}>
+                      Prerequisites:
+                    </span>
+                    <span id="Prereq-text" style={{fontFamily:"ProximaNova", fontSize: "1.8rem", marginLeft: "5px"}}>
+                      {this.state.selected_course_prerequisites}</span>
+                  </div>
+                  <table id="sections-table" style={{justifyContent: "center", marginTop: "20px", marginLeft:"auto", marginRight: "auto", alignItems: "center", width: "95%"}}>
+                    <tr style={{borderBottom: "1px solid black", display: "flex", justifyContent: "space-between", marginLeft:"auto", marginRight: "auto", width: "95%"}}>
+                      <th scope="col" style={{alignItems: "center", justifyContent: "center", fontFamily: "ProximaNova-Bold", fontSize: "1.8rem", padding: "10px"}}>CRN</th>
+                      <th scope="col" style={{alignItems: "center", justifyContent: "center", fontFamily: "ProximaNova-Bold", fontSize: "1.8rem", padding: "10px"}}>Open</th>
+                      <th scope="col" style={{alignItems: "center", justifyContent: "center", fontFamily: "ProximaNova-Bold", fontSize: "1.8rem", padding: "10px"}}>Instructor</th> 
+                    </tr>
+                    {this.state.selected_course_sections_table}
+                  </table>
+                </div>
+
+              </Modal.body>
+
+            </Modal.header>
+
+          </Modal>
+
+
         </div>
         </div>
 
