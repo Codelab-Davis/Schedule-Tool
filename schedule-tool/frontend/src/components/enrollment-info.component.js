@@ -2,6 +2,7 @@ import React, { Component} from "react";
 import axios from "axios";
 import WindowedSelect from "react-windowed-select";
 import {Line,LineChart,XAxis,YAxis,CartesianGrid,Tooltip,Legend,ResponsiveContainer} from "recharts";
+import _ from "lodash";
 
 // Default class to export
 // This component contains two main sections
@@ -91,7 +92,7 @@ export default class GradePage extends Component {
             each_point["name"] = i;
             for (var j = 0; j < this.state.selected_courses_aggreage.length; j++)
             {
-                each_point[this.state.selected_courses_aggreage[j].course_id] =
+                each_point[this.state.selected_courses_aggreage[j].graph_id] =
                     this.state.selected_courses_aggreage[j].seats[i];
             }
             data.push(each_point);
@@ -99,7 +100,7 @@ export default class GradePage extends Component {
         for (var i = 0; i < this.state.selected_courses_aggreage.length; i++)
         {
             tempLegend.push(
-                <Line name = {this.state.selected_courses_aggreage[i].course_id} dataKey={this.state.selected_courses_aggreage[i].course_id} stroke = {this.COURSE_DETAIL_COLOR[i]} strokeWidth = {5} type={"basis"} r={0}/>
+                <Line name = {this.state.selected_courses_aggreage[i].graph_id} dataKey={this.state.selected_courses_aggreage[i].graph_id} stroke = {this.COURSE_DETAIL_COLOR[i]} strokeWidth = {5} type={"basis"} r={0}/>
             )
         }
         console.log("after formatting");
@@ -117,6 +118,7 @@ export default class GradePage extends Component {
         )
       );
       var single_course = {
+        graph_id: null,
         course_id: null,
         instructor: null,
         max_seats: null,
@@ -127,13 +129,16 @@ export default class GradePage extends Component {
       };
       console.log("after filtering in addcousrse");
       console.log(temp);
+      console.log("hit in temp", temp);
       if (temp.length > 0)
       {
+        single_course.graph_id = temp[0][0].name + " (" + temp[0][0].quarter + ", " + temp[0][0].instructor + ")";
         single_course.name = temp[0][0].name;
         single_course.instructor = temp[0][0].instructor;
         single_course.max_seats = temp[0][0].max_seats;
         single_course.quarter = temp[0][0].quarter;
         single_course.course_id = temp[0][0].course_id;
+        console.log("hit single course", single_course);
         for (var i = 0; i  < temp[0][0].seats.length; i++)
         {
           var sum = 0;
