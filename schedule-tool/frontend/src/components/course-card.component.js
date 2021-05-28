@@ -50,21 +50,29 @@ function setupAdvanedTwo() {
 }
 
 function hide_show() {
+  console.log("hit filter?")
   var x = document.getElementById("filter_right");
   var y = document.getElementById("cow_right");
   var z = document.getElementById("details_right");
   if (x.style.display == "none" && z.style.display == "none") {
-    console.log("hit if")
+    // console.log("hit if")
+    x.style.display = "block";
+    y.style.display = "none";
+    document.getElementById("extrafeatures").style.display = 'none';
+  } else if (z.style.display == "block") {
+    // console.log("hit else if");
+    z.style.display = 'none';
     x.style.display = "block";
     y.style.display = "none";
     document.getElementById("extrafeatures").style.display = 'none';
   } else {
-    console.log("hit else")
+    // console.log("hit else")
     x.style.display = "none";
     y.style.display = "block";
   }
 }
 function hide_show_details(index, prev){
+  console.log("hit in here")
   console.log(prev);
   if (prev == null)
     prev = index;
