@@ -265,7 +265,7 @@ class CourseCard extends Component{
 
     gradeDistributionClickHandler() {
       console.log("hit clicked", this.state.selected_course_id,  this.state.selected_course_instructor, this.state.selected_course_quarter);
-      window.open(`http://localhost:3000/grades/${this.state.selected_course_id}/${this.state.selected_course_quarter}/${this.state.selected_course_instructor}`)
+      window.open(`https://www.aggieexplorer.com/grades/${this.state.selected_course_id}/${this.state.selected_course_quarter}/${this.state.selected_course_instructor}`)
     }
 
     crnChangeRefHandler(e) {
