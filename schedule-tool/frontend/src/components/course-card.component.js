@@ -9,6 +9,7 @@ import catalog_cow from "./images/catalog_cow.png";
 import './css/course-card.css'; 
 import { Modal, Button,  ButtonGroup, DropdownButton, MenuItem, ResponsiveEmbed } from 'react-bootstrap';
 import Dropdown from "react-dropdown";
+import OpenPic from './images/open.svg';
 
 var prev = null;
 function myFunction() {
@@ -672,7 +673,10 @@ class CourseCard extends Component{
                 <div id="details_right" style={{display: "none"}}>
                   <div id="Course_title" style={{ size: "large", textAlign: "left", fontFamily:"ProximaNova-Bold", fontSize: "3rem", paddingBottom: "3rem"}}>{this.state.selected_course_id} - {this.state.selected_course_name}</div>
                   <span id="detail-units" style={{fontFamily: "ProximaNova", fontSize: "1.8rem"}}>{this.state.selected_course_units} Units</span>
-                  <div><span id="detail-units" style={{fontFamily: "ProximaNova", fontSize: "1.8rem", cursor: "pointer",}} onClick={this.gradeDistributionClickRef}>View Grade Distribution</span></div>
+                  <div style={{cursor: "pointer",}} onClick={this.gradeDistributionClickRef}>
+                    <span id="detail-units" style={{fontFamily: "ProximaNova", fontSize: "1.8rem", }} >View Grade Distribution</span>
+                    <img style={{paddingLeft: "5px", paddingBottom: "5px"}}src={OpenPic}/>
+                    </div>
                   <div id="description-group">
                   <div id="Description-title"style={{fontFamily: "ProximaNova-Bold", fontSize: "1.8rem", marginTop: "10px"}}> Description: </div>
                   <p id="Description-paragraph" style={{fontFmaily: "ProximaNova", fontSize: "1.8rem", marginTop: "5px", width: "95%"}}>
