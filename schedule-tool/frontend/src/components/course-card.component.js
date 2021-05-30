@@ -72,6 +72,7 @@ function hide_show() {
     y.style.display = "block";
   }
 }
+
 function hide_show_details(index, prev){
   console.log("hit in here")
   console.log(prev);
@@ -80,19 +81,21 @@ function hide_show_details(index, prev){
   var x = document.getElementById("details_right");
   var y = document.getElementById("cow_right");
   var z = document.getElementById("filter_right");
-  if (x.style.display == "none" && z.style.display == "none")
-  {
-    console.log("hit if2")
+  // var a = document.getElementById("details_modal")
+  if (x.style.display == "none" && z.style.display == "none") {
+    console.log("hit 1")
+    // a.style.display = "block";
     x.style.display = "block";
     y.style.display = "none";
   } else if (z.style.display == 'block') {
-    console.log("elseifcorrect");
+    console.log("hit 2");
     z.style.display = 'none'
     x.style.display = 'block';
-  }  else if (index == prev)
-  {
-    console.log("hit elseif2")
+    // a.style.display = "block";
+  }  else if (index == prev) {
+    console.log("hit 3")
     x.style.display = "none";
+    // a.style.display = "none";
     y.style.display = "block";
     z.style.display = "none";
   }
@@ -256,6 +259,10 @@ class CourseCard extends Component{
       this.state.selected_course_prereq = null;
       this.state.selected_course_sections_table = null;
       this.state.prev_index = null;
+      this.state.modalTitle = "";
+      this.state.filterDisplay = "none";
+      this.state.courseDisplay = "none";
+
     }
   
     componentDidMount() {
@@ -411,8 +418,68 @@ class CourseCard extends Component{
         this.ss = "yes"
       }
     }
-    handleModalShowHide() {
+    handleModalShowHide(filter, index) {
       this.setState({ showHide: !this.state.showHide })
+      // console.log("hit in here", filter)
+      if (filter == "yes") {
+        this.state.courseDisplay = "none";
+        this.state.filterDisplay = "block";
+        this.state.modalTitle = "Filters";
+      } else if (filter == "no") {
+        this.state.modalTitle = "Course Infomation"
+        this.state.filterDisplay = "none";
+        this.state.courseDisplay = "block";
+        
+        // show details lmao
+        let class_index = index
+        console.log("hit class index", class_index);
+        let sections = null;
+        let curr_class = this.state.detail[class_index];
+        if (curr_class.max_seats == "")
+          curr_class.max_seats = "N/A";
+        console.log(curr_class.course_id);
+        let zeroFilled = ('000' + curr_class.code).substr(-3);
+        let paramconfig = new URLSearchParams({
+          
+          "course_id_alt": String(curr_class.subj) + String(zeroFilled),
+          "course_id": String(curr_class.course_id)
+        });
+        let temp = [];
+        axios.get("https://backend.aggieexplorer.com/enrollment/search_by_course_id", {params: paramconfig})
+        .then(response=>{
+          sections = response.data.data;
+            for (var i = 0; i < sections.length; i++)
+            {
+              temp.push((
+                <tr style={{borderBottom: "1px solid black", display: "flex", justifyContent: "space-between", marginLeft:"auto", marginRight: "auto", width: "95%"}}>
+                <td style={{  alignItems: "center", justifyContent: "center", fontFamily: "ProximaNova", fontSize: "1.8rem", padding: "10px"}}>{sections[i].crn}</td>
+                <td style={{ alignItems: "center", justifyContent: "center", fontFamily: "ProximaNova", fontSize: "1.8rem", padding: "10px"}}>{Object.values(sections[i].seats[sections[i].seats.length-1])}</td>
+                <td style={{ alignItems: "center", justifyContent: "center", fontFamily: "ProximaNova", fontSize: "1.8rem", padding: "10px"}}>{sections[i].instructor}</td>
+                </tr>));
+            }
+            this.setState({selected_course_sections_table: temp});
+        })
+        .catch(function(err){
+          console.log(err)
+        });
+        this.setState({
+          selected_course_id: curr_class.course_id,
+          selected_course_instructor: curr_class.instructor,
+          selected_course_quarter: curr_class.quarter,
+          selected_course_name: curr_class.name,
+          selected_course_units: curr_class.units,
+          selected_course_max_seats: curr_class.max_seats,
+          selected_course_description: curr_class.description,
+          selected_course_prerequisites: curr_class.prereq,
+          selected_course_ge: curr_class.ge_list,
+          selected_course_final_exam: curr_class.final_exam,
+          show_details: true
+        });
+        hide_show_details(class_index, this.state.prev_index);
+        this.setState({
+          prev_index: class_index
+        });
+      }
       // document.getElementById("extrafeatures2").style.display = 'none';
     }
 
@@ -425,6 +492,7 @@ class CourseCard extends Component{
       this.setState({ showSecondHide: !this.state.showSecondHide })
       // document.getElementById("extrafeatures2").style.display = 'none';
     }
+
 
     useFilter() {
 
@@ -535,7 +603,7 @@ class CourseCard extends Component{
     }*/
     show_details(event)
       {
-        console.log(event.target);
+        console.log("hit event", event);
         let class_index = parseInt(
           event.target.getAttribute("data-index")
           );
@@ -598,16 +666,17 @@ class CourseCard extends Component{
 
         // all course HTML info array
         var course_info = [];
+        var course_info_small = [];
     
         var border_style = "Year";
         var dropDownOptions = ['No Year', '2016', '2017', '2018', '2019', '2020'];
         var defaultOption = dropDownOptions[0];
     
-        for(var index = 0; index < this.state.detail.length; index++) {
+        for(let index = 0; index < this.state.detail.length; index++) {
           // this course HTML info
           var this_course = (
             <div style={{cursor: "pointer"}} id="each_class_card" data-index={index} onClick={this.show_details_ref}>
-            <tr data-index={index} className="row" style={{marginLeft:"0px", marginRight:"0px"}}>
+              <tr data-index={index} className="row" style={{marginLeft:"0px", marginRight:"0px"}}>
                 <td data-index={index} className="col-8" style={{border:"0", marginTop: "1rem"}}>
                   <h4 data-index={index} id="classid"><strong data-index={index}>{this.state.detail[index].course_id}</strong></h4>
                   <h4 data-index={index} id="classname">{this.state.detail[index].name}</h4>
@@ -617,10 +686,28 @@ class CourseCard extends Component{
                 <h4 data-index={index}>{this.state.detail[index].units} Units</h4>
                 <h4 data-index={index}>  </h4>
                 </td>
-            </tr>
+              </tr>
             </div>
           );
+
+          var this_course_mobile = (
+            <div style={{cursor: "pointer"}} id="each_class_card" data-index={index} onClick={() => {this.handleModalShowHide("no", `${index}`); }}>
+              <tr data-index={index} className="row" style={{marginLeft:"0px", marginRight:"0px"}}>
+                <td data-index={index} className="col-8" style={{border:"0", marginTop: "1rem"}}>
+                  <h4 data-index={index} id="classid"><strong data-index={index}>{this.state.detail[index].course_id}</strong></h4>
+                  <h4 data-index={index} id="classname">{this.state.detail[index].name}</h4>
+                  <h4 data-index={index} id="classinstructor"> {this.state.detail[index].instructor} {this.state.detail[index].quarter} </h4>
+                </td>
+                <td data-index={index} className="col-4" style={{border:"0", textAlign:"center", marginTop:"1rem"}}>
+                <h4 data-index={index}>{this.state.detail[index].units} Units</h4>
+                <h4 data-index={index}>  </h4>
+                </td>
+              </tr>
+            </div>
+          );
+
           course_info.push(this_course);
+          course_info_small.push(this_course_mobile);
         }
         return(
           <html>
@@ -676,7 +763,7 @@ class CourseCard extends Component{
                   <div style={{cursor: "pointer",}} onClick={this.gradeDistributionClickRef}>
                     <span id="detail-units" style={{fontFamily: "ProximaNova", fontSize: "1.8rem", }} >View Grade Distribution</span>
                     <img style={{paddingLeft: "5px", paddingBottom: "5px"}}src={OpenPic}/>
-                    </div>
+                  </div>
                   <div id="description-group">
                   <div id="Description-title"style={{fontFamily: "ProximaNova-Bold", fontSize: "1.8rem", marginTop: "10px"}}> Description: </div>
                   <p id="Description-paragraph" style={{fontFmaily: "ProximaNova", fontSize: "1.8rem", marginTop: "5px", width: "95%"}}>
@@ -699,16 +786,6 @@ class CourseCard extends Component{
                     {this.state.selected_course_sections_table}
                   </table>
                 </div>
-
-
-
-
-
-
-
-
-
-
 
 
                 <div id="filter_right">
@@ -887,13 +964,13 @@ class CourseCard extends Component{
                       </div>
                     </th>
                     <th className="col-1" style={{border:"0"}}> 
-                      <button id = "filterbutton" onClick={() => this.handleModalShowHide()} ><img src={filterIcon} style={{height:"3rem"}} ></img></button>
+                      <button id = "filterbutton" onClick={() => {this.handleModalShowHide("yes")}} ><img src={filterIcon} style={{height:"3rem"}} ></img></button>
                     </th>
                     {/* <th className="col-1" style={{border:"0"}}></th> */}
                   </tr>
                 </thead>
                 <tbody id="classtablethang4"style={{display:"block", height:"70vh", overflowY:"scroll", border:"0"}} >
-                  {course_info}
+                  {course_info_small}
                 </tbody>
               </table>
             </div>
@@ -906,205 +983,239 @@ class CourseCard extends Component{
           </div>
         
           <div id="splitright2" >
-
                 <Modal id="modelgeneral" show={this.state.showHide}>
                     <Modal.Header closeButton onClick={() => this.handleModalShowHide()}>
-                    <Modal.Title><h1 id="filtertitle2">Filters</h1></Modal.Title>
+                    <Modal.Title><h1 id="filtertitle2">{this.state.modalTitle}</h1></Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
-                    <div id="quarter2">
-                      <div id="title2">Quarter</div>
-                      <div id="quarterinbox">
-                      <div id="quarterboxes2">
-                      <label class="checkbox-inline" id="quar2"><span id="checktext2">Fall</span>
-                        <input type="checkbox" onChange={this.fallChangeRef}/>
-                        <span class="checkmark"></span>
-                      </label>
-                      <label class="checkbox-inline" id="quar2"> <span id="checktext">Winter</span>
-                        <input type="checkbox" onChange={this.winterChangeRef}/>
-                        <span class="checkmark"></span>
-                      </label>
-                      <label class="checkbox-inline" id="quar2"> <span id="checktext2">Spring</span>
-                        <input type="checkbox" onChange={this.springChangeRef}/>
-                        <span class="checkmark"></span>
-                      </label>
-                      </div>
-                      <div id="quarterboxes3">
-                      <label class="checkbox-inline" id="quar2"> <span id="checktext2">Summer I</span>
-                        <input type="checkbox" onChange={this.ss1ChangeRef}/>
-                        <span class="checkmark"></span>
-                      </label>
-                      <label class="checkbox-inline" id="quar2"> <span id="checktext2">Summer II</span>
-                        <input type="checkbox" onChange={this.ss2ChangeRef}/>
-                        <span class="checkmark"></span>
-                      </label>
-                      </div>
-                      </div>
+                      <div id="modalFilters" style={{display: `${this.state.filterDisplay}`}}>
+                        <div id="quarter2">
+                          <div id="title2">Quarter</div>
+                          <div id="quarterinbox">
+                          <div id="quarterboxes2">
+                          <label class="checkbox-inline" id="quar2"><span id="checktext2">Fall</span>
+                            <input type="checkbox" onChange={this.fallChangeRef}/>
+                            <span class="checkmark"></span>
+                          </label>
+                          <label class="checkbox-inline" id="quar2"> <span id="checktext">Winter</span>
+                            <input type="checkbox" onChange={this.winterChangeRef}/>
+                            <span class="checkmark"></span>
+                          </label>
+                          <label class="checkbox-inline" id="quar2"> <span id="checktext2">Spring</span>
+                            <input type="checkbox" onChange={this.springChangeRef}/>
+                            <span class="checkmark"></span>
+                          </label>
+                          </div>
+                          <div id="quarterboxes3">
+                          <label class="checkbox-inline" id="quar2"> <span id="checktext2">Summer I</span>
+                            <input type="checkbox" onChange={this.ss1ChangeRef}/>
+                            <span class="checkmark"></span>
+                          </label>
+                          <label class="checkbox-inline" id="quar2"> <span id="checktext2">Summer II</span>
+                            <input type="checkbox" onChange={this.ss2ChangeRef}/>
+                            <span class="checkmark"></span>
+                          </label>
+                          </div>
+                          </div>
 
-                      <div id="quarter2" >
-                        <div id="dropdown-thing2">
-                          <div id="second-thing2">
-                            <Dropdown variant="success" id="dropdown" options={dropDownOptions} onChange={this.yearChangeRef}  placeholder="Year">
-                            </Dropdown>
+                          <div id="quarter2" >
+                            <div id="dropdown-thing2">
+                              <div id="second-thing2">
+                                <Dropdown variant="success" id="dropdown" options={dropDownOptions} onChange={this.yearChangeRef}  placeholder="Year">
+                                </Dropdown>
+                              </div>
+                            </div>
+                          </div>
+                        <div id="CRN2" >
+                          <div id="title2">CRN</div>
+                          <div class="input-group mb-4">
+                                <input type="search" onChange={this.crnChangeRef} placeholder="CRN" aria-describedby="button-addon5" class="form-control" id="searchbar2"/>
+                            </div>
+                        </div>
+
+                        <div id="course-level">
+                          <div id="title2">Course Level</div>
+                          <div class="input-group mb-4">
+                              <input type="search" onChange={this.codeChangeRef} placeholder="Course Level" aria-describedby="button-addon5" class="form-control" id="searchbar2"/>
+                          </div>
+                        </div>
+
+                        <div id="Subject">
+                          <div id="title2">Subject</div>
+                          <div class="input-group mb-4">
+                            <input type="search" onChange={this.subjChangeRef} placeholder="Subject" aria-describedby="button-addon5" class="form-control" id="searchbar2"/>
+                          </div>
+                        </div>
+
+                        <div id="instructor">
+                          <div id="title2">Instructor</div>
+                          <div class="input-group mb-4">
+                            <input type="search" onChange={this.instructorChangeRef} placeholder="instructor" aria-describedby="button-addon5" class="form-control" id="searchbar2"/>
+                          </div>
+                        </div>
+
+                        <div id="units" >
+                          <div id="title2">Units</div>
+                          <div class="input-group mb-4">
+                              <input type="search" onChange={this.unitsChangeRef} placeholder="Units" aria-describedby="button-addon5" class="form-control" id="searchbar2"/>
+                          </div>
+                        </div>
+
+                      <div id="extrafeatures2">
+                        <div id="coreliteracies" >
+                          <p id="title2">Core Literacies</p>
+                          <div id="corebox2">
+                            <label class="container" id="core2">
+                              <input type="checkbox" onChange={this.acghChangeRef} /><span id="coretext2">ACGH (Amer Cultr, Gov, Hist)</span>
+                              <span class="checkmark"></span>
+                            </label>
+                            <label class="container" id="core2">
+                              <input type="checkbox" onChange={this.ddChangeRef}/><span id="coretext2">DD (Domestic Diversity)</span>
+                              <span class="checkmark"></span>
+                            </label>
+                            <label class="container" id="core2">
+                              <input type="checkbox" onChange={this.olChangeRef}/><span id="coretext2">OL (Oral Lit)</span>
+                              <span class="checkmark"></span>
+                            </label>
+                            <label class="container" id="core2">
+                              <input type="checkbox" onChange={this.qlChangeRef}/><span id="coretext2">QL (Qualitative Lit)</span>
+                              <span class="checkmark"></span>
+                            </label>
+                            <label class="container" id="core2">
+                              <input type="checkbox" onChange={this.slChangeRef}/><span id="coretext2">SL (Scientific Lit)</span>
+                              <span class="checkmark"></span>
+                            </label>
+                            <label class="container" id="core2">
+                              <input type="checkbox" onChange={this.vlChangeRef}/><span id="coretext2">VL (Visual Lit)</span>
+                              <span class="checkmark"></span>
+                            </label>
+                            <label class="container" id="core2">
+                              <input type="checkbox" onChange={this.wcChangeRef}/><span id="coretext2">WC (World Cultr)</span>
+                              <span class="checkmark"></span>
+                            </label>
+                            <label class="container" id="core2">
+                              <input type="checkbox" onChange={this.weChangeRef}/><span id="coretext2">WE (Writing Exp)</span>
+                              <span class="checkmark"></span>
+                            </label>
+                          </div>
+                        </div>
+
+                        <div id="GEs">
+                          <p id="title2">GE Options</p>
+                          <div id="gebox2">
+                            <label class="container" id="ge2">
+                              <input type="checkbox" onChange={this.ahChangeRef} /><span id="getext2">AH (Arts & Hum)</span>
+                              <span class="checkmark"></span>
+                            </label>
+                            <label class="container" id="ge2">
+                              <input type="checkbox" onChange={this.seChangeRef}/><span id="getext2">SE (Sci & Eng)</span>
+                              <span class="checkmark"></span>
+                            </label>
+                            <label class="container" id="ge2">
+                              <input type="checkbox" onChange={this.ssChangeRef}/><span id="getext2">SS (Social Sci)</span>
+                              <span class="checkmark"></span>
+                            </label>
                           </div>
                         </div>
                       </div>
-                    <div id="CRN2" >
-                      <div id="title2">CRN</div>
-                      <div class="input-group mb-4">
-                            <input type="search" onChange={this.crnChangeRef} placeholder="CRN" aria-describedby="button-addon5" class="form-control" id="searchbar2"/>
+
+                        <div id="advancedbuttons">
+                          <button id="AdvancedButton3" onClick={mysecondFunction}>Show Advanced Options</button>
+                          <button id="AdvancedButton4" onClick={mysecondFunction}>Hide Advanced Options</button>
+                        </div>  
+                        
                         </div>
-                    </div>
-
-                    <div id="course-level">
-                      <div id="title2">Course Level</div>
-                      <div class="input-group mb-4">
-                          <input type="search" onChange={this.codeChangeRef} placeholder="Course Level" aria-describedby="button-addon5" class="form-control" id="searchbar2"/>
                       </div>
-                    </div>
 
-                    <div id="Subject">
-                      <div id="title2">Subject</div>
-                      <div class="input-group mb-4">
-                        <input type="search" onChange={this.subjChangeRef} placeholder="Subject" aria-describedby="button-addon5" class="form-control" id="searchbar2"/>
+                      <div id="modal_details_right" style={{display: `${this.state.courseDisplay}`}}>
+                        <div id="Course_title" style={{ size: "large", textAlign: "left", fontFamily:"ProximaNova-Bold", fontSize: "3rem", paddingBottom: "3rem"}}>{this.state.selected_course_id} - {this.state.selected_course_name}</div>
+                        <span id="detail-units" style={{fontFamily: "ProximaNova", fontSize: "1.8rem"}}>{this.state.selected_course_units} Units</span>
+                        <div style={{cursor: "pointer",}} onClick={this.gradeDistributionClickRef}>
+                          <span id="detail-units" style={{fontFamily: "ProximaNova", fontSize: "1.8rem", }} >View Grade Distribution</span>
+                          <img style={{paddingLeft: "5px", paddingBottom: "5px"}}src={OpenPic}/>
+                        </div>
+                        <div id="description-group">
+                        <div id="Description-title"style={{fontFamily: "ProximaNova-Bold", fontSize: "1.8rem", marginTop: "10px"}}> Description: </div>
+                        <p id="Description-paragraph" style={{fontFmaily: "ProximaNova", fontSize: "1.8rem", marginTop: "5px", width: "95%"}}>
+                          {this.state.selected_course_description}
+                          </p>
+                        </div>
+                        <div id="Prereqs" >
+                          <span id="Prereq-title"style={{fontFamily:"ProximaNova-Bold", fontSize: "1.8rem"}}>
+                            Prerequisites:
+                          </span>
+                          <span id="Prereq-text" style={{fontFamily:"ProximaNova", fontSize: "1.8rem", marginLeft: "5px"}}>
+                            {this.state.selected_course_prerequisites}</span>
+                        </div>
+                        <table id="sections-table" style={{justifyContent: "center", marginTop: "20px", marginLeft:"auto", marginRight: "auto", alignItems: "center", width: "95%"}}>
+                          <tr style={{borderBottom: "1px solid black", display: "flex", justifyContent: "space-between", marginLeft:"auto", marginRight: "auto", width: "95%"}}>
+                            <th scope="col" style={{alignItems: "center", justifyContent: "center", fontFamily: "ProximaNova-Bold", fontSize: "1.8rem", padding: "10px"}}>CRN</th>
+                            <th scope="col" style={{alignItems: "center", justifyContent: "center", fontFamily: "ProximaNova-Bold", fontSize: "1.8rem", padding: "10px"}}>Open</th>
+                            <th scope="col" style={{alignItems: "center", justifyContent: "center", fontFamily: "ProximaNova-Bold", fontSize: "1.8rem", padding: "10px"}}>Instructor</th> 
+                          </tr>
+                          {this.state.selected_course_sections_table}
+                        </table>
                       </div>
-                    </div>
-
-                    <div id="instructor">
-                      <div id="title2">Instructor</div>
-                      <div class="input-group mb-4">
-                        <input type="search" onChange={this.instructorChangeRef} placeholder="instructor" aria-describedby="button-addon5" class="form-control" id="searchbar2"/>
-                      </div>
-                    </div>
-
-                    <div id="units" >
-                      <div id="title2">Units</div>
-                      <div class="input-group mb-4">
-                          <input type="search" onChange={this.unitsChangeRef} placeholder="Units" aria-describedby="button-addon5" class="form-control" id="searchbar2"/>
-                      </div>
-                    </div>
-
-                  <div id="extrafeatures2">
-                    <div id="coreliteracies" >
-                      <p id="title2">Core Literacies</p>
-                      <div id="corebox2">
-                        <label class="container" id="core2">
-                          <input type="checkbox" onChange={this.acghChangeRef} /><span id="coretext2">ACGH (Amer Cultr, Gov, Hist)</span>
-                          <span class="checkmark"></span>
-                        </label>
-                        <label class="container" id="core2">
-                          <input type="checkbox" onChange={this.ddChangeRef}/><span id="coretext2">DD (Domestic Diversity)</span>
-                          <span class="checkmark"></span>
-                        </label>
-                        <label class="container" id="core2">
-                          <input type="checkbox" onChange={this.olChangeRef}/><span id="coretext2">OL (Oral Lit)</span>
-                          <span class="checkmark"></span>
-                        </label>
-                        <label class="container" id="core2">
-                          <input type="checkbox" onChange={this.qlChangeRef}/><span id="coretext2">QL (Qualitative Lit)</span>
-                          <span class="checkmark"></span>
-                        </label>
-                        <label class="container" id="core2">
-                          <input type="checkbox" onChange={this.slChangeRef}/><span id="coretext2">SL (Scientific Lit)</span>
-                          <span class="checkmark"></span>
-                        </label>
-                        <label class="container" id="core2">
-                          <input type="checkbox" onChange={this.vlChangeRef}/><span id="coretext2">VL (Visual Lit)</span>
-                          <span class="checkmark"></span>
-                        </label>
-                        <label class="container" id="core2">
-                          <input type="checkbox" onChange={this.wcChangeRef}/><span id="coretext2">WC (World Cultr)</span>
-                          <span class="checkmark"></span>
-                        </label>
-                        <label class="container" id="core2">
-                          <input type="checkbox" onChange={this.weChangeRef}/><span id="coretext2">WE (Writing Exp)</span>
-                          <span class="checkmark"></span>
-                        </label>
-                      </div>
-                    </div>
-
-                    <div id="GEs">
-                      <p id="title2">GE Options</p>
-                      <div id="gebox2">
-                        <label class="container" id="ge2">
-                          <input type="checkbox" onChange={this.ahChangeRef} /><span id="getext2">AH (Arts & Hum)</span>
-                          <span class="checkmark"></span>
-                        </label>
-                        <label class="container" id="ge2">
-                          <input type="checkbox" onChange={this.seChangeRef}/><span id="getext2">SE (Sci & Eng)</span>
-                          <span class="checkmark"></span>
-                        </label>
-                        <label class="container" id="ge2">
-                          <input type="checkbox" onChange={this.ssChangeRef}/><span id="getext2">SS (Social Sci)</span>
-                          <span class="checkmark"></span>
-                        </label>
-                      </div>
-                    </div>
-                  </div>
-
-                    <div id="advancedbuttons">
-                      <button id="AdvancedButton3" onClick={mysecondFunction}>Show Advanced Options</button>
-                      <button id="AdvancedButton4" onClick={mysecondFunction}>Hide Advanced Options</button>
-                    </div>  
-                     
-                    </div>
                     </Modal.Body>
                     <Modal.Footer>
                     <Button variant="secondary" onClick={() => this.handleModalShowHide()} id="closemodalbutton">
                         Close
                     </Button>
-                    <Button variant="primary" onClick={() => this.handleModalShowHide2()}>
+                    <Button variant="primary" onClick={() => this.handleModalShowHide2()} style={{display: `${this.state.filterDisplay}`}}>
                         Apply Filters
                     </Button>
                     </Modal.Footer>
                 </Modal>
           </div>
 
-          {/* <Modal id = "modaldetail" show={this.state.showSecondHide}>
-            <Modal.header closeButton onClick={() => this.handleModalShowHide3()}>
-              <Modal.body>
-              <div id="details_right" style={{display: "none"}}>
-                  <div id="Course_title" style={{ size: "large", textAlign: "left", fontFamily:"ProximaNova-Bold", fontSize: "3rem", paddingBottom: "3rem"}}>{this.state.selected_course_id} - {this.state.selected_course_name}</div>
-                  <span id="detail-units" style={{fontFamily: "ProximaNova", fontSize: "1.8rem"}}>{this.state.selected_course_units} Units</span>
-                  <div id="description-group">
-                  <div id="Description-title"style={{fontFamily: "ProximaNova-Bold", fontSize: "1.8rem", marginTop: "10px"}}> Description: </div>
-                  <p id="Description-paragraph" style={{fontFmaily: "ProximaNova", fontSize: "1.8rem", marginTop: "5px", width: "95%"}}>
-                    {this.state.selected_course_description}
-                    </p>
-                  </div>
-                  <div id="Prereqs" >
-                    <span id="Prereq-title"style={{fontFamily:"ProximaNova-Bold", fontSize: "1.8rem"}}>
-                      Prerequisites:
-                    </span>
-                    <span id="Prereq-text" style={{fontFamily:"ProximaNova", fontSize: "1.8rem", marginLeft: "5px"}}>
-                      {this.state.selected_course_prerequisites}</span>
-                  </div>
-                  <table id="sections-table" style={{justifyContent: "center", marginTop: "20px", marginLeft:"auto", marginRight: "auto", alignItems: "center", width: "95%"}}>
-                    <tr style={{borderBottom: "1px solid black", display: "flex", justifyContent: "space-between", marginLeft:"auto", marginRight: "auto", width: "95%"}}>
-                      <th scope="col" style={{alignItems: "center", justifyContent: "center", fontFamily: "ProximaNova-Bold", fontSize: "1.8rem", padding: "10px"}}>CRN</th>
-                      <th scope="col" style={{alignItems: "center", justifyContent: "center", fontFamily: "ProximaNova-Bold", fontSize: "1.8rem", padding: "10px"}}>Open</th>
-                      <th scope="col" style={{alignItems: "center", justifyContent: "center", fontFamily: "ProximaNova-Bold", fontSize: "1.8rem", padding: "10px"}}>Instructor</th> 
-                    </tr>
-                    {this.state.selected_course_sections_table}
-                  </table>
-                </div>
 
-              </Modal.body>
-              <Modal.Footer>
-                    <Button variant="secondary" onClick={() => this.handleModalShowHide3()} id="closemodalbutton">
-                        Close
-                    </Button>
-              </Modal.Footer>
-            </Modal.header>
+{/* 
+          <div id="details_modal">
+            <Modal id="modaldetail" show={true}>
+              <Modal.header closeButton onClick={this.show_details_ref}>
+                <Modal.title><h1 id="filtertitle2">Course?</h1></Modal.title>
+                </Modal.header>
+                <Modal.body>
+                <div id="details_right" style={{display: "none"}}>
+                    <div id="Course_title" style={{ size: "large", textAlign: "left", fontFamily:"ProximaNova-Bold", fontSize: "3rem", paddingBottom: "3rem"}}>{this.state.selected_course_id} - {this.state.selected_course_name}</div>
+                    <span id="detail-units" style={{fontFamily: "ProximaNova", fontSize: "1.8rem"}}>{this.state.selected_course_units} Units</span>
+                    <div id="description-group">
+                    <div id="Description-title"style={{fontFamily: "ProximaNova-Bold", fontSize: "1.8rem", marginTop: "10px"}}> Description: </div>
+                    <p id="Description-paragraph" style={{fontFmaily: "ProximaNova", fontSize: "1.8rem", marginTop: "5px", width: "95%"}}>
+                      {this.state.selected_course_description}
+                      </p>
+                    </div>
+                    <div id="Prereqs" >
+                      <span id="Prereq-title"style={{fontFamily:"ProximaNova-Bold", fontSize: "1.8rem"}}>
+                        Prerequisites:
+                      </span>
+                      <span id="Prereq-text" style={{fontFamily:"ProximaNova", fontSize: "1.8rem", marginLeft: "5px"}}>
+                        {this.state.selected_course_prerequisites}</span>
+                    </div>
+                    <table id="sections-table" style={{justifyContent: "center", marginTop: "20px", marginLeft:"auto", marginRight: "auto", alignItems: "center", width: "95%"}}>
+                      <tr style={{borderBottom: "1px solid black", display: "flex", justifyContent: "space-between", marginLeft:"auto", marginRight: "auto", width: "95%"}}>
+                        <th scope="col" style={{alignItems: "center", justifyContent: "center", fontFamily: "ProximaNova-Bold", fontSize: "1.8rem", padding: "10px"}}>CRN</th>
+                        <th scope="col" style={{alignItems: "center", justifyContent: "center", fontFamily: "ProximaNova-Bold", fontSize: "1.8rem", padding: "10px"}}>Open</th>
+                        <th scope="col" style={{alignItems: "center", justifyContent: "center", fontFamily: "ProximaNova-Bold", fontSize: "1.8rem", padding: "10px"}}>Instructor</th> 
+                      </tr>
+                      {this.state.selected_course_sections_table}
+                    </table>
+                  </div>
 
-          </Modal> */}
+                </Modal.body>
+                <Modal.Footer>
+                      <Button variant="secondary" onClick={() => this.handleModalShowHide3()} id="closemodalbutton">
+                          Close
+                      </Button>
+                </Modal.Footer>
+            </Modal>
+          </div> */}
+
 
 
         </div>
         </div>
 
-
-        
         </body>
         </html>
         )
