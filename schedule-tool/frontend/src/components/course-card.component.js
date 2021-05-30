@@ -232,11 +232,17 @@ class CourseCard extends Component{
       this.seChangeRef = this.seChangeRefHandler.bind(this);
       this.ssChangeRef = this.ssChangeRefHandler.bind(this);
 
+      this.gradeDistributionClickRef = this.gradeDistributionClickHandler.bind(this);
+
+      
+
       this.useFilterRef = this.useFilter.bind(this);
       this.show_details_ref = this.show_details.bind(this);
 
       //for the details page elements
       this.state.selected_course_id = null;
+      this.state.selected_course_instructor = null;
+      this.state.quarter = null;
       this.state.selected_course_name = null;
       this.state.selected_course_units = null;
       this.state.selected_course_enrolled = null;
@@ -254,6 +260,11 @@ class CourseCard extends Component{
     componentDidMount() {
       this.refreshDB();
       document.getElementById("filter_right").style.display = 'none';
+    }
+
+    gradeDistributionClickHandler() {
+      console.log("hit clicked", this.state.selected_course_id,  this.state.selected_course_instructor, this.state.selected_course_quarter);
+      window.open(`http://localhost:3000/grades/${this.state.selected_course_id}/${this.state.selected_course_quarter}/${this.state.selected_course_instructor}`)
     }
 
     crnChangeRefHandler(e) {
@@ -560,6 +571,8 @@ class CourseCard extends Component{
         });
         this.setState({
           selected_course_id: curr_class.course_id,
+          selected_course_instructor: curr_class.instructor,
+          selected_course_quarter: curr_class.quarter,
           selected_course_name: curr_class.name,
           selected_course_units: curr_class.units,
           selected_course_max_seats: curr_class.max_seats,
@@ -659,6 +672,7 @@ class CourseCard extends Component{
                 <div id="details_right" style={{display: "none"}}>
                   <div id="Course_title" style={{ size: "large", textAlign: "left", fontFamily:"ProximaNova-Bold", fontSize: "3rem", paddingBottom: "3rem"}}>{this.state.selected_course_id} - {this.state.selected_course_name}</div>
                   <span id="detail-units" style={{fontFamily: "ProximaNova", fontSize: "1.8rem"}}>{this.state.selected_course_units} Units</span>
+                  <div><span id="detail-units" style={{fontFamily: "ProximaNova", fontSize: "1.8rem", cursor: "pointer",}} onClick={this.gradeDistributionClickRef}>View Grade Distribution</span></div>
                   <div id="description-group">
                   <div id="Description-title"style={{fontFamily: "ProximaNova-Bold", fontSize: "1.8rem", marginTop: "10px"}}> Description: </div>
                   <p id="Description-paragraph" style={{fontFmaily: "ProximaNova", fontSize: "1.8rem", marginTop: "5px", width: "95%"}}>

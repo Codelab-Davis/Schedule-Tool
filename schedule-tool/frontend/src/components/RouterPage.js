@@ -14,6 +14,11 @@ import GraphClientTest from "./../graphClientTest";
 export default function RouterPage(props) {
     return (
         <Switch>
+          <Route
+            exact
+            path="/grades/:class/:quarter/:instructor1"
+            component={(props) => <GradeInfo {...props} />}
+          />
           <Route path="/" exact component={HomePage} />
           <Route path="/course" component={CourseCard} />
           <Route path="/grades" component={GradeInfo} />

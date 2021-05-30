@@ -33,7 +33,9 @@ const DISPLAY_CHANGE_THRESHOLD = 900;
 //    2. Graph of grades and legend on bottom of page
 export default class GradePage extends Component {
   constructor(props) {
+    console.log("hit this", props.match.params)
     super(props);
+
     this.state = {};
 
     // raw course details from the database
@@ -117,6 +119,8 @@ export default class GradePage extends Component {
     this.handleQuarterChangeRef = this.handleQuarterChange.bind(this);
     this.handleInstructureChangeRef = this.handleInstructureChange.bind(this);
 
+    this.getFullCourseDetailBeginRef = this.getFullCourseDetailBegin.bind(this);
+
     // reference to function that handles course add / delete
     this.addCourseRef = this.addCourse.bind(this);
     this.handleCourseDeleteRef = this.handleCourseDelete.bind(this);
@@ -125,6 +129,27 @@ export default class GradePage extends Component {
     this.courseListRef = React.createRef();
     this.quarterListRef = React.createRef();
     this.instructorListRef = React.createRef();
+
+    if (props.match.params.class) {
+      // getFullCourseDetailBegin(props.match.params.class, props.match.params.quarter, props.match.params.instructor1);
+      try {
+        console.log("in try", props.match.params.class, props.match.params.quarter, props.match.params.instructor)
+        this.getFullCourseDetailBeginRef(props.match.params.class, props.match.params.quarter, props.match.params.instructor1);
+        // this.getFullCourseDetailBeginRef('ECS150', 'SQ2017', 'Joel Porquet');
+      } catch {
+        console.log("hit bad params");
+      }
+
+
+      // this.courseListRef = props.match.params.class;
+      // this.courseListRef.current.setState({ value: null });
+      // this.courseListRef.current.setState({ value: props.match.params.class });
+      // getFullCourseDetailBegin
+      console.log("hit junk");
+      // this.courseListRef.current.setState({ value: null });
+      // this.quarterListRef.current.setState({ value: null });
+      // this.instructorListRef.current.setState({ value: null });
+    }
   }
 
   // get course information from server backend. This is onetime action when webpage is loaded or reloaded
@@ -223,6 +248,122 @@ export default class GradePage extends Component {
     this.setState({ courseOptions: courseList });
   }
 
+
+  async getFullCourseDetailBegin(passedClass, quarter, instructor) {
+    console.log("hit in new func", passedClass, quarter, instructor);
+    // create search parameter for course detail info
+    var reqParams = new URLSearchParams({});
+
+    // match ID, quarter and instructor. Since groupby and match is identical, expect it to give array size 1 with
+    // all matches courses
+    var reqParamsMatchList = [
+      "course_id",
+      passedClass,
+      "quarter",
+      quarter,
+    ];
+
+    // if user did not select All instructors, then match specified instructor
+    // otherwise don't match instructor to get all instructors for given course in given quarter
+    if (instructor != "All Instructors") {
+      reqParamsMatchList.push("instructor");
+      reqParamsMatchList.push(instructor);
+    }
+
+    reqParamsMatchList.forEach((matchItem) => {
+      reqParams.append("match[]", matchItem);
+    });
+
+    var reqParamsGroupList = ["course_id", "quarter"];
+
+    // if user did not select All instructors, then group by instructor
+    if (instructor != "All Instructors") {
+      reqParamsGroupList.push("instructor");
+    }
+
+    // get all courses for this ID in given quarter conducted by same instructor
+    reqParamsGroupList.forEach((groupItem) => {
+      reqParams.append("group[]", groupItem);
+    });
+
+    // request full detail of grouped and matched courses
+    reqParams.append("fulldetail", true);
+
+    console.log("hit reqParams", reqParams);
+
+    // send request to server
+    return axios
+      .get("https://backend.aggieexplorer.com/detail/grades", { params: reqParams })
+      .then((response) => {
+        // save the data (classes that match our query) into array
+        var fullCourse = [];
+        response.data[0].courses.forEach((details) => {
+          fullCourse.push(details);
+        });
+
+        // converts data from database into format we can use
+        var courseAccumulation = { info: {}, grades: {}, percentages: {} };
+        console.log("here in the axios thing");
+        // basic course info
+        courseAccumulation["info"]["graphID"] = fullCourse[0].course_id + " (" + fullCourse[0].quarter + ", " + instructor + ")";
+        courseAccumulation["info"]["courseID"] = fullCourse[0].course_id;
+        courseAccumulation["info"]["name"] = fullCourse[0].name;
+        courseAccumulation["info"]["quarter"] = fullCourse[0].quarter;
+        courseAccumulation["info"][
+          "instructor"
+        ] = instructor;
+        courseAccumulation["info"]["color"] = this.COURSE_DETAIL_COLOR.pop();
+
+        // calculating the total amount of students who had each grade
+        var totalGrades = 0;
+        for (
+          var indexGrade = 0;
+          indexGrade < this.gradeIds.length;
+          indexGrade++
+        ) {
+          var gradeId = this.gradeIds[indexGrade];
+          var gradeName = this.gradeNames[indexGrade];
+          courseAccumulation["grades"][gradeName] = 0;
+          fullCourse.forEach((course) => {
+            courseAccumulation["grades"][gradeName] += course[gradeId];
+            totalGrades += course[gradeId];
+          });
+        }
+
+        // calculating the percentages from each course grade data
+        for (
+          var indexGrade = 0;
+          indexGrade < this.gradeNames.length;
+          indexGrade++
+        ) {
+          var gradeName = this.gradeNames[indexGrade];
+          courseAccumulation["percentages"][gradeName] = parseFloat(
+            (
+              (courseAccumulation["grades"][gradeName] * 100) /
+              totalGrades
+            ).toFixed(2)
+          );
+        }
+
+        // only finalize the class if we have space for it
+        if (this.state.coursesGradesData.length < this.MAX_COURSE_DETAIL) {
+          this.state.coursesGradesData.push(courseAccumulation);
+          console.log("hit coursesGrades", this.state.coursesGradesData)
+
+          // reformat the data to refresh the display
+          this.formatGrades();
+        } else {
+          console.log("too many classes added already");
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+
+
+
+
   // once a course is added, we will make another query to the database to get the full course details
   async getFullCourseDetail() {
     // create search parameter for course detail info
@@ -230,6 +371,7 @@ export default class GradePage extends Component {
 
     // match ID, quarter and instructor. Since groupby and match is identical, expect it to give array size 1 with
     // all matches courses
+    console.log("hit important2", this.state.selectedInstructor)
     var reqParamsMatchList = [
       "course_id",
       this.state.selectedCourse,
@@ -375,6 +517,7 @@ export default class GradePage extends Component {
   // handles adding a course
   addCourse(event) {
     // get the full course detail from the database
+    console.log("hit in addcourse",event, this)
     this.getFullCourseDetail();
 
     // if we have just added a course, then clear quarter and instructor lists so that the user can choose again
@@ -459,7 +602,7 @@ export default class GradePage extends Component {
 
   // called when course is selected - populate qaurter list here
   handleCourseChange(event) {
-    console.log(event.value)
+    console.log("hit event val", event.value)
     this.state.selectedCourse = event.value.split(" ")[0];
     // get the selected course and filter course detail info for desired course ID
 
