@@ -538,6 +538,8 @@ class CourseCard extends Component{
         "ss": this.ss,
       });
 
+      console.log("hit in refreshdb", requestParams);
+
       let instructorFilter = this.instructor;
   
       axios
@@ -578,29 +580,6 @@ class CourseCard extends Component{
       this.refreshDB();
     }
     
-    /*
-    function hide_show() {
-  var x = document.getElementById("filter_right");
-  var y = document.getElementById("cow_right");
-  if (x.style.display == "none") {
-    console.log("hit if")
-    x.style.display = "block";
-    y.style.display = "none";
-    document.getElementById("extrafeatures").style.display = 'none';
-  } else {
-    console.log("hit else")
-    x.style.display = "none";
-    y.style.display = "block";
-  }
-}*/
-    
-    /*
-    refresh_details_page()
-    {
-      this.setState({
-        selected_course_id: this.state.
-      }) 
-    }*/
     show_details(event)
       {
         console.log("hit event", event);
@@ -657,9 +636,6 @@ class CourseCard extends Component{
         });
       }
 
-
-    
-    
     
     // creating unordered list and using map for card component
     render(){
@@ -751,10 +727,6 @@ class CourseCard extends Component{
                       <p class="line-2">or filter for classes! </p>
                   </div>
                 </div>
-
-
-
-
 
 
                 <div id="details_right" style={{display: "none"}}>
